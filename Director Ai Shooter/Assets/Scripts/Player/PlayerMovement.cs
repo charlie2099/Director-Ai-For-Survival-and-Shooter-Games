@@ -1,9 +1,8 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : Entity
+public class PlayerMovement : MonoBehaviour
 {
     public Camera cam;
         
@@ -17,11 +16,6 @@ public class Player : Entity
         _rb = GetComponent<Rigidbody2D>();
     }
 
-    private void Start()
-    {
-        Health = 100;
-    }
-    
     private void Update()
     {
         _movement.x = Input.GetAxisRaw("Horizontal");
