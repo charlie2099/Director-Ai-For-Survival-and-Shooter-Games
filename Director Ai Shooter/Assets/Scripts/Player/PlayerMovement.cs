@@ -4,13 +4,10 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public Camera cam;
-        
     [SerializeField] private int moveSpeed = 1;
     private Rigidbody2D _rb;
     private Vector2 _movement;
-    private Vector2 _mousePos;
-     
+
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -20,17 +17,11 @@ public class PlayerMovement : MonoBehaviour
     {
         _movement.x = Input.GetAxisRaw("Horizontal");
         _movement.y = Input.GetAxisRaw("Vertical");
-
-        _mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
     }
 
     private void FixedUpdate()
     {
         _rb.MovePosition((_rb.position + _movement * (moveSpeed * Time.fixedDeltaTime)));
-
-        Vector2 lookDir = _mousePos - _rb.position;
-        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg;
-        _rb.rotation = angle;
     }
 }
 
