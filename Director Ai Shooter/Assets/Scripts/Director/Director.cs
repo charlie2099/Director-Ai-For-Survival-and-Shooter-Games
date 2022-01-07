@@ -1,24 +1,22 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Director
 {
     public class Director : MonoBehaviour
     {
-        private enum Phase
-        {
-            RESPITE,
-            BUILD_UP,
-            PEAK
-        }
-
         [Header("Attributes?")]
         [SerializeField] private float perceivedIntensity;
         [SerializeField] private int activeEntities;
-        [SerializeField] private int maxItemSpawns;
-        [SerializeField] private int maxEnemySpawns;
-        [SerializeField] private Phase activeIntensityPhase;
-    
-        [Header("Data")]
+
+        [Header("Director State")]
+        [SerializeField] [Range(70, 100)] private int peakThreshold;
+        [SerializeField] [Range(30, 70)] private int buildUpThreshold;
+        [SerializeField] [Range(0, 30)] private int respiteThreshold;
+        //[SerializeField] private DirectorState activeState;
+        [SerializeField] private DirectorState.Phase activePhase;
+
+        [Header("Entity Data")]
         //[SerializeField] private PlayerData[] players;
         //[SerializeField] private EnemyData[] enemies;
         //[SerializeField] private ItemData[] items;
@@ -27,8 +25,13 @@ namespace Director
         [SerializeField] private GameObject[] items;
     
         [Header("Entity Spawn Locations")]
+        [SerializeField] private int maxItemSpawns;
+        [SerializeField] private int maxEnemySpawns;
         [Tooltip("All the possible spawn locations for an entity such as items, powerups, weapons etc. Enemies however are spawned with the ActiveAreaSet so do not include them here.")]
         [SerializeField] private GameObject[] spawnpointContainers;
+
+        [Header("Events")] 
+        [SerializeField] private UnityEvent _unityEvent;
     }
 }
 
