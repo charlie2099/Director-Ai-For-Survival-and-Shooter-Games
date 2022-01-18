@@ -20,5 +20,15 @@ public class ActiveAreaSet : MonoBehaviour
 
     // Determines which enemies are bosses through Boss tag? Means designer will need to create
     // and apply this tag to all their bosses (prefabs).
+
+    private void Awake() {}
+
+    private void Start() {}
+
+    private void Update() {}
+
+    private void SpawnEntity() {}
+    private void DestroyEntity() {}
+    
 }
 

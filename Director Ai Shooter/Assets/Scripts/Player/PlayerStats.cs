@@ -7,7 +7,7 @@ public class PlayerStats : Entity
 {
     private void Start()
     {
-        Health = 100;
+        ;
     }
 }
 

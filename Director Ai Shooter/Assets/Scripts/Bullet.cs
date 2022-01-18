@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -5,6 +6,17 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    private void OnCollisionEnter2D(Collision2D col)
+    {
+        IDamageable hit = col.gameObject.GetComponent<IDamageable>();
+        if (hit != null)
+        {
+            hit.ApplyDamage(10);
+            Destroy(gameObject);
+        }
+    }
+
+
     /*[SerializeField] private float speed = 5f;
     private Rigidbody2D _rb;
 

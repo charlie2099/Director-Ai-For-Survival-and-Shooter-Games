@@ -14,16 +14,6 @@ public class PlayerShooting : MonoBehaviour
 
     [SerializeField] private float bulletForce = 20.0f;
 
-    private void Awake()
-    {
-        
-    }
-
-    private void Start()
-    {
-        
-    }
-    
     private void Update()
     {
         if (Input.GetButtonDown("Fire1"))
