@@ -17,15 +17,5 @@ public class DirectorState : MonoBehaviour
     {
         currentPhase = Phase.RESPITE;
     }
-
-    private void Start()
-    {
-        
-    }
-    
-    private void Update()
-    {
-        
-    }
 }
 

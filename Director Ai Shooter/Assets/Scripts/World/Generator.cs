@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Director;
 
 public class Generator : MonoBehaviour
 {
@@ -36,15 +35,24 @@ public class Generator : MonoBehaviour
                 currentStatus = Status.Online;
                 GeneratorsOnline++;
                 GetComponent<SpriteRenderer>().color = Color.green;
+                
+                EventParam soundEvent1 = new EventParam(); soundEvent1.soundstr_ = "GeneratorPoweringUp";
+                EventManager.TriggerEvent("GeneratorStopped", soundEvent1);
+                
+                EventParam soundEvent2 = new EventParam(); soundEvent2.soundstr_ = "GeneratorActivated";
+                EventManager.TriggerEvent("GeneratorOnline", soundEvent2);
             }
         }
     }
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.CompareTag("Player"))
+        if (col.CompareTag("Player") && currentStatus == Status.Offline)
         {
             inRangeOfGenerator = true;
+            
+            EventParam soundEvent3 = new EventParam(); soundEvent3.soundstr_ = "GeneratorPoweringUp";
+            EventManager.TriggerEvent("GeneratorActivating", soundEvent3);
         }
     }
 
@@ -55,6 +63,9 @@ public class Generator : MonoBehaviour
             inRangeOfGenerator = false;
             _timer = 0; 
             GetComponent<SpriteRenderer>().color = Color.red;
+            
+            EventParam soundEvent1 = new EventParam(); soundEvent1.soundstr_ = "GeneratorPoweringUp";
+            EventManager.TriggerEvent("GeneratorStopped", soundEvent1);
         }
     }
 }

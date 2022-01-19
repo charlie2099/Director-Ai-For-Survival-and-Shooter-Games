@@ -27,6 +27,9 @@ public class PlayerShooting : MonoBehaviour
         GameObject bullet = Instantiate(projectile, firePoint.position, firePoint.rotation);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         rb.AddForce(firePoint.up * bulletForce, ForceMode2D.Impulse);
+
+        EventParam eventParam = new EventParam(); eventParam.soundstr_ = "GunShot";
+        EventManager.TriggerEvent("GunFired", eventParam);
     }
 }
 
