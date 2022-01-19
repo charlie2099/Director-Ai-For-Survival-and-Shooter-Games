@@ -11,21 +11,14 @@ public abstract class Entity : MonoBehaviour, IDamageable
     {
         if (Health < 0)
         {
-            Destroy(gameObject);
+            Die();
         }
     }
     
     public virtual void ApplyDamage(int damage) {}
-    
-    /*public int Health
+
+    private void Die()
     {
-        get => _health;
-        set => _health = value;
+        Destroy(gameObject);
     }
-    
-    public void Damage(int damage)
-    {
-        _damage = damage;
-        
-    }*/
 }
