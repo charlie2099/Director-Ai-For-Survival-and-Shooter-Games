@@ -7,6 +7,7 @@ public class PlayerShooting : MonoBehaviour
     //[SerializeField] private GameObject weaponType;
     //[SerializeField] private Weapon weaponType;
     [SerializeField] private GameObject projectile;
+    [SerializeField] private GameObject muzzleFlash;
     [SerializeField] private Transform firePoint;
     [SerializeField] private int damage;
     [SerializeField] private int fireRate;
@@ -30,6 +31,15 @@ public class PlayerShooting : MonoBehaviour
 
         EventParam eventParam = new EventParam(); eventParam.soundstr_ = "GunShot";
         EventManager.TriggerEvent("GunFired", eventParam);
+
+        StartCoroutine(PlayMuzzleFlashEffect());
+    }
+
+    private IEnumerator PlayMuzzleFlashEffect()
+    {
+        muzzleFlash.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        muzzleFlash.SetActive(false);
     }
 }
 

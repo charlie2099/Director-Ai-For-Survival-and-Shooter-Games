@@ -6,38 +6,33 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    [SerializeField] private int damage = 20;
+
+    private void OnEnable()
+    {
+        StartCoroutine(DestroyBullet());
+    }
+
     private void OnCollisionEnter2D(Collision2D col)
     {
         IDamageable hit = col.gameObject.GetComponent<IDamageable>();
         if (hit != null)
         {
-            hit.ApplyDamage(10);
+            hit.ApplyDamage(damage);
+            Destroy(gameObject);
+        }
+
+        int layer = col.collider.gameObject.layer;
+        if (layer == 6)
+        {
             Destroy(gameObject);
         }
     }
 
-
-    /*[SerializeField] private float speed = 5f;
-    private Rigidbody2D _rb;
-
-    private void Awake()
+    private IEnumerator DestroyBullet()
     {
-        // pool bullets here?
-        _rb = GetComponent<Rigidbody2D>();
+        yield return new WaitForSeconds(1.0f);
+        Destroy(gameObject);
     }
-
-    private void Start()
-    {
-        // pool bullets here?
-        
-        // set direction upon spawn
-    }
-    
-    private void Update()
-    {
-        // move in direction facing when spawned
-        // destroy after 5 seconds or after hitting a wall, enemy etc
-        _rb.velocity = transform.right * speed;
-    }*/
 }
 

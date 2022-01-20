@@ -9,7 +9,7 @@ public abstract class Entity : MonoBehaviour, IDamageable
 
     public void Update()
     {
-        if (Health < 0)
+        if (Health <= 0)
         {
             Die();
         }

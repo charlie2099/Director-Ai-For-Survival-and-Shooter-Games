@@ -12,9 +12,9 @@ public class ActiveAreaSet : MonoBehaviour
     public static int EnemyPopulationCount;
     
     [Header("Circle Parameters")]
-    [SerializeField] private float radius = 50;
-    [SerializeField] private int segments = 50;
-    [SerializeField] private float lineWidth = 1;
+    [SerializeField] private float radius         = 50;
+    [SerializeField] private int segments         = 50;
+    [SerializeField] private float lineWidth      = 1;
     [SerializeField] private float updateInterval = 1.0f;
 
     [Header("Enemies To Populate")]
@@ -61,27 +61,12 @@ public class ActiveAreaSet : MonoBehaviour
             _astar.Scan();
             _timePassed += updateInterval;
         }
-        
-        
-        //EnemyPopulationCount-- when enemy is killed by player
-        //or
-        //check if enemies in list is still 5 if not remove latest and spawn new enemy
-        
-
-        /*foreach (var enemy in _activeEntitiesList.ToList())
-        {
-            if (enemy == null)
-            {
-                _activeEntitiesList.RemoveAt(_activeEntitiesList.Count);
-                EnemyPopulationCount--;
-            }
-        }*/
 
         // Spawn enemies every 0.5 seconds
         if (Time.time > _timePassed2 && EnemyPopulationCount < maxPopulationCount)
         {
             SpawnEntity();
-            _timePassed2 += 1.0f;
+            _timePassed2 += 0.5f;
         }
 
         // If enemy in list is null (i.e. from being killed by player), remove from list
@@ -89,11 +74,11 @@ public class ActiveAreaSet : MonoBehaviour
         {
             if (_activeEntitiesList[n] == null)
             {
-                print("Enemy is null");
                 _activeEntitiesList.RemoveAt(n);
             }
         }
 
+        // If distance from player to enemy is more than the size of the radius, de-spawn enemies
         foreach (var enemy in _activeEntitiesList.ToList())
         {
             if (enemy == null) continue; //or return
@@ -108,7 +93,6 @@ public class ActiveAreaSet : MonoBehaviour
         }
 
         EnemyPopulationCount = _activeEntitiesList.Count;
-        print("Enemy List: " + _activeEntitiesList.Count);
     }
 
     private void SpawnEntity()

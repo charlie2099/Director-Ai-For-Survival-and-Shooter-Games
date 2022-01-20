@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class DirectorState : MonoBehaviour
 {
-    public enum Phase 
+    public enum Tempo 
     {
-        RESPITE,
-        BUILD_UP,
-        PEAK
+        BuildUp,
+        Peak,
+        Respite
     }
 
-    private Phase currentPhase;
+    /*public Tempo currentTempo;
 
-    private void Awake()
+    private void Start()
     {
-        currentPhase = Phase.RESPITE;
-    }
+        currentTempo = Tempo.BuildUp;
+    }*/
 }
 
