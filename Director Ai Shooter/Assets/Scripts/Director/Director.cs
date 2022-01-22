@@ -1,4 +1,7 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -32,7 +35,8 @@ public class Director : MonoBehaviour
     //[SerializeField] private ItemData[] items;
     //[SerializeField] private GameObject[] players;
     [SerializeField] private GameObject player;
-    [SerializeField] private GameObject[] enemies;
+    [HideInInspector] public List<GameObject> activeEnemies = new List<GameObject>();
+    [HideInInspector] public int maxPopulationCount;
     [SerializeField] private GameObject[] items;
 
     [Header("Entity Spawn Locations")]
@@ -53,6 +57,13 @@ public class Director : MonoBehaviour
     {
         _currentTempo = Tempo.BuildUp;
         debugPanel.SetActive(debugMode);
+    }
+
+    private void Update()
+    {
+        CheckDistanceFromPlayer();
+        IntensityFSM();
+        TempoFSM();
     }
 
     public float GetEnemyPopulationCount()
@@ -78,11 +89,97 @@ public class Director : MonoBehaviour
     public void IncreaseIntensity(float amount)
     {
         perceivedIntensity += amount;
+        if (perceivedIntensity > 100)
+        {
+            perceivedIntensity = 100;
+        }
     }
     
-    public void DecreaseIntensity()
+    public void DecreaseIntensity(float amount)
     {
-        perceivedIntensity--;
+        perceivedIntensity -= amount;
+        if (perceivedIntensity < 0)
+        {
+            perceivedIntensity = 0;
+        }
+    }
+
+    public void AddEnemy(GameObject enemy)
+    {
+        activeEnemies.Add(enemy);
+    }
+    
+    public void RemoveEnemy(GameObject enemy)
+    {
+        activeEnemies.Remove(enemy);
+    }
+
+    public void CheckDistanceFromPlayer()
+    {
+        Vector2 playerPos = player.transform.position;
+
+        foreach (var enemy in activeEnemies)
+        {
+            if (enemy != null)
+            {
+                Vector2 enemyPos = enemy.transform.position;
+                if (Vector2.Distance(playerPos, enemyPos) < 3) // TODO: Variable
+                {
+                    enemy.GetComponentInChildren<SpriteRenderer>().color = Color.magenta;
+                    IncreaseIntensity(0.001f * Time.time);
+                }
+                else
+                {
+                    enemy.GetComponentInChildren<SpriteRenderer>().color = Color.white;
+                }
+            }
+        }
+    }
+
+    public void TempoFSM()
+    {
+        switch (_currentTempo)
+        {
+            case Tempo.BuildUp:
+                maxPopulationCount = 10;
+                break;
+            case Tempo.Peak:
+                maxPopulationCount = 20;
+                break;
+            case Tempo.Respite:
+                maxPopulationCount = 1;
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void IntensityFSM()
+    {
+        if (perceivedIntensity > 0 && perceivedIntensity < 70)
+        {
+            _currentTempo = Tempo.BuildUp;
+        }
+        else if (perceivedIntensity >= 70)
+        {
+            _currentTempo = Tempo.Peak;
+        }
+        else
+        {
+            _currentTempo = Tempo.Respite;
+        }
+    }
+
+    public IEnumerator CheckIfIntensityShouldBeginDeclining()
+    {
+        float intensityCheck = perceivedIntensity;
+        yield return new WaitForSeconds(5.0f);
+        if (intensityCheck == perceivedIntensity)
+        {
+            DecreaseIntensity(0.001f * Time.time);
+        }
+        
+        // 5.0    10 seconds later    10.0     
     }
 }
 

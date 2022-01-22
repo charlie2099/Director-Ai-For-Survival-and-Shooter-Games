@@ -22,7 +22,7 @@ public class DirectorDebug : MonoBehaviour
         enemyPopCountText.text      = "Enemy Population Count: " + Director.Instance.GetEnemyPopulationCount();
         enemySpawnTimeText.text     = "Enemy Spawn Timer: "      + "";
         directorStateText.text      = "Director State: "         + Director.Instance.GetTempo();
-        perceivedIntensityText.text = "Perceived Intensity: "    + Director.Instance.GetPerceivedIntensity();
+        perceivedIntensityText.text = "Perceived Intensity: "    + Director.Instance.GetPerceivedIntensity().ToString("F2");
         elapsedTimeText.text        = "Elapsed Time: "           + Time.time.ToString("F2");
     }
 }

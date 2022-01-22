@@ -11,26 +11,23 @@ public class ActiveAreaSet : MonoBehaviour
 {
     public static int EnemyPopulationCount;
     
+    [Header("Constraints")]
+    //[SerializeField] private int maxPopulationCount; 
+    //[SerializeField] [Range(1, 10)] private int spawnFrequency;
+    
+    [Header("Enemies To Populate")]
+    [SerializeField] private GameObject[] enemies;
+    //[SerializeField] private GameObject[] bosses;
+    
     [Header("Circle Parameters")]
     [SerializeField] private float radius         = 50;
     [SerializeField] private int segments         = 50;
     [SerializeField] private float lineWidth      = 1;
     [SerializeField] private float updateInterval = 1.0f;
 
-    [Header("Enemies To Populate")]
-    [SerializeField] private GameObject[] enemies;
-    [SerializeField] private GameObject[] bosses;
-    
-    [Header("Constraints")]
-    [SerializeField] private int maxPopulationCount;
-    [Range(1, 10)]
-    [SerializeField] private int spawnFrequency;
-    
     private LineRenderer _line;
     private AstarPath _astar;
     private Pathfinding.GridGraph _gridGraph;
-    private List<GameObject> _activeEntitiesList = new List<GameObject>();
-
     private float _timePassed;
     private float _timePassed2 = 0.5f;
     private float _timePassed3 = 3.0f;
@@ -63,48 +60,49 @@ public class ActiveAreaSet : MonoBehaviour
         }
 
         // Spawn enemies every 0.5 seconds
-        if (Time.time > _timePassed2 && EnemyPopulationCount < maxPopulationCount)
+        if (Time.time > _timePassed2 && EnemyPopulationCount < Director.Instance.maxPopulationCount)
         {
             SpawnEntity();
             _timePassed2 += 0.5f;
         }
 
         // If enemy in list is null (i.e. from being killed by player), remove from list
-        for (int n = _activeEntitiesList.Count - 1; n >= 0; n--)
+        for (int n = Director.Instance.activeEnemies.Count - 1; n >= 0; n--)
         {
-            if (_activeEntitiesList[n] == null)
+            if (Director.Instance.activeEnemies[n] == null)
             {
-                _activeEntitiesList.RemoveAt(n);
+                Director.Instance.activeEnemies.RemoveAt(n);
             }
         }
 
         // If distance from player to enemy is more than the size of the radius, de-spawn enemies
-        foreach (var enemy in _activeEntitiesList.ToList())
+        foreach (var enemy in Director.Instance.activeEnemies.ToList())
         {
             if (enemy == null) continue; //or return
             
             var playerPos = Director.Instance.GetPlayer().transform.position;
+            var enemyPos = enemy.transform.position;
                 
             // If distance from player to enemy is more than the size of the radius, de-spawn enemies
-            if(Vector2.Distance(playerPos, enemy.transform.position) >= radius)
+            if(Vector2.Distance(playerPos, enemyPos) >= radius)
             {
                 DespawnEntity(enemy);
             }
         }
 
-        EnemyPopulationCount = _activeEntitiesList.Count;
+        EnemyPopulationCount = Director.Instance.activeEnemies.Count;
     }
 
     private void SpawnEntity()
     {
         var playerPos = Director.Instance.GetPlayer().transform.position;
         var posInSpawnRadius = playerPos + Random.insideUnitSphere * radius;
-
+        
         GameObject enemy = Instantiate(enemies[0], posInSpawnRadius, Quaternion.identity);
         enemy.GetComponent<AIDestinationSetter>().target = Director.Instance.GetPlayer().transform;
-        _activeEntitiesList.Add(enemy);
+        Director.Instance.AddEnemy(enemy);
 
-        // De-spawn enemy if they spawn too close-by to player
+        // De-spawn enemy if they spawn too close-by to player - Not ideal...
         if (Vector2.Distance(playerPos, posInSpawnRadius) < 10)
         {
             DespawnEntity(enemy);
@@ -113,7 +111,7 @@ public class ActiveAreaSet : MonoBehaviour
 
     private void DespawnEntity(GameObject entity)
     {
-        _activeEntitiesList.Remove(entity);
+        Director.Instance.RemoveEnemy(entity);
         Destroy(entity);
     }
     
