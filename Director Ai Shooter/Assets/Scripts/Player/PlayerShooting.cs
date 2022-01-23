@@ -26,6 +26,7 @@ public class PlayerShooting : MonoBehaviour
     private void Fire()
     {
         GameObject bullet = Instantiate(projectile, firePoint.position, firePoint.rotation);
+        bullet.name = "P1 Bullet";
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         rb.AddForce(firePoint.up * bulletForce, ForceMode2D.Impulse);
 

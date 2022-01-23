@@ -11,6 +11,8 @@ public class DirectorDebug : MonoBehaviour
     [SerializeField] private Text enemyPopCountText;
     [SerializeField] private Text enemySpawnTimeText;
     [SerializeField] private Text directorStateText;
+    [SerializeField] private Text timeSpentInPeakText;
+    [SerializeField] private Text timeSpentInRespiteText;
     [SerializeField] private Text perceivedIntensityText;
     [SerializeField] private Text elapsedTimeText;
 
@@ -19,11 +21,13 @@ public class DirectorDebug : MonoBehaviour
 
     private void Update()
     {
-        enemyPopCountText.text      = "Enemy Population Count: " + Director.Instance.GetEnemyPopulationCount();
-        enemySpawnTimeText.text     = "Enemy Spawn Timer: "      + "";
-        directorStateText.text      = "Director State: "         + Director.Instance.GetTempo();
-        perceivedIntensityText.text = "Perceived Intensity: "    + Director.Instance.GetPerceivedIntensity().ToString("F2");
-        elapsedTimeText.text        = "Elapsed Time: "           + Time.time.ToString("F2");
+        enemyPopCountText.text      = "Enemy Population: "    + Director.Instance.GetEnemyPopulationCount();
+        enemySpawnTimeText.text     = "Enemy Spawn Timer: "   + "";
+        directorStateText.text      = "Director State: "      + Director.Instance.GetTempo();
+        timeSpentInPeakText.text    = "Peak Duration: "       + Director.Instance.GetPeakDuration().ToString("F2");
+        timeSpentInRespiteText.text = "Respite Duration: "    + Director.Instance.GetRespiteDuration().ToString("F2");
+        perceivedIntensityText.text = "Perceived Intensity: " + Director.Instance.GetPerceivedIntensity().ToString("F2");
+        elapsedTimeText.text        = "Elapsed Time: "        + Time.time.ToString("F2");
     }
 }
 

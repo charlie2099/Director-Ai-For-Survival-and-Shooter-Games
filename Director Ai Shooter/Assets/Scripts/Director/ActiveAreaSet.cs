@@ -4,6 +4,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Pathfinding;
+using TMPro;
+using UnityEditor.Experimental.GraphView;
+using UnityEditor.UIElements;
+using UnityEngine.Tilemaps;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(LineRenderer))]
@@ -11,25 +16,24 @@ public class ActiveAreaSet : MonoBehaviour
 {
     public static int EnemyPopulationCount;
     
-    [Header("Constraints")]
-    //[SerializeField] private int maxPopulationCount; 
-    //[SerializeField] [Range(1, 10)] private int spawnFrequency;
-    
-    [Header("Enemies To Populate")]
-    [SerializeField] private GameObject[] enemies;
-    //[SerializeField] private GameObject[] bosses;
-    
-    [Header("Circle Parameters")]
+    [Header("CIRCLE PARAMETERS")]
     [SerializeField] private float radius         = 50;
     [SerializeField] private int segments         = 50;
     [SerializeField] private float lineWidth      = 1;
     [SerializeField] private float updateInterval = 1.0f;
+    
+    [Header("SPAWN CONTRAINTS")] 
+    [SerializeField] private LayerMask layerMask;
+
+    [Header("ENEMIES")]
+    [SerializeField] private GameObject[] enemies;
+    //[SerializeField] private GameObject[] bosses;
 
     private LineRenderer _line;
     private AstarPath _astar;
-    private Pathfinding.GridGraph _gridGraph;
+    private GridGraph _gridGraph;
     private float _timePassed;
-    private float _timePassed2 = 0.5f;
+    private float _timePassed2 = 1.0f;
     private float _timePassed3 = 3.0f;
 
     private void Start()
@@ -49,51 +53,41 @@ public class ActiveAreaSet : MonoBehaviour
 
     private void Update()
     {
-        DrawActiveAreaCircle();
-
-        // Re-scan pathfinding grid every 1 second
-        if (Time.time > _timePassed)
+        if (Director.Instance.GetPlayer() != null) // TODO: Tidy
         {
-            _gridGraph.center = Director.Instance.GetPlayer().transform.position;
-            _astar.Scan();
-            _timePassed += updateInterval;
-        }
-
-        // Spawn enemies every 0.5 seconds
-        if (Time.time > _timePassed2 && EnemyPopulationCount < Director.Instance.maxPopulationCount)
-        {
-            SpawnEntity();
-            _timePassed2 += 0.5f;
-        }
-
-        // If enemy in list is null (i.e. from being killed by player), remove from list
-        for (int n = Director.Instance.activeEnemies.Count - 1; n >= 0; n--)
-        {
-            if (Director.Instance.activeEnemies[n] == null)
-            {
-                Director.Instance.activeEnemies.RemoveAt(n);
-            }
-        }
-
-        // If distance from player to enemy is more than the size of the radius, de-spawn enemies
-        foreach (var enemy in Director.Instance.activeEnemies.ToList())
-        {
-            if (enemy == null) continue; //or return
+            DrawActiveAreaCircle();
             
-            var playerPos = Director.Instance.GetPlayer().transform.position;
-            var enemyPos = enemy.transform.position;
-                
-            // If distance from player to enemy is more than the size of the radius, de-spawn enemies
-            if(Vector2.Distance(playerPos, enemyPos) >= radius)
+            // Re-scan pathfinding grid every 1 second
+            if (Time.time > _timePassed)
             {
-                DespawnEntity(enemy);
+                _gridGraph.center = Director.Instance.GetPlayer().transform.position;
+                _astar.Scan();
+                _timePassed += updateInterval;
             }
+
+            // Spawn enemies every 0.5 seconds
+            if (Time.time > _timePassed2 && EnemyPopulationCount < Director.Instance.maxPopulationCount)
+            {
+                SpawnEntity();
+                _timePassed2 += 1.0f;
+            }
+
+            // If enemy in list is null (i.e. from being killed by player), remove from list
+            for (int n = Director.Instance.activeEnemies.Count - 1; n >= 0; n--)
+            {
+                if (Director.Instance.activeEnemies[n] == null)
+                {
+                    Director.Instance.activeEnemies.RemoveAt(n);
+                }
+            }
+            
+            DespawnEnemyOnAreaExit();
         }
 
         EnemyPopulationCount = Director.Instance.activeEnemies.Count;
     }
 
-    private void SpawnEntity()
+    private void SpawnEntity() // TODO: designer specifies layer for enemies to spawn on? 
     {
         var playerPos = Director.Instance.GetPlayer().transform.position;
         var posInSpawnRadius = playerPos + Random.insideUnitSphere * radius;
@@ -107,12 +101,46 @@ public class ActiveAreaSet : MonoBehaviour
         {
             DespawnEntity(enemy);
         }
+
+        /*int layer = col.collider.gameObject.layer;
+        if (layer == layerMask)
+        {
+            // spawn enemies
+        }*/
+
+        /*if (enemy.layer != layerMask) // Not ideal...
+        {
+            DespawnEntity(enemy);
+        }*/
+
+        /*if (LayerMask.NameToLayer(layerMask.ToString()) == 1)
+        {
+            // raycast downwards from enemy spawn position?
+        }*/
     }
 
     private void DespawnEntity(GameObject entity)
     {
         Director.Instance.RemoveEnemy(entity);
         Destroy(entity);
+    }
+    
+    private void DespawnEnemyOnAreaExit()
+    {
+        // If distance from player to enemy is more than the size of the radius, de-spawn enemies
+        foreach (var enemy in Director.Instance.activeEnemies.ToList())
+        {
+            if (enemy == null) continue; //or return
+
+            var playerPos = Director.Instance.GetPlayer().transform.position;
+            var enemyPos = enemy.transform.position;
+
+            // If distance from player to enemy is more than the size of the radius, de-spawn enemies
+            if (Vector2.Distance(playerPos, enemyPos) >= radius)
+            {
+                DespawnEntity(enemy);
+            }
+        }
     }
     
     void DrawActiveAreaCircle()

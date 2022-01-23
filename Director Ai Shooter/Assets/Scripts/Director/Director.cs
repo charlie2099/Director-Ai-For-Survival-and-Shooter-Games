@@ -16,37 +16,52 @@ public class Director : MonoBehaviour
         Respite
     }
 
-    [Header("Debug")]
+    [Header("DEBUG")]
     [SerializeField] private bool debugMode = false;
     [SerializeField] private GameObject debugPanel;
 
-    [Header("Attributes?")]
-    [SerializeField] private float perceivedIntensity;
+    //[Header("Attributes?")]
+    private float _perceivedIntensity;
 
-    [Header("Tempo Control")]
-    [SerializeField] [Range(70, 100)] private int peakThreshold;
-    [SerializeField] [Range(30, 70)] private int buildUpThreshold;
-    [SerializeField] [Range(0, 30)] private int respiteThreshold;
+    [Header("INTENSITY ADJUSTMENT")] 
+    [SerializeField] private float distanceFromPlayer;
+
+    [Header("TEMPO")]
+    [SerializeField] [Range(70, 100)] private int peakIntensityThreshold;
+    [Space]
+    
+    [Tooltip("Default value, but can be dynamically altered by the Director")]
+    [SerializeField] private float defaultPeakDuration;
+    [SerializeField] private float defaultRespiteDuration;
+    [Space]
+    [SerializeField] private int maxBuildUpPopulation;
+    [SerializeField] private int maxPeakPopulation;
+    [SerializeField] private int maxRespitePopulation;
     private Tempo _currentTempo;
 
-    [Header("Entity Data")]
-    //[SerializeField] private PlayerData[] players;
-    //[SerializeField] private EnemyData[] enemies;
-    //[SerializeField] private ItemData[] items;
-    //[SerializeField] private GameObject[] players;
+    [Header("PLAYER DATA")]
     [SerializeField] private GameObject player;
+    //[SerializeField] private PlayerData[] playerData;
+
+    [Header("ENEMY DATA")]
+    //[SerializeField] private EnemyData enemies;
     [HideInInspector] public List<GameObject> activeEnemies = new List<GameObject>();
     [HideInInspector] public int maxPopulationCount;
-    [SerializeField] private GameObject[] items;
-
-    [Header("Entity Spawn Locations")]
+    
+    [Header("ITEMS")]
     [SerializeField] private int maxItemSpawns;
-    [SerializeField] private int maxEnemySpawns;
-    [SerializeField] private GameObject[] spawnpointContainers;
+    [SerializeField] private GameObject[] items;
+    //[SerializeField] private ItemData[] items;
 
-    [Header("Events")] 
-    [Space]
-    [SerializeField] private UnityEvent unityEvent;
+    [Header("RANDOMISE ON PLAY")]
+    [SerializeField] private GameObject[] objectContainers;
+
+    //[Header("Events")] 
+    //[Space]
+    //[SerializeField] private UnityEvent unityEvent;
+
+    private float _timeSpentInPeak;
+    private float _timeSpentInRespite;
 
     private void Awake()
     {
@@ -55,7 +70,9 @@ public class Director : MonoBehaviour
 
     private void Start()
     {
-        _currentTempo = Tempo.BuildUp;
+        _timeSpentInPeak = defaultPeakDuration;
+        _timeSpentInRespite = defaultRespiteDuration;
+        
         debugPanel.SetActive(debugMode);
     }
 
@@ -64,6 +81,22 @@ public class Director : MonoBehaviour
         CheckDistanceFromPlayer();
         IntensityFSM();
         TempoFSM();
+
+        // if PEAK tempo and X amount of time has passed, next state 
+        if(_timeSpentInPeak <= 0 && _currentTempo == Tempo.Peak)
+        {
+            _perceivedIntensity = 0;
+            _currentTempo = Tempo.Respite;
+            _timeSpentInPeak = defaultPeakDuration;
+        }
+        
+        // if RESPITE tempo and X amount of time has passed, next state
+        if (_timeSpentInRespite <= 0 && _currentTempo == Tempo.Respite)
+        {
+            _perceivedIntensity = 0.1f;
+            _currentTempo = Tempo.BuildUp;
+            _timeSpentInRespite = defaultRespiteDuration;
+        }
     }
 
     public float GetEnemyPopulationCount()
@@ -73,7 +106,7 @@ public class Director : MonoBehaviour
 
     public float GetPerceivedIntensity()
     {
-        return perceivedIntensity;
+        return _perceivedIntensity;
     }
 
     public Tempo GetTempo()
@@ -86,21 +119,31 @@ public class Director : MonoBehaviour
         return player;
     }
 
+    public float GetPeakDuration()
+    {
+        return _timeSpentInPeak;
+    }
+
+    public float GetRespiteDuration()
+    {
+        return _timeSpentInRespite;
+    }
+
     public void IncreaseIntensity(float amount)
     {
-        perceivedIntensity += amount;
-        if (perceivedIntensity > 100)
+        _perceivedIntensity += amount;
+        if (_perceivedIntensity > 100)
         {
-            perceivedIntensity = 100;
+            _perceivedIntensity = 100;
         }
     }
     
     public void DecreaseIntensity(float amount)
     {
-        perceivedIntensity -= amount;
-        if (perceivedIntensity < 0)
+        _perceivedIntensity -= amount;
+        if (_perceivedIntensity < 0)
         {
-            perceivedIntensity = 0;
+            _perceivedIntensity = 0;
         }
     }
 
@@ -116,21 +159,24 @@ public class Director : MonoBehaviour
 
     public void CheckDistanceFromPlayer()
     {
-        Vector2 playerPos = player.transform.position;
-
-        foreach (var enemy in activeEnemies)
+        if (player != null)
         {
-            if (enemy != null)
+            Vector2 playerPos = player.transform.position;
+
+            foreach (var enemy in activeEnemies)
             {
-                Vector2 enemyPos = enemy.transform.position;
-                if (Vector2.Distance(playerPos, enemyPos) < 3) // TODO: Variable
+                if (enemy != null)
                 {
-                    enemy.GetComponentInChildren<SpriteRenderer>().color = Color.magenta;
-                    IncreaseIntensity(0.001f * Time.time);
-                }
-                else
-                {
-                    enemy.GetComponentInChildren<SpriteRenderer>().color = Color.white;
+                    Vector2 enemyPos = enemy.transform.position;
+                    if (Vector2.Distance(playerPos, enemyPos) < distanceFromPlayer) // TODO: Variable
+                    {
+                        enemy.GetComponentInChildren<SpriteRenderer>().color = Color.magenta;
+                        IncreaseIntensity(0.001f * Time.time);
+                    }
+                    else
+                    {
+                        enemy.GetComponentInChildren<SpriteRenderer>().color = Color.white;
+                    }
                 }
             }
         }
@@ -141,40 +187,41 @@ public class Director : MonoBehaviour
         switch (_currentTempo)
         {
             case Tempo.BuildUp:
-                maxPopulationCount = 10;
+                maxPopulationCount = maxBuildUpPopulation;
                 break;
             case Tempo.Peak:
-                maxPopulationCount = 20;
+                maxPopulationCount = maxPeakPopulation;
                 break;
             case Tempo.Respite:
-                maxPopulationCount = 1;
-                break;
-            default:
+                maxPopulationCount = maxRespitePopulation;
                 break;
         }
     }
 
     public void IntensityFSM()
     {
-        if (perceivedIntensity > 0 && perceivedIntensity < 70)
+        if (_perceivedIntensity > 0 && _perceivedIntensity < peakIntensityThreshold)
         {
             _currentTempo = Tempo.BuildUp;
+            _perceivedIntensity += 0.1f * Time.deltaTime;
         }
-        else if (perceivedIntensity >= 70)
+        else if (_perceivedIntensity >= peakIntensityThreshold)
         {
             _currentTempo = Tempo.Peak;
+            _timeSpentInPeak -= Time.deltaTime;
         }
         else
         {
             _currentTempo = Tempo.Respite;
+            _timeSpentInRespite -= Time.deltaTime;
         }
     }
 
     public IEnumerator CheckIfIntensityShouldBeginDeclining()
     {
-        float intensityCheck = perceivedIntensity;
+        float intensityCheck = _perceivedIntensity;
         yield return new WaitForSeconds(5.0f);
-        if (intensityCheck == perceivedIntensity)
+        if (intensityCheck == _perceivedIntensity)
         {
             DecreaseIntensity(0.001f * Time.time);
         }

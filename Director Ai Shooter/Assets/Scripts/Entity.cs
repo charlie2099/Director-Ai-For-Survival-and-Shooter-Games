@@ -17,7 +17,7 @@ public abstract class Entity : MonoBehaviour, IDamageable
     
     public virtual void ApplyDamage(int damage) {}
 
-    private void Die()
+    protected virtual void Die()
     {
         Destroy(gameObject);
     }
