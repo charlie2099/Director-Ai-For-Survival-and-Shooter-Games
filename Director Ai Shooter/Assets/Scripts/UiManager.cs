@@ -13,7 +13,7 @@ public class UiManager : MonoBehaviour
     private void Update()
     {
         killsText.text            = "KILLS: "             + player.GetKillCount();
-        generatorsOnlineText.text = "GENERATORS: " + Generator.GeneratorsOnline;
+        generatorsOnlineText.text = "GENERATORS: "        + Generator.GeneratorsOnline;
     }
 }
 

@@ -27,6 +27,7 @@ public class Director : MonoBehaviour
 
     [Header("INTENSITY ADJUSTMENT")] 
     [SerializeField] private float distanceFromPlayer;
+    [SerializeField] private float proximityIntensity;
 
     [Header("TEMPO")]
     [SerializeField] [Range(70, 100)] private int peakIntensityThreshold;
@@ -58,9 +59,8 @@ public class Director : MonoBehaviour
     [Header("RANDOMISE ON PLAY")]
     [SerializeField] private GameObject[] objectContainers;
 
-    [Header("Events")] 
-    [Space]
-    [SerializeField] private UnityEvent inProximityToEnemy;
+    /*[Header("Events")] 
+    [Space]*/
 
     private float _timeSpentInPeak;
     private float _timeSpentInRespite;
@@ -167,7 +167,7 @@ public class Director : MonoBehaviour
         activeEnemies.Remove(enemy);
     }
 
-    public void CheckDistanceFromPlayer()
+    private void CheckDistanceFromPlayer()
     {
         if (player != null && _currentTempo != Tempo.PeakFade)
         {
@@ -178,19 +178,20 @@ public class Director : MonoBehaviour
                 if (enemy != null)
                 {
                     Vector2 enemyPos = enemy.transform.position;
-                    if (Vector2.Distance(playerPos, enemyPos) < distanceFromPlayer) // TODO: Variable
+
+                    if (GetDistanceFromPlayerToEnemy(enemyPos) < distanceFromPlayer)
                     {
-                        //enemy.GetComponentInChildren<SpriteRenderer>().color = Color.magenta;
-                        inProximityToEnemy.Invoke();
-                        //IncreaseIntensity(0.001f * Time.time);
-                    }
-                    else
-                    {
-                        //enemy.GetComponentInChildren<SpriteRenderer>().color = Color.white;
+                        IncreaseIntensity(proximityIntensity);
                     }
                 }
             }
         }
+    }
+
+    private float GetDistanceFromPlayerToEnemy(Vector2 enemy)
+    {
+        Vector2 playerPos = player.transform.position;
+        return Vector2.Distance(playerPos, enemy);
     }
 
     public void TempoFSM()
