@@ -7,6 +7,7 @@ public class PlayerShooting : MonoBehaviour
     //[SerializeField] private GameObject weaponType;
     //[SerializeField] private Weapon weaponType;
     [SerializeField] private GameObject projectile;
+    [SerializeField] private GameObject projectileContainer;
     [SerializeField] private GameObject muzzleFlash;
     [SerializeField] private Transform firePoint;
     [SerializeField] private int damage;
@@ -26,6 +27,7 @@ public class PlayerShooting : MonoBehaviour
     private void Fire()
     {
         GameObject bullet = Instantiate(projectile, firePoint.position, firePoint.rotation);
+        bullet.transform.parent = projectileContainer.transform;
         bullet.name = "P1 Bullet";
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         rb.AddForce(firePoint.up * bulletForce, ForceMode2D.Impulse);

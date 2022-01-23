@@ -21,13 +21,16 @@ public class ActiveAreaSet : MonoBehaviour
     [SerializeField] private float lineWidth      = 1;
     [SerializeField] private float updateInterval = 1.0f;
     
-    [Header("SPAWN CONTRAINTS")] 
+    [Header("SPAWN CONSTRAINTS")] 
     [SerializeField] private LayerMask layerMask;
 
     [Header("ENEMIES")]
-    [SerializeField] private GameObject[] enemies;
-    //[SerializeField] private GameObject[] bosses;
     [SerializeField] private float spawnInterval = 0.75f;
+    [SerializeField] private GameObject[] enemies;
+    [SerializeField] private GameObject[] bosses;
+    [Space]
+    [SerializeField] private GameObject enemyHierarchyContainer;
+    [SerializeField] private GameObject bossHierarchyContainer;
 
     private LineRenderer _line;
     private AstarPath _astar;
@@ -98,6 +101,10 @@ public class ActiveAreaSet : MonoBehaviour
         _randomEnemy = Random.Range(0, enemies.Length);
         GameObject enemy = Instantiate(enemies[_randomEnemy], posInSpawnRadius, Quaternion.identity);
         enemy.GetComponent<AIDestinationSetter>().target = Director.Instance.GetPlayer().transform;
+        if (enemyHierarchyContainer != null)
+        {
+            enemy.transform.parent = enemyHierarchyContainer.transform;
+        }
         Director.Instance.AddEnemy(enemy);
 
         // De-spawn enemy if they spawn too close-by to player - Not ideal...
@@ -105,9 +112,6 @@ public class ActiveAreaSet : MonoBehaviour
         {
             DespawnEntity(enemy);
         }
-        
-        
-        
         
         
 
