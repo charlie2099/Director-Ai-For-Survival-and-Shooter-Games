@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 38717111240110216}
   - component: {fileID: 38717111240110217}
   - component: {fileID: 38717111240110218}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Enemy_Slow
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -17,9 +17,9 @@ TagManager:
   - Ground
   - Enemy
   - EnemyMinimapSprites
-  - 
-  - 
-  - 
+  - Item
+  - Generator
+  - MinimapSprite
   - 
   - 
   - 

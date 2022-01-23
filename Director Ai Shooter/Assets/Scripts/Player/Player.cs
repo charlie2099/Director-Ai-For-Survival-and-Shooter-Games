@@ -58,5 +58,14 @@ public class Player : Entity
     {
         return this._maxHealth;
     }
+
+    public void SetHealth(int amount)
+    {
+        Health += amount;
+        if (Health == _maxHealth)
+        {
+            Health = _maxHealth;
+        }
+    }
 }
 

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using Random = UnityEngine.Random;
 
 public class Director : MonoBehaviour
 {
@@ -75,6 +76,8 @@ public class Director : MonoBehaviour
         _timeSpentInRespite = defaultRespiteDuration;
         
         debugPanel.SetActive(debugMode);
+        
+        RandomiseSpawnOnPlay();
     }
 
     private void Update()
@@ -227,6 +230,23 @@ public class Director : MonoBehaviour
         {
             _currentTempo = Tempo.Respite;
             _timeSpentInRespite -= Time.deltaTime;
+        }
+    }
+
+    private void RandomiseSpawnOnPlay()
+    {
+        if (objectContainers != null)
+        {
+            // iterates through containers
+            foreach (var entity in objectContainers)
+            {
+                // iterates through items within each container
+                for (var j = 0; j < entity.transform.childCount; j++)
+                {
+                    var randBool = (Random.Range(0, 2) == 0);
+                    entity.transform.GetChild(j).gameObject.SetActive(randBool);
+                }
+            }
         }
     }
 

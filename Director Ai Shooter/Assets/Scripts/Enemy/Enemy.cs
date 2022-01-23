@@ -41,7 +41,7 @@ public class Enemy : Entity
     }
 
     private void OnCollisionEnter2D(Collision2D col)
-    { 
+    {
         if (col.gameObject.name == "P1 Bullet")
         {
             _eventParam.string_ = col.gameObject.name;
