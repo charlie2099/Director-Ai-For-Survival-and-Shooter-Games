@@ -13,6 +13,7 @@ public class Director : MonoBehaviour
     {
         BuildUp,
         Peak,
+        PeakFade,
         Respite
     }
 
@@ -56,9 +57,9 @@ public class Director : MonoBehaviour
     [Header("RANDOMISE ON PLAY")]
     [SerializeField] private GameObject[] objectContainers;
 
-    //[Header("Events")] 
-    //[Space]
-    //[SerializeField] private UnityEvent unityEvent;
+    [Header("Events")] 
+    [Space]
+    [SerializeField] private UnityEvent inProximityToEnemy;
 
     private float _timeSpentInPeak;
     private float _timeSpentInRespite;
@@ -86,8 +87,13 @@ public class Director : MonoBehaviour
         if(_timeSpentInPeak <= 0 && _currentTempo == Tempo.Peak)
         {
             _perceivedIntensity = 0;
-            _currentTempo = Tempo.Respite;
+            _currentTempo = Tempo.PeakFade;
             _timeSpentInPeak = defaultPeakDuration;
+        }
+
+        if (_currentTempo == Tempo.PeakFade && GetEnemyPopulationCount() == 0)
+        {
+            _currentTempo = Tempo.Respite;
         }
         
         // if RESPITE tempo and X amount of time has passed, next state
@@ -131,7 +137,8 @@ public class Director : MonoBehaviour
 
     public void IncreaseIntensity(float amount)
     {
-        _perceivedIntensity += amount;
+        //_perceivedIntensity += amount;
+        _perceivedIntensity += amount * Time.deltaTime;
         if (_perceivedIntensity > 100)
         {
             _perceivedIntensity = 100;
@@ -159,7 +166,7 @@ public class Director : MonoBehaviour
 
     public void CheckDistanceFromPlayer()
     {
-        if (player != null)
+        if (player != null && _currentTempo != Tempo.PeakFade)
         {
             Vector2 playerPos = player.transform.position;
 
@@ -170,12 +177,13 @@ public class Director : MonoBehaviour
                     Vector2 enemyPos = enemy.transform.position;
                     if (Vector2.Distance(playerPos, enemyPos) < distanceFromPlayer) // TODO: Variable
                     {
-                        enemy.GetComponentInChildren<SpriteRenderer>().color = Color.magenta;
-                        IncreaseIntensity(0.001f * Time.time);
+                        //enemy.GetComponentInChildren<SpriteRenderer>().color = Color.magenta;
+                        inProximityToEnemy.Invoke();
+                        //IncreaseIntensity(0.001f * Time.time);
                     }
                     else
                     {
-                        enemy.GetComponentInChildren<SpriteRenderer>().color = Color.white;
+                        //enemy.GetComponentInChildren<SpriteRenderer>().color = Color.white;
                     }
                 }
             }
@@ -192,6 +200,10 @@ public class Director : MonoBehaviour
             case Tempo.Peak:
                 maxPopulationCount = maxPeakPopulation;
                 break;
+            case Tempo.PeakFade:
+                maxPopulationCount = 0;
+                _perceivedIntensity = 0;
+                break;
             case Tempo.Respite:
                 maxPopulationCount = maxRespitePopulation;
                 break;
@@ -203,14 +215,15 @@ public class Director : MonoBehaviour
         if (_perceivedIntensity > 0 && _perceivedIntensity < peakIntensityThreshold)
         {
             _currentTempo = Tempo.BuildUp;
-            _perceivedIntensity += 0.1f * Time.deltaTime;
+            //_perceivedIntensity += 0.1f * Time.deltaTime;
+            IncreaseIntensity(0.1f);
         }
         else if (_perceivedIntensity >= peakIntensityThreshold)
         {
             _currentTempo = Tempo.Peak;
             _timeSpentInPeak -= Time.deltaTime;
         }
-        else
+        else if(_currentTempo != Tempo.PeakFade)
         {
             _currentTempo = Tempo.Respite;
             _timeSpentInRespite -= Time.deltaTime;

@@ -18,7 +18,6 @@ public class ActiveAreaSet : MonoBehaviour
     
     [Header("CIRCLE PARAMETERS")]
     [SerializeField] private float radius         = 50;
-    [SerializeField] private int segments         = 50;
     [SerializeField] private float lineWidth      = 1;
     [SerializeField] private float updateInterval = 1.0f;
     
@@ -28,12 +27,15 @@ public class ActiveAreaSet : MonoBehaviour
     [Header("ENEMIES")]
     [SerializeField] private GameObject[] enemies;
     //[SerializeField] private GameObject[] bosses;
+    [SerializeField] private float spawnInterval = 0.75f;
 
     private LineRenderer _line;
     private AstarPath _astar;
     private GridGraph _gridGraph;
+    private int segments       = 50;
+    private int _randomEnemy;
     private float _timePassed;
-    private float _timePassed2 = 1.0f;
+    private float _timePassed2;
     private float _timePassed3 = 3.0f;
 
     private void Start()
@@ -49,6 +51,7 @@ public class ActiveAreaSet : MonoBehaviour
         _gridGraph.SetDimensions((int)radius*3, (int)radius*3, 0.6f);
 
         _timePassed = updateInterval;
+        _timePassed2 = spawnInterval;
     }
 
     private void Update()
@@ -69,7 +72,7 @@ public class ActiveAreaSet : MonoBehaviour
             if (Time.time > _timePassed2 && EnemyPopulationCount < Director.Instance.maxPopulationCount)
             {
                 SpawnEntity();
-                _timePassed2 += 1.0f;
+                _timePassed2 += spawnInterval;
             }
 
             // If enemy in list is null (i.e. from being killed by player), remove from list
@@ -92,7 +95,8 @@ public class ActiveAreaSet : MonoBehaviour
         var playerPos = Director.Instance.GetPlayer().transform.position;
         var posInSpawnRadius = playerPos + Random.insideUnitSphere * radius;
         
-        GameObject enemy = Instantiate(enemies[0], posInSpawnRadius, Quaternion.identity);
+        _randomEnemy = Random.Range(0, enemies.Length);
+        GameObject enemy = Instantiate(enemies[_randomEnemy], posInSpawnRadius, Quaternion.identity);
         enemy.GetComponent<AIDestinationSetter>().target = Director.Instance.GetPlayer().transform;
         Director.Instance.AddEnemy(enemy);
 
@@ -101,6 +105,11 @@ public class ActiveAreaSet : MonoBehaviour
         {
             DespawnEntity(enemy);
         }
+        
+        
+        
+        
+        
 
         /*int layer = col.collider.gameObject.layer;
         if (layer == layerMask)
