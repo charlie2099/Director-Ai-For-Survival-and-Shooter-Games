@@ -15,8 +15,8 @@ TagManager:
   - Obstacle
   - LineRenderer
   - Ground
-  - 
-  - 
+  - Enemy
+  - EnemyMinimapSprites
   - 
   - 
   - 

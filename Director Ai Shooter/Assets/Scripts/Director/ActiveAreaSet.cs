@@ -97,6 +97,7 @@ public class ActiveAreaSet : MonoBehaviour
     {
         var playerPos = Director.Instance.GetPlayer().transform.position;
         var posInSpawnRadius = playerPos + Random.insideUnitSphere * radius;
+        posInSpawnRadius.z = 20;
         
         _randomEnemy = Random.Range(0, enemies.Length);
         GameObject enemy = Instantiate(enemies[_randomEnemy], posInSpawnRadius, Quaternion.identity);
