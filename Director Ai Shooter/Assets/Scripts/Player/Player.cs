@@ -6,17 +6,20 @@ using UnityEngine;
 
 public class Player : Entity
 {
+    private int _score = 0;
     private int _kills = 0;
     private int _maxHealth; 
 
     private void OnEnable()
     {
         EventManager.StartListening("EnemyDied", IncrementKillCount);
+        EventManager.StartListening("GeneratorOnline", IncrementScore);
     }
 
     private void OnApplicationQuit()
     {
         EventManager.StopListening("EnemyDied", IncrementKillCount);
+        EventManager.StopListening("GeneratorOnline", IncrementScore);
     }
 
     private void Start()
@@ -41,9 +44,20 @@ public class Player : Entity
         if (eventParam.string_ == "P1 Bullet")
         {
             _kills += 1;
+            _score += 10;
         }
     }
+    
+    private void IncrementScore(EventParam eventParam)
+    {
+        _score += 100;
+    }
 
+    public int GetScore()
+    {
+        return _score;
+    }
+    
     public int GetKillCount()
     {
         return _kills;

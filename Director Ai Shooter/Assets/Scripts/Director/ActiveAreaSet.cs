@@ -1,14 +1,6 @@
-using System;
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using Pathfinding;
-using TMPro;
-using UnityEditor.Experimental.GraphView;
-using UnityEditor.UIElements;
-using UnityEngine.Tilemaps;
-using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(LineRenderer))]
@@ -28,6 +20,8 @@ public class ActiveAreaSet : MonoBehaviour
     [SerializeField] private float spawnInterval = 0.75f;
     [SerializeField] private GameObject[] enemies;
     [SerializeField] private GameObject[] bosses;
+    [Space] 
+    [SerializeField] private GameObject[] enemyPool;
     [Space]
     [SerializeField] private GameObject enemyHierarchyContainer;
     [SerializeField] private GameObject bossHierarchyContainer;
@@ -76,6 +70,11 @@ public class ActiveAreaSet : MonoBehaviour
             {
                 SpawnEntity();
                 _timePassed2 += spawnInterval;
+
+                if (Director.Instance.GetTempo() == Director.Tempo.Peak)
+                {
+                    spawnInterval /= 1.10f;
+                }
             }
 
             // If enemy in list is null (i.e. from being killed by player), remove from list
