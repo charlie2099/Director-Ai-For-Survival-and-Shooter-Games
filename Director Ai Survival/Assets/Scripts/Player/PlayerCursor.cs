@@ -7,7 +7,6 @@ public class PlayerCursor : MonoBehaviour
 {
     public Camera cam;
     public Transform cursor;
-    private Vector2 _mousePos;
 
     private void Start()
     {
@@ -16,7 +15,8 @@ public class PlayerCursor : MonoBehaviour
     
     private void FixedUpdate()
     {
-        _mousePos = cam.ScreenToWorldPoint(Input.mousePosition) + new Vector3(0.11f,-0.16f);
-        cursor.position = _mousePos;
+        cursor.position = Input.mousePosition + new Vector3(12.0f, -15.06f);
+        
+        //if()
     }
 }
