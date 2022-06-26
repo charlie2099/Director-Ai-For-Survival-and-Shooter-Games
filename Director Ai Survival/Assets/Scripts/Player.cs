@@ -1,12 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : Entity
 {
-    private int _maxHealth; 
     [SerializeField] private SpriteRenderer sprite;
-    
+    private int _maxHealth;
+
     private void Start()
     {
         Health = 100;

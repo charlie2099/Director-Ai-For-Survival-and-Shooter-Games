@@ -15,6 +15,14 @@ public class Rock : MonoBehaviour, IDamageable
     {
         _health = 100;
     }
+    
+    private void Update()
+    {
+        if (_health <= 0)
+        {
+            Destroyed();
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D col)
     {
@@ -49,5 +57,11 @@ public class Rock : MonoBehaviour, IDamageable
     public void ApplyDamage(int damage)
     {
         _health -= damage;
+    }
+    
+    private void Destroyed()
+    {
+        // Give or drop stone to player
+        Destroy(gameObject);
     }
 }

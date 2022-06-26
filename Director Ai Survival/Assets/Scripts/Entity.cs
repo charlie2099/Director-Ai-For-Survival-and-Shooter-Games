@@ -7,7 +7,7 @@ public abstract class Entity : MonoBehaviour, IDamageable
     protected int Health;
     protected int Damage;
 
-    public void Update()
+    public virtual void Update()
     {
         if (Health <= 0)
         {
