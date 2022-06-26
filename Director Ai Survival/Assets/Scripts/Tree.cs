@@ -38,7 +38,7 @@ public class Tree : MonoBehaviour, IDamageable
     {
         uiPanel.SetActive(true);
         uiPanelText.text = gameObject.name;
-        uiPanel.transform.position = transform.position + new Vector3(0, -1.1f);;
+        uiPanel.transform.position = transform.position + new Vector3(0, -1.1f);
     }
 
     private void OnMouseExit()

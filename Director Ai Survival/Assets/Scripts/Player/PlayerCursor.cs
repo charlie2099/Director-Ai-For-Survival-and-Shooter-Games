@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class PlayerCursor : MonoBehaviour
 {
-    public Camera cam;
     public Transform cursor;
 
     private void Start()
@@ -16,7 +15,5 @@ public class PlayerCursor : MonoBehaviour
     private void FixedUpdate()
     {
         cursor.position = Input.mousePosition + new Vector3(12.0f, -15.06f);
-        
-        //if()
     }
 }
