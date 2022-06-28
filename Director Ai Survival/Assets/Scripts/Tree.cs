@@ -1,14 +1,20 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Items;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class Tree : MonoBehaviour, IDamageable
 {
     [SerializeField] private GameObject uiPanel;
     [SerializeField] private Text uiPanelText;
 
+    [Space]
+    [SerializeField] private GameObject woodPrefab;
+ 
     private int _health;
     private int _maxHealth;
     private bool _inRange;
@@ -33,7 +39,7 @@ public class Tree : MonoBehaviour, IDamageable
         {
             uiPanel.SetActive(true);
             uiPanelText.text = gameObject.name;
-            uiPanel.transform.position = transform.position;
+            uiPanel.transform.position = transform.position + new Vector3(0, -1.1f);
             _inRange = true;
         }
     }
@@ -72,7 +78,15 @@ public class Tree : MonoBehaviour, IDamageable
 
     private void Destroyed()
     {
-        // Give or drop planks/wood to player
+        int dropLootAmount = Random.Range(1, 4);
+        for (int i = 0; i < dropLootAmount; i++)
+        {
+            Vector2 randomPos = new Vector2(Random.Range(transform.position.x - 1.0f, transform.position.x + 1.0f), 
+                                            Random.Range(transform.position.y - 1.0f, transform.position.y + 1.0f));
+            
+            Instantiate(woodPrefab, randomPos, Quaternion.identity);
+        }
+
         Destroy(gameObject);
     }
     

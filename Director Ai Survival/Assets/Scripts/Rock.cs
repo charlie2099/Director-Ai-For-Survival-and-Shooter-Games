@@ -30,7 +30,7 @@ public class Rock : MonoBehaviour, IDamageable
         {
             uiPanel.SetActive(true);
             uiPanelText.text = gameObject.name;
-            uiPanel.transform.position = transform.position;
+            uiPanel.transform.position = transform.position + new Vector3(0, -0.5f);
         }
     }
 
