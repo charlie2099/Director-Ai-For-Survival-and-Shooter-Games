@@ -6,26 +6,25 @@ namespace Items
 {
     public class ItemStack : MonoBehaviour
     {
-        public Action<Item> FirstItemAddedToStack;
-        public Action ItemAddedToStack;
-        public Action ItemRemovedFromStack;
-        
+        public Action<ItemStack, Item> FirstItemAddedToStack;
+        public Action<ItemStack> ItemStackChange;
+
         public List<Item> itemStackList = new List<Item>();
 
         public void AddToStack(Item item) // null check?
         {
             if (itemStackList.Count <= 0)
             {
-                FirstItemAddedToStack.Invoke(item);
+                FirstItemAddedToStack.Invoke(this, item);
             }
             itemStackList.Add(item);
-            ItemAddedToStack.Invoke();
+            ItemStackChange.Invoke(this);
         }
 
         public void RemoveFromStack(Item item)
         {
             itemStackList.Remove(item);
-            ItemRemovedFromStack.Invoke();
+            ItemStackChange.Invoke(this);
         }
 
         public int GetStackSize()
