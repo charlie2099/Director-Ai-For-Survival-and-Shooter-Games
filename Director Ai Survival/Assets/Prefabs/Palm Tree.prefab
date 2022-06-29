@@ -144,6 +144,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiPanel: {fileID: 0}
   uiPanelText: {fileID: 0}
+  woodPrefab: {fileID: 8344963053197294819, guid: 7474f02a2134b364cbdc61e9290bbef4, type: 3}
 --- !u!114 &632026712036686356
 MonoBehaviour:
   m_ObjectHideFlags: 0

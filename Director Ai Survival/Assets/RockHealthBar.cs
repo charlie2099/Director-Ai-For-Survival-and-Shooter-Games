@@ -1,14 +1,14 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TreeHealthBar : MonoBehaviour
+public class RockHealthBar : MonoBehaviour
 {
     [SerializeField] private Slider slider;
-    private Tree _tree;
+    private Rock _rock;
 
     private void Awake()
     {
-        _tree = gameObject.GetComponent<Tree>();
+        _rock = gameObject.GetComponent<Rock>();
     }
 
     private void Start()
@@ -20,7 +20,7 @@ public class TreeHealthBar : MonoBehaviour
     {
         UpdateHealthBar();
 
-        if (_tree.GetHealth() <= _tree.GetMaxHealth())
+        if (_rock.GetHealth() <= _rock.GetMaxHealth())
         {
             //slider.gameObject.GetComponentInParent<GameObject>().SetActive(true);
         }
@@ -28,7 +28,7 @@ public class TreeHealthBar : MonoBehaviour
 
     private void UpdateHealthBar()
     {
-        slider.value = _tree.GetHealth();
-        slider.maxValue = _tree.GetMaxHealth();
+        slider.value = _rock.GetHealth();
+        slider.maxValue = _rock.GetMaxHealth();
     }
 }

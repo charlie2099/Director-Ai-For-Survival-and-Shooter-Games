@@ -11,6 +11,8 @@ namespace Items
 
         public List<Item> itemStackList = new List<Item>();
 
+        private ItemType.Type _stackItemType = ItemType.Type.NONE;
+
         public void AddToStack(Item item) // null check?
         {
             if (itemStackList.Count <= 0)
@@ -25,6 +27,16 @@ namespace Items
         {
             itemStackList.Remove(item);
             ItemStackChange.Invoke(this);
+        }
+
+        public void SetStackItemType(ItemType.Type itemType)
+        {
+            _stackItemType = itemType;
+        }
+
+        public ItemType.Type GetItemType()
+        {
+            return _stackItemType;
         }
 
         public int GetStackSize()

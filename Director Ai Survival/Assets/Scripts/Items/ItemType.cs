@@ -1,7 +1,12 @@
 ﻿namespace Items
 {
-    public class ItemType
+    public abstract class ItemType
     {
-        
+        public enum Type
+        {
+            NONE,
+            WOOD,
+            STONE
+        };
     }
 }

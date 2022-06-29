@@ -17,7 +17,6 @@ namespace Inventory
         public List<ItemStack> inventorySlots = new List<ItemStack>();
         
         private bool _inventoryIsOpen;
-        private int _stackCounter;
 
         private void OnEnable()
         {
@@ -89,18 +88,43 @@ namespace Inventory
 
         private bool IsStackFull(Item item)
         {
-            for (int i = 0; i < inventorySlots.Count; i++)
+            // The first item to enter the stack defines the ItemType
+            // for that stack until the last of that item has been
+            // removed from the stack
+            
+            int _stackCounter = 0;
+            
+            for (var i = 0; i < inventorySlots.Count; i++)
             {
                 ItemStack itemStack = inventorySlots[_stackCounter];
 
-                if (itemStack.GetStackSize() >= 1)
+                if (itemStack.GetStackSize() >= 5)
                 {
                     _stackCounter++;
                 }    
                 else
                 {
-                    itemStack.AddToStack(item);
-                    return true;
+                    if (itemStack.GetItems().Count <= 0)
+                    {
+                        itemStack.AddToStack(item);
+                        itemStack.SetStackItemType(item.GetItemType());
+                        return true;
+                    }
+                    
+                    if (itemStack.GetItems().Count > 0)
+                    {
+                        if (item.GetItemType() == itemStack.GetItemType())
+                        {
+                            // If item to enter the stack is the same ItemType to the first,
+                            // enter the stack. 
+                            itemStack.AddToStack(item);
+                            return true;
+                        }
+                        if (item.GetItemType() != itemStack.GetItemType())
+                        {
+                            _stackCounter++;
+                        }
+                    }
                 }
             }
             return false;

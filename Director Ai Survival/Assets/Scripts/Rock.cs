@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,13 +6,19 @@ public class Rock : MonoBehaviour, IDamageable
     [SerializeField] private GameObject uiPanel;
     [SerializeField] private Text uiPanelText;
 
+    [Space]
+    [SerializeField] private GameObject rockPrefab;
+ 
     private int _health;
+    private int _maxHealth;
+    private bool _inRange;
 
     private void Start()
     {
         _health = 100;
+        _maxHealth = _health;
     }
-    
+
     private void Update()
     {
         if (_health <= 0)
@@ -31,6 +34,7 @@ public class Rock : MonoBehaviour, IDamageable
             uiPanel.SetActive(true);
             uiPanelText.text = gameObject.name;
             uiPanel.transform.position = transform.position + new Vector3(0, -0.5f);
+            _inRange = true;
         }
     }
 
@@ -39,6 +43,7 @@ public class Rock : MonoBehaviour, IDamageable
         if (col.gameObject.CompareTag("Player"))
         {
             uiPanel.SetActive(false);
+            _inRange = false;
         }
     }
 
@@ -47,6 +52,12 @@ public class Rock : MonoBehaviour, IDamageable
         uiPanel.SetActive(true);
         uiPanelText.text = gameObject.name;
         uiPanel.transform.position = transform.position + new Vector3(0, -0.5f);
+
+        if (_inRange && Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            print("Rock Damage");
+            ApplyDamage(10);
+        }
     }
 
     private void OnMouseExit()
@@ -58,10 +69,28 @@ public class Rock : MonoBehaviour, IDamageable
     {
         _health -= damage;
     }
-    
+
     private void Destroyed()
     {
-        // Give or drop stone to player
+        int dropLootAmount = Random.Range(1, 4);
+        for (int i = 0; i < dropLootAmount; i++)
+        {
+            Vector2 randomPos = new Vector2(Random.Range(transform.position.x - 1.0f, transform.position.x + 1.0f), 
+                                            Random.Range(transform.position.y - 1.0f, transform.position.y + 1.0f));
+            
+            Instantiate(rockPrefab, randomPos, Quaternion.identity);
+        }
+
         Destroy(gameObject);
+    }
+    
+    public int GetHealth()
+    {
+        return _health;
+    }
+
+    public int GetMaxHealth()
+    {
+        return _maxHealth;
     }
 }
