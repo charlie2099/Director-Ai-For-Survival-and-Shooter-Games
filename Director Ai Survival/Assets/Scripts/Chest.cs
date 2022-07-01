@@ -1,12 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Items;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Chest : MonoBehaviour
 {
-    [SerializeField] private List<GameObject> chestInventoryList = new List<GameObject>();
+    public List<ItemStack> chestInventorySlots = new List<ItemStack>();
     [SerializeField] private Sprite chestOpenSprite;
     [SerializeField] private Sprite chestClosedSprite;
     [SerializeField] private GameObject chestInventoryUi;
@@ -25,6 +26,9 @@ public class Chest : MonoBehaviour
     private void Start()
     {
         chestInventoryUi.SetActive(false);
+        
+        // randomly populate chest inventory
+        // add to inventory stack
     }
 
     private void Update()

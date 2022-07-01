@@ -5,13 +5,20 @@ using UnityEngine;
 
 public class Player : Entity
 {
+    public Action EnergyUsed;
+    
     [SerializeField] private SpriteRenderer sprite;
     private int _maxHealth;
+    private int _maxEnergy;
+    private int _currentEnergy;
 
     private void Start()
     {
         Health = 100;
         _maxHealth = Health;
+
+        _currentEnergy = 100;
+        _maxEnergy = _currentEnergy;
     }
 
     protected override void Die()
@@ -24,6 +31,12 @@ public class Player : Entity
     {
         Health -= damage;
         StartCoroutine(PlayDamageEffect());
+    }
+    
+    public void UseEnergy(int energy)
+    {
+        _currentEnergy -= energy;
+        EnergyUsed.Invoke();
     }
     
     private IEnumerator PlayDamageEffect()
@@ -41,5 +54,15 @@ public class Player : Entity
     public int GetMaxHealth()
     {
         return _maxHealth;
+    }
+    
+    public int GetEnergy()
+    {
+        return _currentEnergy;
+    }
+
+    public int GetMaxEnergy()
+    {
+        return _maxEnergy;
     }
 }

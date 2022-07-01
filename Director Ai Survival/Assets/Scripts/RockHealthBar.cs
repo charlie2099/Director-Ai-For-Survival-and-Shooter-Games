@@ -13,16 +13,16 @@ public class RockHealthBar : MonoBehaviour
 
     private void Start()
     {
-        //slider.gameObject.GetComponentInParent<GameObject>().SetActive(false);
+        slider.transform.parent.gameObject.SetActive(false);
     }
 
     private void Update()
     {
         UpdateHealthBar();
 
-        if (_rock.GetHealth() <= _rock.GetMaxHealth())
+        if (_rock.GetHealth() < _rock.GetMaxHealth())
         {
-            //slider.gameObject.GetComponentInParent<GameObject>().SetActive(true);
+            slider.transform.parent.gameObject.SetActive(true);
         }
     }
 

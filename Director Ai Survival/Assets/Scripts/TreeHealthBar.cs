@@ -13,16 +13,16 @@ public class TreeHealthBar : MonoBehaviour
 
     private void Start()
     {
-        //slider.gameObject.GetComponentInParent<GameObject>().SetActive(false);
+        slider.transform.parent.gameObject.SetActive(false);
     }
 
     private void Update()
     {
         UpdateHealthBar();
 
-        if (_tree.GetHealth() <= _tree.GetMaxHealth())
+        if (_tree.GetHealth() < _tree.GetMaxHealth())
         {
-            //slider.gameObject.GetComponentInParent<GameObject>().SetActive(true);
+            slider.transform.parent.gameObject.SetActive(true);
         }
     }
 

@@ -9,10 +9,16 @@ public class Tree : MonoBehaviour, IDamageable
 
     [Space]
     [SerializeField] private GameObject woodPrefab;
- 
+
+    private Player _player;
     private int _health;
     private int _maxHealth;
     private bool _inRange;
+    
+    private void Awake()
+    {
+        _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+    }
 
     private void Start()
     {
@@ -58,6 +64,8 @@ public class Tree : MonoBehaviour, IDamageable
         {
             print("Damage");
             ApplyDamage(10);
+            _player.UseEnergy(5);
+            
         }
     }
 
@@ -73,7 +81,7 @@ public class Tree : MonoBehaviour, IDamageable
 
     private void Destroyed()
     {
-        int dropLootAmount = Random.Range(1, 4);
+        int dropLootAmount = Random.Range(2, 5);
         for (int i = 0; i < dropLootAmount; i++)
         {
             Vector2 randomPos = new Vector2(Random.Range(transform.position.x - 1.0f, transform.position.x + 1.0f), 

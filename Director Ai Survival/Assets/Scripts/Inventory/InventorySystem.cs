@@ -17,6 +17,7 @@ namespace Inventory
         public List<ItemStack> inventorySlots = new List<ItemStack>();
         
         private bool _inventoryIsOpen;
+        private const int STACK_SIZE = 16;
 
         private void OnEnable()
         {
@@ -92,15 +93,16 @@ namespace Inventory
             // for that stack until the last of that item has been
             // removed from the stack
             
-            int _stackCounter = 0;
+            int stackCounter = 0;
             
             for (var i = 0; i < inventorySlots.Count; i++)
             {
-                ItemStack itemStack = inventorySlots[_stackCounter];
+                ItemStack itemStack = inventorySlots[stackCounter];
 
-                if (itemStack.GetStackSize() >= 5)
+                // Add to next stack if current is full
+                if (itemStack.GetStackSize() >= STACK_SIZE)
                 {
-                    _stackCounter++;
+                    stackCounter++;
                 }    
                 else
                 {
@@ -122,7 +124,7 @@ namespace Inventory
                         }
                         if (item.GetItemType() != itemStack.GetItemType())
                         {
-                            _stackCounter++;
+                            stackCounter++;
                         }
                     }
                 }

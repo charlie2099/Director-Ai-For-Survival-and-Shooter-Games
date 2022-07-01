@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class Rock : MonoBehaviour, IDamageable
 {
@@ -8,10 +10,16 @@ public class Rock : MonoBehaviour, IDamageable
 
     [Space]
     [SerializeField] private GameObject rockPrefab;
- 
+
+    private Player _player;
     private int _health;
     private int _maxHealth;
     private bool _inRange;
+
+    private void Awake()
+    {
+        _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+    }
 
     private void Start()
     {
@@ -57,6 +65,7 @@ public class Rock : MonoBehaviour, IDamageable
         {
             print("Rock Damage");
             ApplyDamage(10);
+            _player.UseEnergy(5);
         }
     }
 

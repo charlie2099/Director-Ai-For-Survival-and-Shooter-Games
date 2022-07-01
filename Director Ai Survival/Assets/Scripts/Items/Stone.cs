@@ -26,7 +26,7 @@ namespace Items
 
                 GameObject textObject = Instantiate(stoneObtainedText, transform.position, Quaternion.identity);
                 textObject.GetComponentInChildren<TextMeshProUGUI>().text = "+1 Stone";
-                
+
                 InventoryResourceCache.Instance.AddToCache(this);
             }
         }
