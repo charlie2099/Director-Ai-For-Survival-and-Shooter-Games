@@ -1165,10 +1165,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 504922cf4b035a4469e881f017de92b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryPanel: {fileID: 110414735}
-  inventoryBackpackIcon: {fileID: 820798096}
-  inventoryBackpackOpenSprite: {fileID: -3560949183106896697, guid: 86c53cb5ef6f339498af54ca6e82e6d4, type: 3}
-  inventoryBackpackClosedSprite: {fileID: 7807952054443111765, guid: 86c53cb5ef6f339498af54ca6e82e6d4, type: 3}
   inventorySlots:
   - {fileID: 1595721756}
   - {fileID: 1825680280}
@@ -1182,6 +1178,10 @@ MonoBehaviour:
   - {fileID: 1545422506}
   - {fileID: 132585301}
   - {fileID: 1723499884}
+  inventoryPanel: {fileID: 110414735}
+  inventoryBackpackIcon: {fileID: 820798096}
+  inventoryBackpackOpenSprite: {fileID: -3560949183106896697, guid: 86c53cb5ef6f339498af54ca6e82e6d4, type: 3}
+  inventoryBackpackClosedSprite: {fileID: 7807952054443111765, guid: 86c53cb5ef6f339498af54ca6e82e6d4, type: 3}
 --- !u!114 &137695929
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3449,34 +3449,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 492416416}
   m_CullTransparentMesh: 1
---- !u!1 &494144070 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3317407679578872035, guid: f6099456679233542bb9538de1dca0cf, type: 3}
-  m_PrefabInstance: {fileID: 3317407679521371484}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &494144071
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 494144070}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 504922cf4b035a4469e881f017de92b8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inventoryPanel: {fileID: 492416416}
-  inventoryBackpackIcon: {fileID: 820798096}
-  inventoryBackpackOpenSprite: {fileID: -2601844558737524976, guid: 86c53cb5ef6f339498af54ca6e82e6d4, type: 3}
-  inventoryBackpackClosedSprite: {fileID: 7807952054443111765, guid: 86c53cb5ef6f339498af54ca6e82e6d4, type: 3}
-  inventorySlots:
-  - {fileID: 593070271}
-  - {fileID: 422218663}
-  - {fileID: 229382975}
-  - {fileID: 1116609422}
-  - {fileID: 1996552282}
-  - {fileID: 1216991437}
 --- !u!1 &494928460
 GameObject:
   m_ObjectHideFlags: 0
@@ -46741,49 +46713,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1533095944}
     - target: {fileID: 3317407679578871966, guid: f6099456679233542bb9538de1dca0cf, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3317407679578871966, guid: f6099456679233542bb9538de1dca0cf, type: 3}
-      propertyPath: uiPanelText
-      value: 
-      objectReference: {fileID: 2065383043}
-    - target: {fileID: 3317407679578871966, guid: f6099456679233542bb9538de1dca0cf, type: 3}
       propertyPath: chestInventoryUi
       value: 
       objectReference: {fileID: 492416416}
-    - target: {fileID: 3317407679578871966, guid: f6099456679233542bb9538de1dca0cf, type: 3}
-      propertyPath: chestInventoryList.Array.size
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 3317407679578871966, guid: f6099456679233542bb9538de1dca0cf, type: 3}
-      propertyPath: chestInventorySlots.Array.size
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 3317407679578871966, guid: f6099456679233542bb9538de1dca0cf, type: 3}
-      propertyPath: chestInventoryList.Array.data[0]
-      value: 
-      objectReference: {fileID: 593070267}
-    - target: {fileID: 3317407679578871966, guid: f6099456679233542bb9538de1dca0cf, type: 3}
-      propertyPath: chestInventoryList.Array.data[1]
-      value: 
-      objectReference: {fileID: 422218659}
-    - target: {fileID: 3317407679578871966, guid: f6099456679233542bb9538de1dca0cf, type: 3}
-      propertyPath: chestInventoryList.Array.data[2]
-      value: 
-      objectReference: {fileID: 229382971}
-    - target: {fileID: 3317407679578871966, guid: f6099456679233542bb9538de1dca0cf, type: 3}
-      propertyPath: chestInventoryList.Array.data[3]
-      value: 
-      objectReference: {fileID: 1116609418}
-    - target: {fileID: 3317407679578871966, guid: f6099456679233542bb9538de1dca0cf, type: 3}
-      propertyPath: chestInventoryList.Array.data[4]
-      value: 
-      objectReference: {fileID: 1996552278}
-    - target: {fileID: 3317407679578871966, guid: f6099456679233542bb9538de1dca0cf, type: 3}
-      propertyPath: chestInventoryList.Array.data[5]
-      value: 
-      objectReference: {fileID: 1216991433}
     - target: {fileID: 3317407679578871966, guid: f6099456679233542bb9538de1dca0cf, type: 3}
       propertyPath: chestInventorySlots.Array.data[0]
       value: 

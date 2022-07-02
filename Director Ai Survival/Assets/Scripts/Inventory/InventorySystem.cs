@@ -9,13 +9,12 @@ namespace Inventory
 {
     public class InventorySystem : MonoBehaviour
     {
+        public List<ItemStack> inventorySlots = new List<ItemStack>();
         [SerializeField] private GameObject inventoryPanel;
         [SerializeField] private Image inventoryBackpackIcon;
         [SerializeField] private Sprite inventoryBackpackOpenSprite;
         [SerializeField] private Sprite inventoryBackpackClosedSprite;
-    
-        public List<ItemStack> inventorySlots = new List<ItemStack>();
-        
+
         private bool _inventoryIsOpen;
         private const int STACK_SIZE = 16;
 
