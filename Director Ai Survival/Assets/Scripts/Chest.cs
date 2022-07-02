@@ -1,12 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Inventory;
 using Items;
 using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class Chest : MonoBehaviour
 {
@@ -17,7 +19,7 @@ public class Chest : MonoBehaviour
     [SerializeField] private Sprite chestClosedSprite;
 
     [Space] 
-    [SerializeField] private GameObject itemsToSpawn;
+    [SerializeField] private GameObject[] itemsToSpawn;
     
     private SpriteRenderer _chestSpriteRenderer;
     private Text _uiPanelText;
@@ -25,6 +27,24 @@ public class Chest : MonoBehaviour
     private bool _isInRange;
     private bool _isOpen;
     private bool _mouseIsOver;
+    
+    private void OnEnable()
+    {
+        foreach (var slot in chestInventorySlots)
+        {
+            slot.FirstItemAddedToStack += SetInventorySlotImage;
+            slot.ItemStackChange += UpdateStackSize;
+        }
+    }
+
+    private void OnDisable()
+    {
+        foreach (var slot in chestInventorySlots)
+        {
+            slot.FirstItemAddedToStack -= SetInventorySlotImage;
+            slot.ItemStackChange -= UpdateStackSize;
+        }
+    }
 
     private void Awake()
     {
@@ -36,18 +56,23 @@ public class Chest : MonoBehaviour
     {
         chestInventoryUi.SetActive(false);
         
-        foreach (var slot in chestInventorySlots)
+        for (int i = 0; i < Random.Range(0, 34); i++)
         {
-            slot.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = slot.GetStackSize().ToString();
+            GameObject chestItem = Instantiate(itemsToSpawn[Random.Range(0,2)], transform.position, Quaternion.identity);
+            chestItem.transform.parent = transform;
+            chestItem.transform.position = new Vector3(chestItem.transform.position.x, chestItem.transform.position.y + 1);
+
+            if (chestItem.GetComponent<Stone>() != null)
+            {
+                chestItem.GetComponent<Stone>().SetItemType(ItemType.Type.STONE);
+                AddToStackEvent(chestItem.GetComponent<Stone>());
+            }
+            if (chestItem.GetComponent<Wood>() != null)
+            {
+                chestItem.GetComponent<Wood>().SetItemType(ItemType.Type.WOOD);
+                AddToStackEvent(chestItem.GetComponent<Wood>());
+            }
         }
-
-        GameObject chestItem = Instantiate(itemsToSpawn, transform.position, Quaternion.identity);
-        chestItem.transform.parent = transform;
-        chestItem.transform.position = new Vector3(chestItem.transform.position.x, chestItem.transform.position.y + 1);
-
-        //AddToStackEvent(chestItem.GetComponent<Item>());
-        SetInventorySlotImage(chestInventorySlots[0], chestItem.GetComponent<Item>()); 
-        UpdateStackSize(chestInventorySlots[0]);
     }
 
     private void Update()
@@ -74,7 +99,15 @@ public class Chest : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Q) && _isOpen)
             {
                 print("Items collected");
-                //InventoryResourceCache.Instance.AddToCache(this);
+                foreach (var chestSlot in chestInventorySlots.ToList())
+                {
+                    foreach (var item in chestSlot.itemStackList.ToList())
+                    {
+                        InventoryResourceCache.Instance.AddToCache(item);
+                        chestSlot.RemoveFromStack(item);
+                        chestSlot.transform.GetChild(0).GetChild(0).GetComponent<Image>().enabled = false;
+                    }
+                }
             }
         }
         else
@@ -132,56 +165,55 @@ public class Chest : MonoBehaviour
     {
         // TODO: Temporary feature testing code! Refactor!
         itemStack.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = itemStack.GetStackSize().ToString();
-        //print("<color=green>" + itemStack.transform.name + "</color>, <color=cyan>Stack size: </color>" + itemStack.GetStackSize());
     }
     
     private void AddToStackEvent(Item item)
+    {
+        IsStackFull(item);
+    }
+
+    private bool IsStackFull(Item item)
+    {
+        // The first item to enter the stack defines the ItemType
+        // for that stack until the last of that item has been
+        // removed from the stack
+        
+        int stackCounter = 0;
+        
+        for (var i = 0; i < chestInventorySlots.Count; i++)
+        {
+            ItemStack itemStack = chestInventorySlots[stackCounter];
+
+            // Add to next stack if current is full
+            if (itemStack.GetStackSize() >= STACK_SIZE)
             {
-                IsStackFull(item);
-            }
-    
-            private bool IsStackFull(Item item)
+                stackCounter++;
+            }    
+            else
             {
-                // The first item to enter the stack defines the ItemType
-                // for that stack until the last of that item has been
-                // removed from the stack
-                
-                int stackCounter = 0;
-                
-                for (var i = 0; i < chestInventorySlots.Count; i++)
+                if (itemStack.GetItems().Count <= 0)
                 {
-                    ItemStack itemStack = chestInventorySlots[stackCounter];
-    
-                    // Add to next stack if current is full
-                    if (itemStack.GetStackSize() >= STACK_SIZE)
+                    itemStack.AddToStack(item);
+                    itemStack.SetStackItemType(item.GetItemType());
+                    return true;
+                }
+                
+                if (itemStack.GetItems().Count > 0)
+                {
+                    if (item.GetItemType() == itemStack.GetItemType())
+                    {
+                        // If item to enter the stack is the same ItemType to the first,
+                        // enter the stack. 
+                        itemStack.AddToStack(item);
+                        return true;
+                    }
+                    if (item.GetItemType() != itemStack.GetItemType())
                     {
                         stackCounter++;
-                    }    
-                    else
-                    {
-                        if (itemStack.GetItems().Count <= 0)
-                        {
-                            itemStack.AddToStack(item);
-                            itemStack.SetStackItemType(item.GetItemType());
-                            return true;
-                        }
-                        
-                        if (itemStack.GetItems().Count > 0)
-                        {
-                            if (item.GetItemType() == itemStack.GetItemType())
-                            {
-                                // If item to enter the stack is the same ItemType to the first,
-                                // enter the stack. 
-                                itemStack.AddToStack(item);
-                                return true;
-                            }
-                            if (item.GetItemType() != itemStack.GetItemType())
-                            {
-                                stackCounter++;
-                            }
-                        }
                     }
                 }
-                return false;
             }
+        }
+        return false;
+    }
 }

@@ -4,9 +4,14 @@ namespace Items
 {
     public class Item : MonoBehaviour
     {
-        protected ItemType.Type _itemType;
+        private ItemType.Type _itemType;
 
-        public virtual ItemType.Type GetItemType()
+        public void SetItemType(ItemType.Type type)
+        {
+            _itemType = type;
+        }
+        
+        public ItemType.Type GetItemType()
         {
             return _itemType;
         }

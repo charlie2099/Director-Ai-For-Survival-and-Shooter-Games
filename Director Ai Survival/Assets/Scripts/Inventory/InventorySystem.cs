@@ -78,7 +78,6 @@ namespace Inventory
         {
             // TODO: Temporary feature testing code! Refactor!
             itemStack.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = itemStack.GetStackSize().ToString();
-            print("<color=green>" + itemStack.transform.name + "</color>, <color=cyan>Stack size: </color>" + itemStack.GetStackSize());
         }
 
         private void AddToStackEvent(Item item)

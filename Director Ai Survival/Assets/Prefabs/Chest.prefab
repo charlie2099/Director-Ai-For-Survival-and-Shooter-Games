@@ -151,4 +151,6 @@ MonoBehaviour:
   uiPanel: {fileID: 0}
   chestOpenSprite: {fileID: -2601844558737524976, guid: 86c53cb5ef6f339498af54ca6e82e6d4, type: 3}
   chestClosedSprite: {fileID: 7807952054443111765, guid: 86c53cb5ef6f339498af54ca6e82e6d4, type: 3}
-  itemsToSpawn: {fileID: 4457543582006655645, guid: 1342d8fef0c26cb42bf68cfb3e4df5ae, type: 3}
+  itemsToSpawn:
+  - {fileID: 4457543582006655645, guid: 1342d8fef0c26cb42bf68cfb3e4df5ae, type: 3}
+  - {fileID: 8344963053197294819, guid: 7474f02a2134b364cbdc61e9290bbef4, type: 3}

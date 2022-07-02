@@ -13,7 +13,8 @@ namespace Items
 
         private void Start()
         {
-            _itemType = ItemType.Type.WOOD;
+            //_itemType = ItemType.Type.WOOD;
+            SetItemType(ItemType.Type.WOOD);
         }
 
         private void OnCollisionEnter2D(Collision2D col)
@@ -32,9 +33,9 @@ namespace Items
             }
         }
 
-        public override ItemType.Type GetItemType()
+        /*public override ItemType.Type GetItemType()
         {
             return _itemType;
-        }
+        }*/
     }
 }

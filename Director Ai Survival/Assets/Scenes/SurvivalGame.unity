@@ -686,7 +686,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 64
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1965,7 +1965,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 64
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2343,7 +2343,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 64
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3004,7 +3004,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 64
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3406,11 +3406,11 @@ RectTransform:
   m_Father: {fileID: 1970870958}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 12, y: 127}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 12, y: 239}
   m_SizeDelta: {x: 1980, y: 1114}
-  m_Pivot: {x: 0, y: 0}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &492416418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5207,8 +5207,8 @@ RectTransform:
   - {fileID: 593070268}
   - {fileID: 422218660}
   - {fileID: 229382972}
-  - {fileID: 1116609419}
   - {fileID: 1996552279}
+  - {fileID: 1116609419}
   - {fileID: 1216991434}
   m_Father: {fileID: 492416417}
   m_RootOrder: 0
@@ -9742,7 +9742,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 64
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -10589,7 +10589,7 @@ GameObject:
   - component: {fileID: 1116609420}
   - component: {fileID: 1116609422}
   m_Layer: 5
-  m_Name: InventorySlot4
+  m_Name: InventorySlot5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10608,7 +10608,7 @@ RectTransform:
   m_Children:
   - {fileID: 245250341}
   m_Father: {fileID: 741768783}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -12958,7 +12958,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 64
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -45216,7 +45216,7 @@ GameObject:
   - component: {fileID: 1996552280}
   - component: {fileID: 1996552282}
   m_Layer: 5
-  m_Name: InventorySlot5
+  m_Name: InventorySlot4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45235,7 +45235,7 @@ RectTransform:
   m_Children:
   - {fileID: 8806417}
   m_Father: {fileID: 741768783}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -46731,11 +46731,11 @@ PrefabInstance:
     - target: {fileID: 3317407679578871966, guid: f6099456679233542bb9538de1dca0cf, type: 3}
       propertyPath: chestInventorySlots.Array.data[3]
       value: 
-      objectReference: {fileID: 1116609422}
+      objectReference: {fileID: 1996552282}
     - target: {fileID: 3317407679578871966, guid: f6099456679233542bb9538de1dca0cf, type: 3}
       propertyPath: chestInventorySlots.Array.data[4]
       value: 
-      objectReference: {fileID: 1996552282}
+      objectReference: {fileID: 1116609422}
     - target: {fileID: 3317407679578871966, guid: f6099456679233542bb9538de1dca0cf, type: 3}
       propertyPath: chestInventorySlots.Array.data[5]
       value: 
