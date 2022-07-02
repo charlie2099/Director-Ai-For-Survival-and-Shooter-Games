@@ -8,7 +8,7 @@ public class Tree : MonoBehaviour, IDamageable
     [SerializeField] private Text uiPanelText;
 
     [Space]
-    [SerializeField] private GameObject woodPrefab;
+    [SerializeField] private GameObject[] itemDrops;
 
     private Player _player;
     private int _health;
@@ -81,13 +81,22 @@ public class Tree : MonoBehaviour, IDamageable
 
     private void Destroyed()
     {
-        int dropLootAmount = Random.Range(2, 5);
-        for (int i = 0; i < dropLootAmount; i++)
+        int woodDropLootAmount = Random.Range(2, 5);
+        for (int i = 0; i < woodDropLootAmount; i++)
         {
             Vector2 randomPos = new Vector2(Random.Range(transform.position.x - 1.0f, transform.position.x + 1.0f), 
                                             Random.Range(transform.position.y - 1.0f, transform.position.y + 1.0f));
             
-            Instantiate(woodPrefab, randomPos, Quaternion.identity);
+            Instantiate(itemDrops[0], randomPos, Quaternion.identity);
+        }
+        
+        int appleDropLootAmount = Random.Range(0, 2);
+        for (int i = 0; i < appleDropLootAmount; i++)
+        {
+            Vector2 randomPos = new Vector2(Random.Range(transform.position.x - 1.0f, transform.position.x + 1.0f), 
+                                            Random.Range(transform.position.y - 1.0f, transform.position.y + 1.0f));
+            
+            Instantiate(itemDrops[1], randomPos, Quaternion.identity);
         }
 
         Destroy(gameObject);

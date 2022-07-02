@@ -431,7 +431,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiPanel: {fileID: 0}
   uiPanelText: {fileID: 0}
-  rockPrefab: {fileID: 4457543582006655645, guid: 1342d8fef0c26cb42bf68cfb3e4df5ae, type: 3}
+  itemDrops:
+  - {fileID: 4457543582006655645, guid: 1342d8fef0c26cb42bf68cfb3e4df5ae, type: 3}
+  - {fileID: 6271246920548730807, guid: 4cc0b74fbe71fbc478afb5158c8531e3, type: 3}
 --- !u!114 &4197455824117257816
 MonoBehaviour:
   m_ObjectHideFlags: 0

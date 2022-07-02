@@ -9,7 +9,7 @@ public class Rock : MonoBehaviour, IDamageable
     [SerializeField] private Text uiPanelText;
 
     [Space]
-    [SerializeField] private GameObject rockPrefab;
+    [SerializeField] private GameObject[] itemDrops;
 
     private Player _player;
     private int _health;
@@ -81,13 +81,22 @@ public class Rock : MonoBehaviour, IDamageable
 
     private void Destroyed()
     {
-        int dropLootAmount = Random.Range(1, 4);
-        for (int i = 0; i < dropLootAmount; i++)
+        int stoneDropLootAmount = Random.Range(1, 4);
+        for (int i = 0; i <stoneDropLootAmount; i++)
         {
             Vector2 randomPos = new Vector2(Random.Range(transform.position.x - 1.0f, transform.position.x + 1.0f), 
                                             Random.Range(transform.position.y - 1.0f, transform.position.y + 1.0f));
             
-            Instantiate(rockPrefab, randomPos, Quaternion.identity);
+            Instantiate(itemDrops[0], randomPos, Quaternion.identity);
+        }
+        
+        int goldDropLootAmount = Random.Range(0, 2);
+        for (int i = 0; i < goldDropLootAmount; i++)
+        {
+            Vector2 randomPos = new Vector2(Random.Range(transform.position.x - 1.0f, transform.position.x + 1.0f), 
+                                            Random.Range(transform.position.y - 1.0f, transform.position.y + 1.0f));
+            
+            Instantiate(itemDrops[1], randomPos, Quaternion.identity);
         }
 
         Destroy(gameObject);

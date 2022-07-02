@@ -60,7 +60,7 @@ public class Chest : MonoBehaviour
         {
             GameObject chestItem = Instantiate(itemsToSpawn[Random.Range(0,2)], transform.position, Quaternion.identity);
             chestItem.transform.parent = transform;
-            chestItem.transform.position = new Vector3(chestItem.transform.position.x, chestItem.transform.position.y + 1);
+            //chestItem.transform.position = new Vector3(chestItem.transform.position.x, chestItem.transform.position.y + 1);
 
             if (chestItem.GetComponent<Stone>() != null)
             {

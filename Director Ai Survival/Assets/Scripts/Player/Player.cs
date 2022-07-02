@@ -6,11 +6,13 @@ using UnityEngine;
 public class Player : Entity
 {
     public Action EnergyUsed;
-    
+
     [SerializeField] private SpriteRenderer sprite;
     private int _maxHealth;
     private int _maxEnergy;
+    private int _maxHunger;
     private int _currentEnergy;
+    private int _currentHunger;
 
     private void Start()
     {
@@ -19,6 +21,9 @@ public class Player : Entity
 
         _currentEnergy = 100;
         _maxEnergy = _currentEnergy;
+        
+        _currentHunger = 100;
+        _maxHunger = _currentHunger;
     }
 
     protected override void Die()
@@ -64,5 +69,15 @@ public class Player : Entity
     public int GetMaxEnergy()
     {
         return _maxEnergy;
+    }
+    
+    public int GetHunger()
+    {
+        return _currentHunger;
+    }
+
+    public int GetMaxHunger()
+    {
+        return _maxHunger;
     }
 }

@@ -6,7 +6,9 @@
         {
             NONE,
             WOOD,
-            STONE
+            STONE,
+            GOLD,
+            APPLE
         };
     }
 }
