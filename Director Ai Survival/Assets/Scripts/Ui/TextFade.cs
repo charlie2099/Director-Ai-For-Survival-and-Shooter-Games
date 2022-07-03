@@ -16,7 +16,7 @@ public class TextFade : MonoBehaviour
 
     private void Start()
     {
-        _text.color = new Color(0.37F,0.21f,0);
+        _text.color = new Color(1.0f,0.7f,0);
     }
 
     private void Update()
