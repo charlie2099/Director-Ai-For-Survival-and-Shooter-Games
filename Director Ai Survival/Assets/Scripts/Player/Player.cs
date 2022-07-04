@@ -9,7 +9,7 @@ public class Player : Entity
     public Action EnergyUsed;
     [SerializeField] private SpriteRenderer sprite;
 
-    private Item _activeItem;
+    private Item _activeItem = new Item();
     private int _maxHealth;
     private int _maxEnergy;
     private int _maxHunger;
@@ -91,5 +91,10 @@ public class Player : Entity
     public Item GetItemInHand()
     {
         return _activeItem;
+    }
+
+    public ItemType.Type GetItemTypeInHand()
+    {
+        return _activeItem.GetItemType();
     }
 }

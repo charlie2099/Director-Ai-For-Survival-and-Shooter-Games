@@ -1,4 +1,5 @@
 using System;
+using Items;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -61,7 +62,7 @@ public class Rock : MonoBehaviour, IDamageable
         uiPanelText.text = gameObject.name;
         uiPanel.transform.position = transform.position + new Vector3(0, -0.5f);
 
-        if (_inRange && Input.GetKeyDown(KeyCode.Mouse0))
+        if (_inRange && Input.GetKeyDown(KeyCode.Mouse0) && _player.GetItemTypeInHand() == ItemType.Type.PICKAXE)
         {
             print("Rock Damage");
             ApplyDamage(10);

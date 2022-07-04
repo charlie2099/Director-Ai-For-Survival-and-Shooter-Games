@@ -47896,7 +47896,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2113149364}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -48115,7 +48115,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &38717110701254691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48341,10 +48341,6 @@ PrefabInstance:
       propertyPath: uiPanelText
       value: 
       objectReference: {fileID: 20077751}
-    - target: {fileID: 4609243800505662736, guid: d0e57b80ecadaaf47b51b87a209a83b4, type: 3}
-      propertyPath: itemDrops.Array.data[1]
-      value: 
-      objectReference: {fileID: 1944229279922174551, guid: 325aa7ba516d2dd41ba09671f2547fc8, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0e57b80ecadaaf47b51b87a209a83b4, type: 3}
 --- !u!222 &2544264722825531692

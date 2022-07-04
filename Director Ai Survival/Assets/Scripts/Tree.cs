@@ -1,3 +1,4 @@
+using Items;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -60,7 +61,7 @@ public class Tree : MonoBehaviour, IDamageable
         uiPanelText.text = gameObject.name;
         uiPanel.transform.position = transform.position + new Vector3(0, -1.1f);
 
-        if (_inRange && Input.GetKeyDown(KeyCode.Mouse0))
+        if (_inRange && Input.GetKeyDown(KeyCode.Mouse0) && _player.GetItemTypeInHand() == ItemType.Type.AXE)
         {
             print("Damage");
             ApplyDamage(10);

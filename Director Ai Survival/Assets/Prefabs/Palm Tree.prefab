@@ -146,7 +146,7 @@ MonoBehaviour:
   uiPanelText: {fileID: 0}
   itemDrops:
   - {fileID: 8344963053197294819, guid: 7474f02a2134b364cbdc61e9290bbef4, type: 3}
-  - {fileID: 8622498995568402967, guid: 436e58e0a28d13947a1a70b22decfd0a, type: 3}
+  - {fileID: 1944229279922174551, guid: 325aa7ba516d2dd41ba09671f2547fc8, type: 3}
 --- !u!114 &632026712036686356
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -13,7 +13,7 @@ namespace Items
 
         private void Start()
         {
-            SetItemType(ItemType.Type.SWORD);
+            SetItemType(ItemType.Type.PICKAXE);
             SetMaxStackSize(1);
         }
 
