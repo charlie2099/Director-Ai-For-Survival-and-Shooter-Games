@@ -8,7 +8,9 @@
             WOOD,
             STONE,
             GOLD,
-            APPLE
+            APPLE,
+            SWORD,
+            PICKAXE
         };
     }
 }

@@ -8,10 +8,10 @@ namespace Items
     {
         public Action<ItemStack, Item> FirstItemAddedToStack;
         public Action<ItemStack> ItemStackChange;
-
         public List<Item> itemStackList = new List<Item>();
 
         private ItemType.Type _stackItemType = ItemType.Type.NONE;
+        private int _maxStackSize = 16;
 
         public void AddToStack(Item item) // null check?
         {
@@ -34,14 +34,24 @@ namespace Items
             _stackItemType = itemType;
         }
 
+        public void SetMaxStackSize(int stackSize)
+        {
+            _maxStackSize = stackSize;
+        }
+
         public ItemType.Type GetItemType()
         {
             return _stackItemType;
         }
 
-        public int GetStackSize()
+        public int GetCurrentStackSize()
         {
             return itemStackList.Count;
+        }
+
+        public int GetMaxStackSize()
+        {
+            return _maxStackSize;
         }
 
         public List<Item> GetItems()

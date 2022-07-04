@@ -2607,6 +2607,10 @@ PrefabInstance:
       propertyPath: itemsObtainedText
       value: 
       objectReference: {fileID: 493187613717444576, guid: 2da903cd0ee6df74283a11a696b4cd24, type: 3}
+    - target: {fileID: 4609243800505662736, guid: d0e57b80ecadaaf47b51b87a209a83b4, type: 3}
+      propertyPath: itemDrops.Array.data[1]
+      value: 
+      objectReference: {fileID: 1944229279922174551, guid: 325aa7ba516d2dd41ba09671f2547fc8, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0e57b80ecadaaf47b51b87a209a83b4, type: 3}
 --- !u!4 &370149619 stripped
@@ -2779,7 +2783,7 @@ RectTransform:
   m_Children:
   - {fileID: 1141570489}
   m_Father: {fileID: 1970870958}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -3732,13 +3736,13 @@ RectTransform:
   m_Children:
   - {fileID: 741768783}
   m_Father: {fileID: 1970870958}
-  m_RootOrder: 11
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 12, y: 239}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 12, y: 596}
   m_SizeDelta: {x: 1980, y: 1114}
-  m_Pivot: {x: 0, y: 0.5}
+  m_Pivot: {x: 0, y: 0}
 --- !u!114 &492416418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3961,7 +3965,7 @@ RectTransform:
   m_Children:
   - {fileID: 1123203043}
   m_Father: {fileID: 1970870958}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -4601,7 +4605,7 @@ RectTransform:
   m_Children:
   - {fileID: 2544264724060855097}
   m_Father: {fileID: 1970870958}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -5130,6 +5134,10 @@ PrefabInstance:
       propertyPath: itemsObtainedText
       value: 
       objectReference: {fileID: 493187613717444576, guid: 2da903cd0ee6df74283a11a696b4cd24, type: 3}
+    - target: {fileID: 4609243800505662736, guid: d0e57b80ecadaaf47b51b87a209a83b4, type: 3}
+      propertyPath: itemDrops.Array.data[1]
+      value: 
+      objectReference: {fileID: 1944229279922174551, guid: 325aa7ba516d2dd41ba09671f2547fc8, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0e57b80ecadaaf47b51b87a209a83b4, type: 3}
 --- !u!4 &660119410 stripped
@@ -5236,6 +5244,10 @@ PrefabInstance:
       propertyPath: itemsObtainedText
       value: 
       objectReference: {fileID: 493187613717444576, guid: 2da903cd0ee6df74283a11a696b4cd24, type: 3}
+    - target: {fileID: 4609243800505662736, guid: d0e57b80ecadaaf47b51b87a209a83b4, type: 3}
+      propertyPath: itemDrops.Array.data[1]
+      value: 
+      objectReference: {fileID: 1944229279922174551, guid: 325aa7ba516d2dd41ba09671f2547fc8, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0e57b80ecadaaf47b51b87a209a83b4, type: 3}
 --- !u!4 &686182792 stripped
@@ -10447,6 +10459,10 @@ PrefabInstance:
       propertyPath: uiPanelText
       value: 
       objectReference: {fileID: 20077751}
+    - target: {fileID: 4609243800505662736, guid: d0e57b80ecadaaf47b51b87a209a83b4, type: 3}
+      propertyPath: itemDrops.Array.data[1]
+      value: 
+      objectReference: {fileID: 1944229279922174551, guid: 325aa7ba516d2dd41ba09671f2547fc8, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0e57b80ecadaaf47b51b87a209a83b4, type: 3}
 --- !u!4 &958372480 stripped
@@ -10696,7 +10712,7 @@ RectTransform:
   m_Children:
   - {fileID: 1474985161}
   m_Father: {fileID: 1970870958}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -11585,6 +11601,10 @@ PrefabInstance:
       propertyPath: itemsObtainedText
       value: 
       objectReference: {fileID: 493187613717444576, guid: 2da903cd0ee6df74283a11a696b4cd24, type: 3}
+    - target: {fileID: 4609243800505662736, guid: d0e57b80ecadaaf47b51b87a209a83b4, type: 3}
+      propertyPath: itemDrops.Array.data[1]
+      value: 
+      objectReference: {fileID: 1944229279922174551, guid: 325aa7ba516d2dd41ba09671f2547fc8, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0e57b80ecadaaf47b51b87a209a83b4, type: 3}
 --- !u!4 &1152116777 stripped
@@ -11757,7 +11777,7 @@ RectTransform:
   m_Children:
   - {fileID: 1210323840}
   m_Father: {fileID: 1970870958}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
@@ -12416,7 +12436,7 @@ RectTransform:
   m_Children:
   - {fileID: 1710863756}
   m_Father: {fileID: 1970870958}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -39860,7 +39880,7 @@ RectTransform:
   m_Children:
   - {fileID: 923799299}
   m_Father: {fileID: 1970870958}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
@@ -40103,7 +40123,7 @@ RectTransform:
   m_Children:
   - {fileID: 1590572682}
   m_Father: {fileID: 1970870958}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
@@ -45938,6 +45958,7 @@ RectTransform:
   m_Children:
   - {fileID: 706737645}
   - {fileID: 110414736}
+  - {fileID: 492416417}
   - {fileID: 999488969}
   - {fileID: 1621519689}
   - {fileID: 1167151707}
@@ -45947,7 +45968,6 @@ RectTransform:
   - {fileID: 1250099152}
   - {fileID: 499931923}
   - {fileID: 383983239}
-  - {fileID: 492416417}
   - {fileID: 1036113501}
   m_Father: {fileID: 1661490645}
   m_RootOrder: 1
@@ -46386,7 +46406,7 @@ RectTransform:
   m_Children:
   - {fileID: 937720854}
   m_Father: {fileID: 1970870958}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
@@ -47212,6 +47232,10 @@ PrefabInstance:
       propertyPath: uiPanelText
       value: 
       objectReference: {fileID: 20077751}
+    - target: {fileID: 4609243800505662736, guid: d0e57b80ecadaaf47b51b87a209a83b4, type: 3}
+      propertyPath: itemDrops.Array.data[1]
+      value: 
+      objectReference: {fileID: 1944229279922174551, guid: 325aa7ba516d2dd41ba09671f2547fc8, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0e57b80ecadaaf47b51b87a209a83b4, type: 3}
 --- !u!222 &2544264722825531692
@@ -47549,6 +47573,18 @@ PrefabInstance:
       propertyPath: chestInventoryUi
       value: 
       objectReference: {fileID: 492416416}
+    - target: {fileID: 3317407679578871966, guid: f6099456679233542bb9538de1dca0cf, type: 3}
+      propertyPath: itemsToSpawn.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3317407679578871966, guid: f6099456679233542bb9538de1dca0cf, type: 3}
+      propertyPath: itemsToSpawn.Array.data[4]
+      value: 
+      objectReference: {fileID: 8262503914090139854, guid: 556fe3d8f67da0e4dbf946f8366529e0, type: 3}
+    - target: {fileID: 3317407679578871966, guid: f6099456679233542bb9538de1dca0cf, type: 3}
+      propertyPath: itemsToSpawn.Array.data[5]
+      value: 
+      objectReference: {fileID: 5893238087182022172, guid: 31741212b57fc1540a907056b2243e0a, type: 3}
     - target: {fileID: 3317407679578871966, guid: f6099456679233542bb9538de1dca0cf, type: 3}
       propertyPath: chestInventorySlots.Array.data[0]
       value: 

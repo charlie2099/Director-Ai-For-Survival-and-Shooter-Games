@@ -10,7 +10,6 @@ namespace Inventory
         public static InventoryResourceCache Instance;
         
         public Action<Item> ItemCollected;
-        //private List<Item> _itemsCache = new List<Item>(); // useless
 
         private void Awake()
         {
@@ -19,7 +18,6 @@ namespace Inventory
 
         public void AddToCache(Item item)
         {
-            //_itemsCache.Add(item);
             ItemCollected?.Invoke(item);
         }
     }

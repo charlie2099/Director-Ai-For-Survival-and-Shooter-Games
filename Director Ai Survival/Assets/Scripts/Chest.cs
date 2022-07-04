@@ -23,7 +23,6 @@ public class Chest : MonoBehaviour
     
     private SpriteRenderer _chestSpriteRenderer;
     private Text _uiPanelText;
-    private const int STACK_SIZE = 16;
     private bool _isInRange;
     private bool _isOpen;
     private bool _mouseIsOver;
@@ -56,22 +55,55 @@ public class Chest : MonoBehaviour
     {
         chestInventoryUi.SetActive(false);
         
-        for (int i = 0; i < Random.Range(0, 34); i++)
+        for (int i = 0; i < Random.Range(16, 17); i++)
         {
-            GameObject chestItem = Instantiate(itemsToSpawn[Random.Range(0,2)], transform.position, Quaternion.identity);
-            chestItem.transform.parent = transform;
+            GameObject chestItems = Instantiate(itemsToSpawn[Random.Range(0,itemsToSpawn.Length-1)], transform.position, Quaternion.identity);
+            chestItems.transform.parent = transform;
             //chestItem.transform.position = new Vector3(chestItem.transform.position.x, chestItem.transform.position.y + 1);
 
-            if (chestItem.GetComponent<Stone>() != null)
+            // TODO: Refactor!
+            if (chestItems.GetComponent<Stone>() != null)
             {
-                chestItem.GetComponent<Stone>().SetItemType(ItemType.Type.STONE);
-                AddToStackEvent(chestItem.GetComponent<Stone>());
+                chestItems.GetComponent<Stone>().SetItemType(ItemType.Type.STONE);
+                AddToStackEvent(chestItems.GetComponent<Stone>());
             }
-            if (chestItem.GetComponent<Wood>() != null)
+            if (chestItems.GetComponent<Wood>() != null)
             {
-                chestItem.GetComponent<Wood>().SetItemType(ItemType.Type.WOOD);
-                AddToStackEvent(chestItem.GetComponent<Wood>());
+                chestItems.GetComponent<Wood>().SetItemType(ItemType.Type.WOOD);
+                AddToStackEvent(chestItems.GetComponent<Wood>());
             }
+            if (chestItems.GetComponent<Apple>() != null)
+            {
+                chestItems.GetComponent<Apple>().SetItemType(ItemType.Type.APPLE);
+                AddToStackEvent(chestItems.GetComponent<Apple>());
+            }
+            if (chestItems.GetComponent<Gold>() != null)
+            {
+                chestItems.GetComponent<Gold>().SetItemType(ItemType.Type.GOLD);
+                AddToStackEvent(chestItems.GetComponent<Gold>());
+            }
+            /*else
+            {
+                Destroy(chestItem);
+            }*/
+        }
+        
+        GameObject chestItem = Instantiate(itemsToSpawn[4], transform.position, Quaternion.identity);
+        chestItem.transform.parent = transform;
+        if (chestItem.GetComponent<Sword>() != null)
+        {
+            chestItem.GetComponent<Sword>().SetItemType(ItemType.Type.SWORD);
+            chestItem.GetComponent<Sword>().SetMaxStackSize(1);
+            AddToStackEvent(chestItem.GetComponent<Sword>());
+        }
+        
+        GameObject chestItem2 = Instantiate(itemsToSpawn[5], transform.position, Quaternion.identity);
+        chestItem2.transform.parent = transform;
+        if (chestItem2.GetComponent<Pickaxe>() != null)
+        {
+            chestItem2.GetComponent<Pickaxe>().SetItemType(ItemType.Type.PICKAXE);
+            chestItem2.GetComponent<Pickaxe>().SetMaxStackSize(1);
+            AddToStackEvent(chestItem2.GetComponent<Pickaxe>());
         }
     }
 
@@ -159,12 +191,13 @@ public class Chest : MonoBehaviour
         // TODO: Temporary feature testing code! Refactor!
         itemStack.transform.GetChild(0).GetChild(0).GetComponent<Image>().enabled = true;
         itemStack.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = item.GetComponent<SpriteRenderer>().sprite;
+        itemStack.SetMaxStackSize(item.GetMaxStackSize());
     }
 
     private void UpdateStackSize(ItemStack itemStack)
     {
         // TODO: Temporary feature testing code! Refactor!
-        itemStack.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = itemStack.GetStackSize().ToString();
+        itemStack.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = itemStack.GetCurrentStackSize().ToString();
     }
     
     private void AddToStackEvent(Item item)
@@ -183,9 +216,11 @@ public class Chest : MonoBehaviour
         for (var i = 0; i < chestInventorySlots.Count; i++)
         {
             ItemStack itemStack = chestInventorySlots[stackCounter];
+            
+            print("ItemStack Slot [" + i + "] ,Size: " + itemStack.GetMaxStackSize());
 
             // Add to next stack if current is full
-            if (itemStack.GetStackSize() >= STACK_SIZE)
+            if (itemStack.GetCurrentStackSize() >= itemStack.GetMaxStackSize())
             {
                 stackCounter++;
             }    

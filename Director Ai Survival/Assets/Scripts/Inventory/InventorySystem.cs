@@ -16,7 +16,6 @@ namespace Inventory
         [SerializeField] private Sprite inventoryBackpackClosedSprite;
 
         private bool _inventoryIsOpen;
-        private const int STACK_SIZE = 16;
 
         private void OnEnable()
         {
@@ -46,7 +45,7 @@ namespace Inventory
 
             foreach (var slot in inventorySlots)
             {
-                slot.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = slot.GetStackSize().ToString();
+                slot.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = slot.GetCurrentStackSize().ToString();
             }
         }
 
@@ -72,12 +71,13 @@ namespace Inventory
             // TODO: Temporary feature testing code! Refactor!
             itemStack.transform.GetChild(0).GetChild(0).GetComponent<Image>().enabled = true;
             itemStack.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = item.GetComponent<SpriteRenderer>().sprite;
+            itemStack.SetMaxStackSize(item.GetMaxStackSize());
         }
 
         private void UpdateStackSize(ItemStack itemStack)
         {
             // TODO: Temporary feature testing code! Refactor!
-            itemStack.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = itemStack.GetStackSize().ToString();
+            itemStack.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = itemStack.GetCurrentStackSize().ToString();
         }
 
         private void AddToStackEvent(Item item)
@@ -98,7 +98,7 @@ namespace Inventory
                 ItemStack itemStack = inventorySlots[stackCounter];
 
                 // Add to next stack if current is full
-                if (itemStack.GetStackSize() >= STACK_SIZE)
+                if (itemStack.GetCurrentStackSize() >= itemStack.GetMaxStackSize())
                 {
                     stackCounter++;
                 }    
