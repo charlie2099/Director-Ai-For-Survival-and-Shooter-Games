@@ -1,13 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Items;
 using UnityEngine;
 
 public class Player : Entity
 {
     public Action EnergyUsed;
-
     [SerializeField] private SpriteRenderer sprite;
+
+    private Item _activeItem;
     private int _maxHealth;
     private int _maxEnergy;
     private int _maxHunger;
@@ -79,5 +81,15 @@ public class Player : Entity
     public int GetMaxHunger()
     {
         return _maxHunger;
+    }
+
+    public void SetItemInHand(Item item)
+    {
+        _activeItem = item;
+    }
+
+    public Item GetItemInHand()
+    {
+        return _activeItem;
     }
 }

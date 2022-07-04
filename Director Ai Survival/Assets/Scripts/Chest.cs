@@ -55,9 +55,36 @@ public class Chest : MonoBehaviour
     {
         chestInventoryUi.SetActive(false);
         
+        GameObject chestItem = Instantiate(itemsToSpawn[0], transform.position, Quaternion.identity);
+        chestItem.transform.parent = transform;
+        if (chestItem.GetComponent<Sword>() != null)
+        {
+            chestItem.GetComponent<Sword>().SetItemType(ItemType.Type.SWORD);
+            chestItem.GetComponent<Sword>().SetMaxStackSize(1);
+            AddToStackEvent(chestItem.GetComponent<Sword>());
+        }
+        
+        GameObject chestItem2 = Instantiate(itemsToSpawn[1], transform.position, Quaternion.identity);
+        chestItem2.transform.parent = transform;
+        if (chestItem2.GetComponent<Pickaxe>() != null)
+        {
+            chestItem2.GetComponent<Pickaxe>().SetItemType(ItemType.Type.PICKAXE);
+            chestItem2.GetComponent<Pickaxe>().SetMaxStackSize(1);
+            AddToStackEvent(chestItem2.GetComponent<Pickaxe>());
+        }
+        
+        GameObject chestItem3 = Instantiate(itemsToSpawn[2], transform.position, Quaternion.identity);
+        chestItem3.transform.parent = transform;
+        if (chestItem3.GetComponent<Axe>() != null)
+        {
+            chestItem3.GetComponent<Axe>().SetItemType(ItemType.Type.AXE);
+            chestItem3.GetComponent<Axe>().SetMaxStackSize(1);
+            AddToStackEvent(chestItem3.GetComponent<Axe>());
+        }
+        
         for (int i = 0; i < Random.Range(16, 17); i++)
         {
-            GameObject chestItems = Instantiate(itemsToSpawn[Random.Range(0,itemsToSpawn.Length-1)], transform.position, Quaternion.identity);
+            GameObject chestItems = Instantiate(itemsToSpawn[Random.Range(3,itemsToSpawn.Length)], transform.position, Quaternion.identity);
             chestItems.transform.parent = transform;
             //chestItem.transform.position = new Vector3(chestItem.transform.position.x, chestItem.transform.position.y + 1);
 
@@ -86,24 +113,6 @@ public class Chest : MonoBehaviour
             {
                 Destroy(chestItem);
             }*/
-        }
-        
-        GameObject chestItem = Instantiate(itemsToSpawn[4], transform.position, Quaternion.identity);
-        chestItem.transform.parent = transform;
-        if (chestItem.GetComponent<Sword>() != null)
-        {
-            chestItem.GetComponent<Sword>().SetItemType(ItemType.Type.SWORD);
-            chestItem.GetComponent<Sword>().SetMaxStackSize(1);
-            AddToStackEvent(chestItem.GetComponent<Sword>());
-        }
-        
-        GameObject chestItem2 = Instantiate(itemsToSpawn[5], transform.position, Quaternion.identity);
-        chestItem2.transform.parent = transform;
-        if (chestItem2.GetComponent<Pickaxe>() != null)
-        {
-            chestItem2.GetComponent<Pickaxe>().SetItemType(ItemType.Type.PICKAXE);
-            chestItem2.GetComponent<Pickaxe>().SetMaxStackSize(1);
-            AddToStackEvent(chestItem2.GetComponent<Pickaxe>());
         }
     }
 
@@ -216,8 +225,6 @@ public class Chest : MonoBehaviour
         for (var i = 0; i < chestInventorySlots.Count; i++)
         {
             ItemStack itemStack = chestInventorySlots[stackCounter];
-            
-            print("ItemStack Slot [" + i + "] ,Size: " + itemStack.GetMaxStackSize());
 
             // Add to next stack if current is full
             if (itemStack.GetCurrentStackSize() >= itemStack.GetMaxStackSize())

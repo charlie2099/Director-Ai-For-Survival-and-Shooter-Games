@@ -10,7 +10,8 @@
             GOLD,
             APPLE,
             SWORD,
-            PICKAXE
+            PICKAXE,
+            AXE
         };
     }
 }
