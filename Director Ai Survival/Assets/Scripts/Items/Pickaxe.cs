@@ -15,6 +15,7 @@ namespace Items
         {
             SetItemType(ItemType.Type.PICKAXE);
             SetMaxStackSize(1);
+            SetItemInfo("Used to mine rocks");
         }
 
         private void OnCollisionEnter2D(Collision2D col)

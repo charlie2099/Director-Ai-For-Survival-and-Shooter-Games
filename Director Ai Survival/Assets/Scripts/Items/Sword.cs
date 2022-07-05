@@ -15,6 +15,7 @@ namespace Items
         {
             SetItemType(ItemType.Type.SWORD);
             SetMaxStackSize(1);
+            SetItemInfo("Used to fight off pirates");
         }
 
         private void OnCollisionEnter2D(Collision2D col)

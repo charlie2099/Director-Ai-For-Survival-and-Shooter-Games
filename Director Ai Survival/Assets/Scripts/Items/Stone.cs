@@ -12,8 +12,8 @@ namespace Items
 
         private void Start()
         {
-            //_itemType = ItemType.Type.STONE;
             SetItemType(ItemType.Type.STONE);
+            SetItemInfo("Used to craft structures and tools");
         }
 
         private void OnCollisionEnter2D(Collision2D col)
@@ -31,10 +31,5 @@ namespace Items
                 InventoryResourceCache.Instance.AddToCache(this);
             }
         }
-
-        /*public override ItemType.Type GetItemType()
-        {
-            return _itemType;
-        }*/
     }
 }

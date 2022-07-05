@@ -21,8 +21,8 @@ public class TextFade : MonoBehaviour
 
     private void Update()
     {
-        _text.color = new Color(_text.color.r, _text.color.g, _text.color.b, _text.color.a * 0.99f);
-        if (_text.color.a <= 0.4f)
+        _text.color = new Color(_text.color.r, _text.color.g, _text.color.b, _text.color.a - 0.0075f);
+        if (_text.color.a <= 0.2f)
         {
             Destroy(gameObject);
         }

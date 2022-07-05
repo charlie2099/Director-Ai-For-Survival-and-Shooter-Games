@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class Player : Entity
 {
+    public Action IsDead;
+    public Action<int> DamageTaken;
     public Action EnergyUsed;
     [SerializeField] private SpriteRenderer sprite;
 
@@ -28,16 +30,39 @@ public class Player : Entity
         _maxHunger = _currentHunger;
     }
 
+    public override void Update()
+    {
+        base.Update();
+
+        if (Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            GetItemInHand().UseItem();
+        }
+    }
+
     protected override void Die()
     {
         base.Die();
-        //EventManager.TriggerEvent("PlayerDied", new EventParam());
+        IsDead.Invoke();
+    }
+
+    public void ApplyHealth(int health)
+    {
+        if (Health <= _maxHealth)
+        {
+            Health += health;
+        }
+        else
+        {
+            Health = _maxHealth;
+        }
     }
     
     public override void ApplyDamage(int damage)
     {
         Health -= damage;
         StartCoroutine(PlayDamageEffect());
+        DamageTaken.Invoke(damage);
     }
     
     public void UseEnergy(int energy)

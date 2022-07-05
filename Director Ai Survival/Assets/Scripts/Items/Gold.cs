@@ -14,6 +14,7 @@ namespace Items
         private void Start()
         {
             SetItemType(ItemType.Type.GOLD);
+            SetItemInfo("Used to buy things from merchants");
         }
 
         private void OnCollisionEnter2D(Collision2D col)

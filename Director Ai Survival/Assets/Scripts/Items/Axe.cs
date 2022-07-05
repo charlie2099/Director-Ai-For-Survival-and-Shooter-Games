@@ -15,6 +15,7 @@ namespace Items
         {
             SetItemType(ItemType.Type.AXE);
             SetMaxStackSize(1);
+            SetItemInfo("Used to chop down trees");
         }
 
         private void OnCollisionEnter2D(Collision2D col)
