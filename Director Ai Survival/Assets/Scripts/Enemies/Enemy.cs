@@ -1,14 +1,21 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Pathfinding;
 using UnityEngine;
 
 public class Enemy : Entity
 {
-    //[SerializeField] private EnemyData enemyData;
+    public Action IsDead;
     [SerializeField] private SpriteRenderer sprite;
+    //[SerializeField] private EnemyData enemyData;
+    
+    private AIDestinationSetter _aiDestinationSetter;
 
-    //private EventParam _eventParam;
+    private void Awake()
+    {
+        _aiDestinationSetter = GetComponent<AIDestinationSetter>();
+    }
 
     private void Start()
     {
@@ -20,12 +27,20 @@ public class Enemy : Entity
     private void Update()
     {
         base.Update();
+
+        if (_aiDestinationSetter.target == null)
+        {
+            // generate random pos nearby
+        }
+
+        // Randomly set positions nearby as the target destination (if within nav mesh)
+        // If player in range, set as new target destination
     }
     
     protected override void Die()
     {
         base.Die();
-        //EventManager.TriggerEvent("EnemyDied", _eventParam);
+        IsDead?.Invoke();
     }
 
     public override void ApplyDamage(float damage)
@@ -54,6 +69,22 @@ public class Enemy : Entity
             {
                 col.gameObject.GetComponent<IDamageable>().ApplyDamage(Damage);
             }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.CompareTag("Player"))
+        {
+            _aiDestinationSetter.target = col.transform;
+        }
+    }
+    
+    private void OnTriggerExit2D(Collider2D col)
+    {
+        if (col.CompareTag("Player"))
+        {
+            _aiDestinationSetter.target = null;
         }
     }
 }

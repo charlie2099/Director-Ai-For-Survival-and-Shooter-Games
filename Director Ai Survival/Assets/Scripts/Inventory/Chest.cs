@@ -165,6 +165,7 @@ public class Chest : MonoBehaviour
                 chestInventorySlots[5].GetItems().Count <= 0)
             {
                 uiPanel.SetActive(false);
+                chestInventoryUi.SetActive(false);
                 Destroy(gameObject);
             }
             
