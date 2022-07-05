@@ -48504,7 +48504,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &38717110701254691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49069,7 +49069,7 @@ PrefabInstance:
       objectReference: {fileID: 492416416}
     - target: {fileID: 3317407679578871966, guid: f6099456679233542bb9538de1dca0cf, type: 3}
       propertyPath: itemsToSpawn.Array.size
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3317407679578871966, guid: f6099456679233542bb9538de1dca0cf, type: 3}
       propertyPath: playerInventoryContainer
@@ -49078,7 +49078,7 @@ PrefabInstance:
     - target: {fileID: 3317407679578871966, guid: f6099456679233542bb9538de1dca0cf, type: 3}
       propertyPath: itemsToSpawn.Array.data[5]
       value: 
-      objectReference: {fileID: 6271246920548730807, guid: 4cc0b74fbe71fbc478afb5158c8531e3, type: 3}
+      objectReference: {fileID: 1944229279922174551, guid: 325aa7ba516d2dd41ba09671f2547fc8, type: 3}
     - target: {fileID: 3317407679578871966, guid: f6099456679233542bb9538de1dca0cf, type: 3}
       propertyPath: chestInventorySlots.Array.data[0]
       value: 

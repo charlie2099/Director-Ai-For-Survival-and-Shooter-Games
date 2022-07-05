@@ -28,7 +28,7 @@ public class Enemy : Entity
         //EventManager.TriggerEvent("EnemyDied", _eventParam);
     }
 
-    public override void ApplyDamage(int damage)
+    public override void ApplyDamage(float damage)
     {
         Health -= damage;
         StartCoroutine(PlayDamageEffect());

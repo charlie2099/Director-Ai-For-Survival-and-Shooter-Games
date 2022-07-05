@@ -13,8 +13,8 @@ public class Rock : MonoBehaviour, IDamageable
     [SerializeField] private GameObject[] itemDrops;
 
     private Player _player;
-    private int _health;
-    private int _maxHealth;
+    private float _health;
+    private float _maxHealth;
     private bool _inRange;
 
     private void Awake()
@@ -75,7 +75,7 @@ public class Rock : MonoBehaviour, IDamageable
         uiPanel.SetActive(false);
     }
 
-    public void ApplyDamage(int damage)
+    public void ApplyDamage(float damage)
     {
         _health -= damage;
     }
@@ -103,12 +103,12 @@ public class Rock : MonoBehaviour, IDamageable
         Destroy(gameObject);
     }
     
-    public int GetHealth()
+    public float GetHealth()
     {
         return _health;
     }
 
-    public int GetMaxHealth()
+    public float GetMaxHealth()
     {
         return _maxHealth;
     }

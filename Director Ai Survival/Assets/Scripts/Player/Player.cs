@@ -9,14 +9,15 @@ public class Player : Entity
     public Action IsDead;
     public Action TakenDamage;
     public Action EnergyUsed;
+    public Action HungerChanged;
     [SerializeField] private SpriteRenderer sprite;
 
     private Item _activeItem = new Item();
-    private int _maxHealth;
+    private float _maxHealth;
     private int _maxEnergy;
-    private int _maxHunger;
+    private float _maxHunger;
     private int _currentEnergy;
-    private int _currentHunger;
+    private float _currentHunger;
 
     private void Start()
     {
@@ -42,7 +43,15 @@ public class Player : Entity
             }
         }
         
-        print("Item in hand after use: " + GetItemInHand());
+        ApplyHunger(-1.0f * Time.deltaTime);
+
+        if (GetHunger() <= _maxHunger / 2)
+        {
+            ApplyDamage(5.0f * Time.deltaTime);
+        }
+        
+        
+        //print("Item in hand after use: " + GetItemInHand());
     }
 
     protected override void Die()
@@ -56,6 +65,7 @@ public class Player : Entity
         if (Health <= _maxHealth)
         {
             Health += health;
+            TakenDamage?.Invoke();
         }
         else
         {
@@ -63,17 +73,30 @@ public class Player : Entity
         }
     }
     
-    public override void ApplyDamage(int damage)
+    public override void ApplyDamage(float damage)
     {
         Health -= damage;
         StartCoroutine(PlayDamageEffect());
         TakenDamage?.Invoke();
     }
+
+    public void ApplyHunger(float hunger)
+    {
+        if (_currentHunger <= _maxHunger)
+        {
+            _currentHunger += hunger;
+            HungerChanged?.Invoke();
+        }
+        else
+        {
+            _currentHunger = _maxHunger;
+        }
+    }
     
     public void UseEnergy(int energy)
     {
         _currentEnergy -= energy;
-        EnergyUsed.Invoke();
+        EnergyUsed?.Invoke();
     }
     
     private IEnumerator PlayDamageEffect()
@@ -83,12 +106,12 @@ public class Player : Entity
         sprite.color = Color.white;
     }
 
-    public int GetHealth()
+    public float GetHealth()
     {
         return Health;
     }
 
-    public int GetMaxHealth()
+    public float GetMaxHealth()
     {
         return _maxHealth;
     }
@@ -103,12 +126,12 @@ public class Player : Entity
         return _maxEnergy;
     }
     
-    public int GetHunger()
+    public float GetHunger()
     {
         return _currentHunger;
     }
 
-    public int GetMaxHunger()
+    public float GetMaxHunger()
     {
         return _maxHunger;
     }

@@ -28,6 +28,23 @@ public class InventorySlot : MonoBehaviour
         inventorySlotInfoBox.SetActive(false);
     }
 
+    private void Update()
+    {
+        if (_player.GetItemInHand() == null)
+        {
+            _toolIcon.sprite = null;
+            _toolIcon.enabled = false;
+        }
+
+        // If item in hand becomes null but there are still items left in the stack,
+        // set the new item in hand to the next in the stack
+        /*if (_player.GetItemInHand() == null && GetComponent<ItemStack>().GetItems().Count > 0)
+        {
+            print("ITEM IN HAND: " + GetComponent<ItemStack>().GetItems()[GetComponent<ItemStack>().GetItems().Count-1]);
+            _player.SetItemInHand(GetComponent<ItemStack>().GetItems()[GetComponent<ItemStack>().GetItems().Count-1]);
+        }*/
+    }
+
     public void OnCursorEnter()
     {
         GetComponent<Image>().color = new Color(0.6f, 0.4f, 0);

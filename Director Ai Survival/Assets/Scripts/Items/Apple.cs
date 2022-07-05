@@ -9,9 +9,15 @@ namespace Items
     {
         //public Action<int> OnConsumption;
         [SerializeField] private GameObject appleObtainedText;
-        
+
+        private Player _player;
         private int _healthGainOnConsumption = 10;
         private int _stackCounter;
+
+        private void Awake()
+        {
+            _player = GameObject.FindWithTag("Player").GetComponent<Player>();
+        }
 
         private void Start()
         {
@@ -38,16 +44,8 @@ namespace Items
         public override void UseItem()
         {
             InventoryResourceCache.Instance.ItemToRemoveFromInv(GetItemStackID(),this);
-            //print(this + " " + GetItemStackID());
+            _player.ApplyHunger(10); // TODO: Refactor! This logic shouldn't be here
             Destroy(gameObject);
-            //print("Apple consumed");
-            // Give player 10 health points
-            // Remove from itemstack
-
-            //OnConsumption?.Invoke(_healthGainOnConsumption);
-            //InventoryResourceCache.Instance.AddToCache(this);
-            //Destroy(gameObject);
-            //GetComponent<Player>().ApplyHealth(_healthGainOnConsumption);
         }
     }
 }

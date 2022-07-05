@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class Entity : MonoBehaviour, IDamageable
 { 
-    protected int Health;
+    protected float Health;
     protected int Damage;
 
     public virtual void Update()
@@ -15,7 +15,7 @@ public abstract class Entity : MonoBehaviour, IDamageable
         }
     }
     
-    public virtual void ApplyDamage(int damage) {}
+    public virtual void ApplyDamage(float damage) {}
 
     protected virtual void Die()
     {

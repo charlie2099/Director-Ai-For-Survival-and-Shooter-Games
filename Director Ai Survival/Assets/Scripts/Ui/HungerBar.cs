@@ -11,25 +11,19 @@ public class HungerBar : MonoBehaviour
 
     private void OnEnable()
     {
+        _player.HungerChanged += UpdateHungerBar;
         //_player.EnergyUsed += UpdateHungerBar;
     }
 
     private void OnDisable()
     {
+        _player.HungerChanged -= UpdateHungerBar;
         //_player.EnergyUsed -= UpdateHungerBar;
     }
 
     private void Awake()
     {
         _player = gameObject.GetComponent<Player>();
-    }
-
-    private void Update()
-    {
-        if (slider.value >= 0)
-        {
-            slider.value -= 0.01f * Time.deltaTime;
-        }
     }
 
     private void UpdateHungerBar()
