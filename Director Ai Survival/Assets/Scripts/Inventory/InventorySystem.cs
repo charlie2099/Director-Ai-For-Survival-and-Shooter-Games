@@ -26,6 +26,7 @@ namespace Inventory
             }
 
             InventoryResourceCache.Instance.ItemCollected += AddToStackEvent;
+            InventoryResourceCache.Instance.ItemToRemove += RemoveFromStackEvent;
         }
 
         private void OnDisable()
@@ -37,6 +38,7 @@ namespace Inventory
             }
             
             InventoryResourceCache.Instance.ItemCollected -= AddToStackEvent;
+            InventoryResourceCache.Instance.ItemToRemove -= RemoveFromStackEvent;
         }
 
         private void Start()
@@ -128,6 +130,13 @@ namespace Inventory
                 }
             }
             return false;
+        }
+        
+        private void RemoveFromStackEvent(ItemStack itemStack, Item item)
+        {
+            itemStack.RemoveFromStack(item);
+            //itemStack.AddToStack(item);
+            print("REMOVE REMOVE REMOVE");
         }
     }
 }

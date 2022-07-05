@@ -1223,6 +1223,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1799680070}
+  - {fileID: 187109259}
   m_Father: {fileID: 154794736}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
@@ -1523,6 +1524,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 166118227}
   m_CullTransparentMesh: 1
+--- !u!1 &187109258
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 187109259}
+  m_Layer: 0
+  m_Name: Inventory
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &187109259
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 187109258}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 137695918}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &194965786
 GameObject:
   m_ObjectHideFlags: 0
@@ -48984,10 +49015,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 243767754}
     m_Modifications:
-    - target: {fileID: 3317407679578871960, guid: f6099456679233542bb9538de1dca0cf, type: 3}
-      propertyPath: m_Radius
-      value: 0.76
-      objectReference: {fileID: 0}
     - target: {fileID: 3317407679578871965, guid: f6099456679233542bb9538de1dca0cf, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -49042,34 +49069,14 @@ PrefabInstance:
       objectReference: {fileID: 492416416}
     - target: {fileID: 3317407679578871966, guid: f6099456679233542bb9538de1dca0cf, type: 3}
       propertyPath: itemsToSpawn.Array.size
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3317407679578871966, guid: f6099456679233542bb9538de1dca0cf, type: 3}
-      propertyPath: itemsToSpawn.Array.data[0]
+      propertyPath: playerInventoryContainer
       value: 
-      objectReference: {fileID: 8262503914090139854, guid: 556fe3d8f67da0e4dbf946f8366529e0, type: 3}
-    - target: {fileID: 3317407679578871966, guid: f6099456679233542bb9538de1dca0cf, type: 3}
-      propertyPath: itemsToSpawn.Array.data[1]
-      value: 
-      objectReference: {fileID: 5893238087182022172, guid: 31741212b57fc1540a907056b2243e0a, type: 3}
-    - target: {fileID: 3317407679578871966, guid: f6099456679233542bb9538de1dca0cf, type: 3}
-      propertyPath: itemsToSpawn.Array.data[2]
-      value: 
-      objectReference: {fileID: 7169427878702463314, guid: 20bbd424be8458f44b46397bcaa827af, type: 3}
-    - target: {fileID: 3317407679578871966, guid: f6099456679233542bb9538de1dca0cf, type: 3}
-      propertyPath: itemsToSpawn.Array.data[3]
-      value: 
-      objectReference: {fileID: 4457543582006655645, guid: 1342d8fef0c26cb42bf68cfb3e4df5ae, type: 3}
-    - target: {fileID: 3317407679578871966, guid: f6099456679233542bb9538de1dca0cf, type: 3}
-      propertyPath: itemsToSpawn.Array.data[4]
-      value: 
-      objectReference: {fileID: 8344963053197294819, guid: 7474f02a2134b364cbdc61e9290bbef4, type: 3}
+      objectReference: {fileID: 187109258}
     - target: {fileID: 3317407679578871966, guid: f6099456679233542bb9538de1dca0cf, type: 3}
       propertyPath: itemsToSpawn.Array.data[5]
-      value: 
-      objectReference: {fileID: 1944229279922174551, guid: 325aa7ba516d2dd41ba09671f2547fc8, type: 3}
-    - target: {fileID: 3317407679578871966, guid: f6099456679233542bb9538de1dca0cf, type: 3}
-      propertyPath: itemsToSpawn.Array.data[6]
       value: 
       objectReference: {fileID: 6271246920548730807, guid: 4cc0b74fbe71fbc478afb5158c8531e3, type: 3}
     - target: {fileID: 3317407679578871966, guid: f6099456679233542bb9538de1dca0cf, type: 3}
@@ -49096,14 +49103,6 @@ PrefabInstance:
       propertyPath: chestInventorySlots.Array.data[5]
       value: 
       objectReference: {fileID: 1216991437}
-    - target: {fileID: 3317407679578871967, guid: f6099456679233542bb9538de1dca0cf, type: 3}
-      propertyPath: m_Size.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3317407679578871967, guid: f6099456679233542bb9538de1dca0cf, type: 3}
-      propertyPath: m_Size.y
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 3317407679578872035, guid: f6099456679233542bb9538de1dca0cf, type: 3}
       propertyPath: m_Name
       value: Chest

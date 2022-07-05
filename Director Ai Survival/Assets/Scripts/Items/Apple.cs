@@ -7,7 +7,7 @@ namespace Items
 {
     public class Apple : Item
     {
-        public Action<int> OnConsumption;
+        //public Action<int> OnConsumption;
         [SerializeField] private GameObject appleObtainedText;
         
         private int _healthGainOnConsumption = 10;
@@ -37,10 +37,17 @@ namespace Items
 
         public override void UseItem()
         {
-            print("Apple consumed");
-            OnConsumption?.Invoke(_healthGainOnConsumption);
+            InventoryResourceCache.Instance.ItemToRemoveFromInv(GetItemStackID(),this);
+            //print(this + " " + GetItemStackID());
+            Destroy(gameObject);
+            //print("Apple consumed");
+            // Give player 10 health points
+            // Remove from itemstack
+
+            //OnConsumption?.Invoke(_healthGainOnConsumption);
             //InventoryResourceCache.Instance.AddToCache(this);
             //Destroy(gameObject);
+            //GetComponent<Player>().ApplyHealth(_healthGainOnConsumption);
         }
     }
 }

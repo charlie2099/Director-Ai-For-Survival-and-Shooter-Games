@@ -7,7 +7,7 @@ using UnityEngine;
 public class Player : Entity
 {
     public Action IsDead;
-    public Action<int> DamageTaken;
+    public Action TakenDamage;
     public Action EnergyUsed;
     [SerializeField] private SpriteRenderer sprite;
 
@@ -36,14 +36,19 @@ public class Player : Entity
 
         if (Input.GetKeyDown(KeyCode.Mouse1))
         {
-            GetItemInHand().UseItem();
+            if (GetItemInHand() != null)
+            {
+                GetItemInHand().UseItem();
+            }
         }
+        
+        print("Item in hand after use: " + GetItemInHand());
     }
 
     protected override void Die()
     {
         base.Die();
-        IsDead.Invoke();
+        IsDead?.Invoke();
     }
 
     public void ApplyHealth(int health)
@@ -62,7 +67,7 @@ public class Player : Entity
     {
         Health -= damage;
         StartCoroutine(PlayDamageEffect());
-        DamageTaken.Invoke(damage);
+        TakenDamage?.Invoke();
     }
     
     public void UseEnergy(int energy)

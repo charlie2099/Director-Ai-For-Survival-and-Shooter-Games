@@ -4,6 +4,7 @@ namespace Items
 {
     public class Item : MonoBehaviour
     {
+        private ItemStack _itemStackID;
         private ItemType.Type _itemType;
         private int _maxStackSize = 16;
         private string _itemInfo = "No Info";
@@ -28,6 +29,11 @@ namespace Items
             _itemInfo = text;
         }
 
+        public void SetItemStackID(ItemStack itemStack)
+        {
+            _itemStackID = itemStack;
+        }
+
         public ItemType.Type GetItemType()
         {
             return _itemType;
@@ -41,6 +47,11 @@ namespace Items
         public string GetItemInfo()
         {
             return _itemInfo;
+        }
+
+        public ItemStack GetItemStackID()
+        {
+            return _itemStackID;
         }
     }
 }

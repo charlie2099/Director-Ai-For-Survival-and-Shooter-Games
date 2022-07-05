@@ -17,6 +17,7 @@ public class Chest : MonoBehaviour
     [SerializeField] private GameObject uiPanel;
     [SerializeField] private Sprite chestOpenSprite;
     [SerializeField] private Sprite chestClosedSprite;
+    [SerializeField] private GameObject playerInventoryContainer;
 
     [Space] 
     [SerializeField] private GameObject[] itemsToSpawn;
@@ -124,12 +125,14 @@ public class Chest : MonoBehaviour
             uiPanel.transform.position = transform.position + new Vector3(0, -0.7f);
             _uiPanelText.text = "Press SPACE";
 
+            // Open chest
             if (Input.GetKeyDown(KeyCode.Space) && !_isOpen)
             {
                 _chestSpriteRenderer.sprite = chestOpenSprite;
                 chestInventoryUi.SetActive(true);
                 _isOpen = true;
             }
+            // Close chest
             else if (Input.GetKeyDown(KeyCode.Space) && _isOpen)
             {
                 _chestSpriteRenderer.sprite = chestClosedSprite;
@@ -137,9 +140,9 @@ public class Chest : MonoBehaviour
                 _isOpen = false;
             }
             
+            // Add items to player inventory
             if (Input.GetKeyDown(KeyCode.Q) && _isOpen)
             {
-                print("Items collected");
                 foreach (var chestSlot in chestInventorySlots.ToList())
                 {
                     foreach (var item in chestSlot.itemStackList.ToList())
@@ -147,9 +150,24 @@ public class Chest : MonoBehaviour
                         InventoryResourceCache.Instance.AddToCache(item);
                         chestSlot.RemoveFromStack(item);
                         chestSlot.transform.GetChild(0).GetChild(0).GetComponent<Image>().enabled = false;
+                        item.transform.parent = playerInventoryContainer.transform;
+                        item.gameObject.SetActive(false);
                     }
                 }
             }
+
+            // Destroy chest if all items have been removed
+            if (chestInventorySlots[0].GetItems().Count <= 0 &&
+                chestInventorySlots[1].GetItems().Count <= 0 &&
+                chestInventorySlots[2].GetItems().Count <= 0 &&
+                chestInventorySlots[3].GetItems().Count <= 0 &&
+                chestInventorySlots[4].GetItems().Count <= 0 &&
+                chestInventorySlots[5].GetItems().Count <= 0)
+            {
+                uiPanel.SetActive(false);
+                Destroy(gameObject);
+            }
+            
         }
         else
         {

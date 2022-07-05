@@ -53,7 +53,7 @@ public class InventorySlot : MonoBehaviour
         GetComponent<Image>().color = new Color(0f, 0.24f,0.34f);
         if (GetComponent<ItemStack>().GetCurrentStackSize() > 0)
         {
-            _player.SetItemInHand(GetComponent<ItemStack>().GetItems()[0]);
+            _player.SetItemInHand(GetComponent<ItemStack>().GetItems()[GetComponent<ItemStack>().GetItems().Count-1]);
             _toolIcon.enabled = true;
             _toolIcon.sprite = GetComponent<ItemStack>().transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite;
         }

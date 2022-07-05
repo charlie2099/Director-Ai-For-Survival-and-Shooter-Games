@@ -13,20 +13,22 @@ namespace Items
         private ItemType.Type _stackItemType = ItemType.Type.NONE;
         private int _maxStackSize = 16;
 
-        public void AddToStack(Item item) // null check?
+        public void AddToStack(Item item) 
         {
             if (itemStackList.Count <= 0)
             {
-                FirstItemAddedToStack.Invoke(this, item);
+                FirstItemAddedToStack?.Invoke(this, item);
             }
             itemStackList.Add(item);
-            ItemStackChange.Invoke(this);
+            ItemStackChange?.Invoke(this);
+            item.SetItemStackID(this);
         }
 
         public void RemoveFromStack(Item item)
         {
+            //print("Received Item To Remove: " + item.name);
             itemStackList.Remove(item);
-            ItemStackChange.Invoke(this);
+            ItemStackChange?.Invoke(this);
         }
 
         public void SetStackItemType(ItemType.Type itemType)

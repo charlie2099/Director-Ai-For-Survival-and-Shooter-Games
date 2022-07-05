@@ -10,6 +10,7 @@ namespace Inventory
         public static InventoryResourceCache Instance;
         
         public Action<Item> ItemCollected;
+        public Action<ItemStack, Item> ItemToRemove;
 
         private void Awake()
         {
@@ -19,6 +20,11 @@ namespace Inventory
         public void AddToCache(Item item)
         {
             ItemCollected?.Invoke(item);
+        }
+        
+        public void ItemToRemoveFromInv(ItemStack itemStack, Item item)
+        {
+            ItemToRemove?.Invoke(itemStack, item);
         }
     }
 }

@@ -110,7 +110,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.4375, y: 0.40625}
+  m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
 --- !u!58 &3317407679578871960
 CircleCollider2D:
@@ -127,7 +127,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.61
+  m_Radius: 0.76
 --- !u!114 &3317407679578871966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,7 +151,11 @@ MonoBehaviour:
   uiPanel: {fileID: 0}
   chestOpenSprite: {fileID: -2601844558737524976, guid: 86c53cb5ef6f339498af54ca6e82e6d4, type: 3}
   chestClosedSprite: {fileID: 7807952054443111765, guid: 86c53cb5ef6f339498af54ca6e82e6d4, type: 3}
+  playerInventoryContainer: {fileID: 0}
   itemsToSpawn:
+  - {fileID: 8262503914090139854, guid: 556fe3d8f67da0e4dbf946f8366529e0, type: 3}
+  - {fileID: 5893238087182022172, guid: 31741212b57fc1540a907056b2243e0a, type: 3}
+  - {fileID: 7169427878702463314, guid: 20bbd424be8458f44b46397bcaa827af, type: 3}
   - {fileID: 4457543582006655645, guid: 1342d8fef0c26cb42bf68cfb3e4df5ae, type: 3}
   - {fileID: 8344963053197294819, guid: 7474f02a2134b364cbdc61e9290bbef4, type: 3}
   - {fileID: 1944229279922174551, guid: 325aa7ba516d2dd41ba09671f2547fc8, type: 3}
