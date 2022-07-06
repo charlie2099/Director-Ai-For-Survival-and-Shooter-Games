@@ -51,61 +51,58 @@ public class Merchant : MonoBehaviour
     {
         merchantInventoryUi.SetActive(false);
         
-        GameObject chestItem = Instantiate(itemsToSpawn[0], transform.position, Quaternion.identity);
+        GameObject merchantItem = Instantiate(itemsToSpawn[0], transform.position, Quaternion.identity);
+        merchantItem.transform.parent = transform;
+        if (merchantItem.GetComponent<CannonItem>() != null)
+        {
+            merchantItem.GetComponent<CannonItem>().SetItemType(ItemType.Type.CANNON);
+            merchantItem.GetComponent<CannonItem>().SetMaxStackSize(1);
+            AddToStackEvent(merchantItem.GetComponent<CannonItem>());
+        }
+        
+        GameObject merchantItem2 = Instantiate(itemsToSpawn[1], transform.position, Quaternion.identity);
+        merchantItem2.transform.parent = transform;
+        if (merchantItem2.GetComponent<CannonItem>() != null)
+        {
+            merchantItem2.GetComponent<CannonItem>().SetItemType(ItemType.Type.CANNON);
+            merchantItem2.GetComponent<CannonItem>().SetMaxStackSize(1);
+            AddToStackEvent(merchantItem2.GetComponent<CannonItem>());
+        }
+        
+        GameObject merchantItem3 = Instantiate(itemsToSpawn[2], transform.position, Quaternion.identity);
+        merchantItem3.transform.parent = transform;
+        if (merchantItem3.GetComponent<CannonItem>() != null)
+        {
+            merchantItem3.GetComponent<CannonItem>().SetItemType(ItemType.Type.CANNON);
+            merchantItem3.GetComponent<CannonItem>().SetMaxStackSize(1);
+            AddToStackEvent(merchantItem3.GetComponent<CannonItem>());
+        }
+        
+        GameObject merchantItem4 = Instantiate(itemsToSpawn[3], transform.position, Quaternion.identity);
+        merchantItem4.transform.parent = transform;
+        if (merchantItem4.GetComponent<CannonItem>() != null)
+        {
+            merchantItem4.GetComponent<CannonItem>().SetItemType(ItemType.Type.CANNON);
+            merchantItem4.GetComponent<CannonItem>().SetMaxStackSize(1);
+            AddToStackEvent(merchantItem4.GetComponent<CannonItem>());
+        }
+
+        /*foreach (var item in itemsToSpawn)
+        {
+            GameObject merchantItem = Instantiate(item, transform.position, Quaternion.identity);
+            merchantItem.transform.parent = transform;
+            merchantItem.GetComponent<Item>().SetItemType(item.GetComponent<Item>().GetItemType());
+            AddToStackEvent(merchantItem.GetComponent<Item>());
+        }*/
+        
+        /*GameObject chestItem = Instantiate(itemsToSpawn[0], transform.position, Quaternion.identity);
         chestItem.transform.parent = transform;
         if (chestItem.GetComponent<Sword>() != null)
         {
             chestItem.GetComponent<Sword>().SetItemType(ItemType.Type.SWORD);
             chestItem.GetComponent<Sword>().SetMaxStackSize(1);
             AddToStackEvent(chestItem.GetComponent<Sword>());
-        }
-        
-        GameObject chestItem2 = Instantiate(itemsToSpawn[1], transform.position, Quaternion.identity);
-        chestItem2.transform.parent = transform;
-        if (chestItem2.GetComponent<Pickaxe>() != null)
-        {
-            chestItem2.GetComponent<Pickaxe>().SetItemType(ItemType.Type.PICKAXE);
-            chestItem2.GetComponent<Pickaxe>().SetMaxStackSize(1);
-            AddToStackEvent(chestItem2.GetComponent<Pickaxe>());
-        }
-        
-        GameObject chestItem3 = Instantiate(itemsToSpawn[2], transform.position, Quaternion.identity);
-        chestItem3.transform.parent = transform;
-        if (chestItem3.GetComponent<Axe>() != null)
-        {
-            chestItem3.GetComponent<Axe>().SetItemType(ItemType.Type.AXE);
-            chestItem3.GetComponent<Axe>().SetMaxStackSize(1);
-            AddToStackEvent(chestItem3.GetComponent<Axe>());
-        }
-        
-        for (int i = 0; i < Random.Range(16, 17); i++)
-        {
-            GameObject chestItems = Instantiate(itemsToSpawn[Random.Range(3,itemsToSpawn.Length)], transform.position, Quaternion.identity);
-            chestItems.transform.parent = transform;
-            //chestItem.transform.position = new Vector3(chestItem.transform.position.x, chestItem.transform.position.y + 1);
-
-            // TODO: Refactor!
-            if (chestItems.GetComponent<Stone>() != null)
-            {
-                chestItems.GetComponent<Stone>().SetItemType(ItemType.Type.STONE);
-                AddToStackEvent(chestItems.GetComponent<Stone>());
-            }
-            if (chestItems.GetComponent<Wood>() != null)
-            {
-                chestItems.GetComponent<Wood>().SetItemType(ItemType.Type.WOOD);
-                AddToStackEvent(chestItems.GetComponent<Wood>());
-            }
-            if (chestItems.GetComponent<Apple>() != null)
-            {
-                chestItems.GetComponent<Apple>().SetItemType(ItemType.Type.APPLE);
-                AddToStackEvent(chestItems.GetComponent<Apple>());
-            }
-            if (chestItems.GetComponent<Gold>() != null)
-            {
-                chestItems.GetComponent<Gold>().SetItemType(ItemType.Type.GOLD);
-                AddToStackEvent(chestItems.GetComponent<Gold>());
-            }
-        }
+        }*/
     }
 
     private void Update()
@@ -149,9 +146,7 @@ public class Merchant : MonoBehaviour
             if (merchantInventorySlots[0].GetItems().Count <= 0 &&
                 merchantInventorySlots[1].GetItems().Count <= 0 &&
                 merchantInventorySlots[2].GetItems().Count <= 0 &&
-                merchantInventorySlots[3].GetItems().Count <= 0 &&
-                merchantInventorySlots[4].GetItems().Count <= 0 &&
-                merchantInventorySlots[5].GetItems().Count <= 0)
+                merchantInventorySlots[3].GetItems().Count <= 0)
             {
                 uiPanel.SetActive(false);
                 merchantInventoryUi.SetActive(false);

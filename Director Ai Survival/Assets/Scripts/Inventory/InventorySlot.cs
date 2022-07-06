@@ -50,7 +50,8 @@ public class InventorySlot : MonoBehaviour
         GetComponent<Image>().color = new Color(0.6f, 0.4f, 0);
         inventorySlotInfoBox.SetActive(true);
         inventorySlotInfoBox.transform.parent = _inventorySlotPanel;
-        inventorySlotInfoBox.transform.position = _inventorySlotPanel.transform.position + new Vector3(60, 175, 20);
+        inventorySlotInfoBox.transform.position = _inventorySlotPanel.transform.position + new Vector3(-20, 30, 100);
+        //inventorySlotInfoBox.transform.position = _inventorySlotPanel.transform.position/* + new Vector3(22, 65, 20)*/;
         inventorySlotInfoBox.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = GetComponent<ItemStack>().GetItemType().ToString();
 
         if (GetComponent<ItemStack>().GetItems().Count > 0)

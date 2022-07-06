@@ -49,9 +49,6 @@ public class Player : Entity
         {
             ApplyDamage(5.0f * Time.deltaTime);
         }
-        
-        
-        //print("Item in hand after use: " + GetItemInHand());
     }
 
     protected override void Die()

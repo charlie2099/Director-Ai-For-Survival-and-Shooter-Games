@@ -11,7 +11,8 @@
             APPLE,
             SWORD,
             PICKAXE,
-            AXE
+            AXE,
+            CANNON
         };
     }
 }
