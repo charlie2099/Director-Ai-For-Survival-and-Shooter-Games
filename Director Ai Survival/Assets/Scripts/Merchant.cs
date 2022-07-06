@@ -73,6 +73,20 @@ public class Merchant : MonoBehaviour
                 //merchantItem.GetComponent<CannonItem>().SetMaxStackSize(1);
                 AddToShopStack(merchantItem.GetComponent<CannonItem>());
             }
+            
+            if (merchantItem.GetComponent<MusketItem>() != null)
+            {
+                merchantItem.GetComponent<MusketItem>().SetItemType(ItemType.Type.MUSKET);
+                //merchantItem.GetComponent<CannonItem>().SetMaxStackSize(1);
+                AddToShopStack(merchantItem.GetComponent<MusketItem>());
+            }
+            
+            if (merchantItem.GetComponent<MercenaryItem>() != null)
+            {
+                merchantItem.GetComponent<MercenaryItem>().SetItemType(ItemType.Type.MERCENARY);
+                //merchantItem.GetComponent<CannonItem>().SetMaxStackSize(1);
+                AddToShopStack(merchantItem.GetComponent<MercenaryItem>());
+            }
         }
         
         _totalResourcesRequired = shopItem.resourcesRequired * shopItem.merchantInventorySlot.GetCurrentStackSize();

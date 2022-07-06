@@ -13,7 +13,8 @@
             PICKAXE,
             AXE,
             CANNON,
-            MUSKET
+            MUSKET,
+            MERCENARY
         };
     }
 }
