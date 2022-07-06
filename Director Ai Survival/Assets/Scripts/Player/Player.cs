@@ -10,14 +10,22 @@ public class Player : Entity
     public Action TakenDamage;
     public Action EnergyUsed;
     public Action HungerChanged;
-    [SerializeField] private SpriteRenderer sprite;
 
+    [SerializeField] private Sprite _defaultSprite;
+    [SerializeField] private Sprite _shootingSprite;
+
+    private SpriteRenderer _spriteRenderer;
     private Item _activeItem = new Item();
     private float _maxHealth;
     private int _maxEnergy;
     private float _maxHunger;
     private int _currentEnergy;
     private float _currentHunger;
+
+    private void Awake()
+    {
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+    }
 
     private void Start()
     {
@@ -34,6 +42,8 @@ public class Player : Entity
     public override void Update()
     {
         base.Update();
+        
+        _spriteRenderer.sprite = GetItemTypeInHand() == ItemType.Type.MUSKET ? _shootingSprite : _defaultSprite;
 
         if (Input.GetKeyDown(KeyCode.Mouse1))
         {
@@ -98,9 +108,9 @@ public class Player : Entity
     
     private IEnumerator PlayDamageEffect()
     {
-        sprite.color = Color.red;
+        _spriteRenderer.color = Color.red;
         yield return new WaitForSeconds(0.1f);
-        sprite.color = Color.white;
+        _spriteRenderer.color = Color.white;
     }
 
     public float GetHealth()

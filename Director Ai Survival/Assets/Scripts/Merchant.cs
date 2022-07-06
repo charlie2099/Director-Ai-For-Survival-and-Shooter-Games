@@ -62,7 +62,7 @@ public class Merchant : MonoBehaviour
     {
         merchantInventoryUi.SetActive(false);
 
-        for (int i = 0; i < Random.Range(1, 4); i++)
+        for (int i = 0; i < Random.Range(1, 3); i++)
         {
             GameObject merchantItem = Instantiate(shopItem.itemToSell, transform.position, Quaternion.identity);
             merchantItem.transform.parent = transform;

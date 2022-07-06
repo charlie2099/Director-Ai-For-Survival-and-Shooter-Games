@@ -12,7 +12,8 @@
             SWORD,
             PICKAXE,
             AXE,
-            CANNON
+            CANNON,
+            MUSKET
         };
     }
 }

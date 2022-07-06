@@ -135,8 +135,6 @@ namespace Inventory
         private void RemoveFromStackEvent(ItemStack itemStack, Item item)
         {
             itemStack.RemoveFromStack(item);
-            //itemStack.AddToStack(item);
-            print("REMOVE REMOVE REMOVE");
         }
     }
 }

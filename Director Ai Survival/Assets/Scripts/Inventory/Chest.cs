@@ -110,10 +110,11 @@ public class Chest : MonoBehaviour
                 chestItems.GetComponent<Gold>().SetItemType(ItemType.Type.GOLD);
                 AddToStackEvent(chestItems.GetComponent<Gold>());
             }
-            /*else
+            if (chestItems.GetComponent<MusketItem>() != null)
             {
-                Destroy(chestItem);
-            }*/
+                chestItems.GetComponent<MusketItem>().SetItemType(ItemType.Type.MUSKET);
+                AddToStackEvent(chestItems.GetComponent<MusketItem>());
+            }
         }
     }
 
