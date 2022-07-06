@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,103 +7,87 @@ using Items;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class Merchant : MonoBehaviour
 {
-    public List<ItemStack> merchantInventorySlots = new List<ItemStack>();
+    [Serializable]
+    public struct ShopItem
+    {
+        public GameObject itemToSell;
+        public GameObject resourceCost;
+        public ItemStack merchantInventorySlot;
+        public ItemStack merchantResourceSlot;
+        public int resourcesRequired;
+    }
+    [SerializeField] private ShopItem shopItem;
+    
+    [Space]
     [SerializeField] private GameObject merchantInventoryUi;
     [SerializeField] private GameObject uiPanel;
     [SerializeField] private GameObject playerInventoryContainer;
 
-    [Space] 
-    [SerializeField] private GameObject[] itemsToSpawn;
-    
-    private SpriteRenderer merchantSpriteRenderer;
+    private InventorySystem _playerInventorySystem;
     private Text _uiPanelText;
+    private int _totalResourcesRequired;
     private bool _isInRange;
     private bool _isOpen;
     private bool _mouseIsOver;
     
     private void OnEnable()
     {
-        foreach (var slot in merchantInventorySlots)
-        {
-            slot.FirstItemAddedToStack += SetInventorySlotImage;
-            slot.ItemStackChange += UpdateStackSize;
-        }
+        shopItem.merchantInventorySlot.FirstItemAddedToStack += SetInventorySlotImage;
+        shopItem.merchantInventorySlot.ItemStackChange += UpdateStackSize;
+        
+        shopItem.merchantResourceSlot.FirstItemAddedToStack += SetInventorySlotImage;
+        shopItem.merchantResourceSlot.ItemStackChange += UpdateStackSize;
     }
 
     private void OnDisable()
     {
-        foreach (var slot in merchantInventorySlots)
-        {
-            slot.FirstItemAddedToStack -= SetInventorySlotImage;
-            slot.ItemStackChange -= UpdateStackSize;
-        }
+        shopItem.merchantInventorySlot.FirstItemAddedToStack -= SetInventorySlotImage;
+        shopItem.merchantInventorySlot.ItemStackChange -= UpdateStackSize;
+        
+        shopItem.merchantResourceSlot.FirstItemAddedToStack -= SetInventorySlotImage;
+        shopItem.merchantResourceSlot.ItemStackChange -= UpdateStackSize;
     }
 
     private void Awake()
     {
-        merchantSpriteRenderer = GetComponent<SpriteRenderer>();
         _uiPanelText = uiPanel.GetComponentInChildren<Text>();
+        _playerInventorySystem = playerInventoryContainer.transform.parent.GetComponent<InventorySystem>();
     }
 
     private void Start()
     {
         merchantInventoryUi.SetActive(false);
-        
-        GameObject merchantItem = Instantiate(itemsToSpawn[0], transform.position, Quaternion.identity);
-        merchantItem.transform.parent = transform;
-        if (merchantItem.GetComponent<CannonItem>() != null)
-        {
-            merchantItem.GetComponent<CannonItem>().SetItemType(ItemType.Type.CANNON);
-            merchantItem.GetComponent<CannonItem>().SetMaxStackSize(1);
-            AddToStackEvent(merchantItem.GetComponent<CannonItem>());
-        }
-        
-        GameObject merchantItem2 = Instantiate(itemsToSpawn[1], transform.position, Quaternion.identity);
-        merchantItem2.transform.parent = transform;
-        if (merchantItem2.GetComponent<CannonItem>() != null)
-        {
-            merchantItem2.GetComponent<CannonItem>().SetItemType(ItemType.Type.CANNON);
-            merchantItem2.GetComponent<CannonItem>().SetMaxStackSize(1);
-            AddToStackEvent(merchantItem2.GetComponent<CannonItem>());
-        }
-        
-        GameObject merchantItem3 = Instantiate(itemsToSpawn[2], transform.position, Quaternion.identity);
-        merchantItem3.transform.parent = transform;
-        if (merchantItem3.GetComponent<CannonItem>() != null)
-        {
-            merchantItem3.GetComponent<CannonItem>().SetItemType(ItemType.Type.CANNON);
-            merchantItem3.GetComponent<CannonItem>().SetMaxStackSize(1);
-            AddToStackEvent(merchantItem3.GetComponent<CannonItem>());
-        }
-        
-        GameObject merchantItem4 = Instantiate(itemsToSpawn[3], transform.position, Quaternion.identity);
-        merchantItem4.transform.parent = transform;
-        if (merchantItem4.GetComponent<CannonItem>() != null)
-        {
-            merchantItem4.GetComponent<CannonItem>().SetItemType(ItemType.Type.CANNON);
-            merchantItem4.GetComponent<CannonItem>().SetMaxStackSize(1);
-            AddToStackEvent(merchantItem4.GetComponent<CannonItem>());
-        }
 
-        /*foreach (var item in itemsToSpawn)
+        for (int i = 0; i < Random.Range(1, 4); i++)
         {
-            GameObject merchantItem = Instantiate(item, transform.position, Quaternion.identity);
+            GameObject merchantItem = Instantiate(shopItem.itemToSell, transform.position, Quaternion.identity);
             merchantItem.transform.parent = transform;
-            merchantItem.GetComponent<Item>().SetItemType(item.GetComponent<Item>().GetItemType());
-            AddToStackEvent(merchantItem.GetComponent<Item>());
-        }*/
         
-        /*GameObject chestItem = Instantiate(itemsToSpawn[0], transform.position, Quaternion.identity);
-        chestItem.transform.parent = transform;
-        if (chestItem.GetComponent<Sword>() != null)
+            if (merchantItem.GetComponent<CannonItem>() != null)
+            {
+                merchantItem.GetComponent<CannonItem>().SetItemType(ItemType.Type.CANNON);
+                //merchantItem.GetComponent<CannonItem>().SetMaxStackSize(1);
+                AddToShopStack(merchantItem.GetComponent<CannonItem>());
+            }
+        }
+        
+        _totalResourcesRequired = shopItem.resourcesRequired * shopItem.merchantInventorySlot.GetCurrentStackSize();
+        
+        for (int i = 0; i < _totalResourcesRequired; i++)
         {
-            chestItem.GetComponent<Sword>().SetItemType(ItemType.Type.SWORD);
-            chestItem.GetComponent<Sword>().SetMaxStackSize(1);
-            AddToStackEvent(chestItem.GetComponent<Sword>());
-        }*/
+            GameObject merchantResourceCostItem = Instantiate(shopItem.resourceCost, transform.position, Quaternion.identity);
+            merchantResourceCostItem.transform.parent = transform;
+        
+            if (merchantResourceCostItem.GetComponent<Gold>() != null)
+            {
+                merchantResourceCostItem.GetComponent<Gold>().SetItemType(ItemType.Type.GOLD);
+                AddToResourceStack(merchantResourceCostItem.GetComponent<Gold>());
+            }
+        }
     }
 
     private void Update()
@@ -127,26 +112,21 @@ public class Merchant : MonoBehaviour
             }
             
             // Add items to player inventory
-            if (Input.GetKeyDown(KeyCode.Q) && _isOpen)
+            if (Input.GetKeyDown(KeyCode.Q) && _isOpen && FindItemInPlayerInventory(ItemType.Type.GOLD) >= _totalResourcesRequired)
             {
-                foreach (var chestSlot in merchantInventorySlots.ToList())
+                foreach (var item in shopItem.merchantInventorySlot.itemStackList.ToList())
                 {
-                    foreach (var item in chestSlot.itemStackList.ToList())
-                    {
-                        InventoryResourceCache.Instance.AddToCache(item);
-                        chestSlot.RemoveFromStack(item);
-                        chestSlot.transform.GetChild(0).GetChild(0).GetComponent<Image>().enabled = false;
-                        item.transform.parent = playerInventoryContainer.transform;
-                        item.gameObject.SetActive(false);
-                    }
+                    InventoryResourceCache.Instance.AddToCache(item);
+                    shopItem.merchantInventorySlot.RemoveFromStack(item);
+                    shopItem.merchantInventorySlot.transform.GetChild(0).GetChild(0).GetComponent<Image>().enabled = false;
+                    item.transform.parent = playerInventoryContainer.transform;
+                    item.gameObject.SetActive(false);
                 }
+                RemoveItemFromPlayerInventory(ItemType.Type.GOLD);
             }
 
             // Destroy chest if all items have been removed
-            if (merchantInventorySlots[0].GetItems().Count <= 0 &&
-                merchantInventorySlots[1].GetItems().Count <= 0 &&
-                merchantInventorySlots[2].GetItems().Count <= 0 &&
-                merchantInventorySlots[3].GetItems().Count <= 0)
+            if (shopItem.merchantInventorySlot.GetItems().Count <= 0)
             {
                 uiPanel.SetActive(false);
                 merchantInventoryUi.SetActive(false);
@@ -211,53 +191,47 @@ public class Merchant : MonoBehaviour
         itemStack.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = itemStack.GetCurrentStackSize().ToString();
     }
     
-    private void AddToStackEvent(Item item)
+    private void AddToShopStack(Item item)
     {
-        IsStackFull(item);
+        shopItem.merchantInventorySlot.AddToStack(item);
+    }
+    
+    private void AddToResourceStack(Item item)
+    {
+        shopItem.merchantResourceSlot.AddToStack(item);
     }
 
-    private bool IsStackFull(Item item)
+    public int FindItemInPlayerInventory(ItemType.Type itemTypeToFind)
     {
-        // The first item to enter the stack defines the ItemType
-        // for that stack until the last of that item has been
-        // removed from the stack
-        
-        int stackCounter = 0;
-        
-        for (var i = 0; i < merchantInventorySlots.Count; i++)
+        int totalItemsInPlayerInventory = 0;
+        foreach (var slot in _playerInventorySystem.inventorySlots)
         {
-            ItemStack itemStack = merchantInventorySlots[stackCounter];
-
-            // Add to next stack if current is full
-            if (itemStack.GetCurrentStackSize() >= itemStack.GetMaxStackSize())
+            foreach (var item in slot.itemStackList)
             {
-                stackCounter++;
-            }    
-            else
-            {
-                if (itemStack.GetItems().Count <= 0)
+                if (item.GetItemType() == itemTypeToFind)
                 {
-                    itemStack.AddToStack(item);
-                    itemStack.SetStackItemType(item.GetItemType());
-                    return true;
-                }
-                
-                if (itemStack.GetItems().Count > 0)
-                {
-                    if (item.GetItemType() == itemStack.GetItemType())
-                    {
-                        // If item to enter the stack is the same ItemType to the first,
-                        // enter the stack. 
-                        itemStack.AddToStack(item);
-                        return true;
-                    }
-                    if (item.GetItemType() != itemStack.GetItemType())
-                    {
-                        stackCounter++;
-                    }
+                    totalItemsInPlayerInventory++;
+                    print( "Slot: " + slot + ", Item: " + item + ", Stack Size: " + slot.GetCurrentStackSize());
                 }
             }
         }
-        return false;
+        print("Items found: " + totalItemsInPlayerInventory);
+        return totalItemsInPlayerInventory;
+    }
+    
+    public void RemoveItemFromPlayerInventory(ItemType.Type itemTypeToRemove)
+    {
+        int totalItemsInPlayerInventory = 0;
+        foreach (var itemStack in _playerInventorySystem.inventorySlots)
+        {
+            foreach (var item in itemStack.GetItems().ToList())
+            {
+                if (item.GetItemType() == itemTypeToRemove && totalItemsInPlayerInventory < _totalResourcesRequired)
+                {
+                    InventoryResourceCache.Instance.ItemToRemoveFromInv(itemStack, item);
+                    totalItemsInPlayerInventory++;
+                }
+            }
+        }
     }
 }
