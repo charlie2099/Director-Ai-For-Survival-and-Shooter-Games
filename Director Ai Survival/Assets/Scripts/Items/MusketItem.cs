@@ -9,8 +9,15 @@ namespace Items
     {
         [SerializeField] private GameObject musketObtainedText;
         [SerializeField] private GameObject cannonBall;
+
+        private Transform playerFirepoint;
         
         private int _stackCounter;
+
+        private void Awake()
+        {
+            playerFirepoint = GameObject.Find("PlayerFirepoint").transform;
+        }
 
         private void Start()
         {
@@ -37,14 +44,13 @@ namespace Items
         
         public override void UseItem()
         {
-            // When the active item is the musket, change the player's sprite.
-            
             // Instantiate bullet at the firepoint position of the player's musket
             // Fire the bullet in the direction of where the mouse was clicked
             
-            //Instantiate(cannonBall, objectPos, Quaternion.identity);
-            //Vector2 mousePos = Input.mousePosition;
-            //Vector2 objectPos = Camera.main.ScreenToWorldPoint(mousePos);
+            /*Vector2 mousePos = Input.mousePosition;
+            Vector2 objectPos = Camera.main.ScreenToWorldPoint(mousePos);*/
+            GameObject bullet = Instantiate(cannonBall, playerFirepoint.position, Quaternion.identity);
+            bullet.transform.parent = playerFirepoint;
         }
     }
 }

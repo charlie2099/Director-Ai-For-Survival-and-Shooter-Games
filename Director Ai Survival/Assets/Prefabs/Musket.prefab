@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 3672689378044071511}
   - component: {fileID: 3672689378044071510}
   - component: {fileID: 3672689378044071509}
-  - component: {fileID: 3672689378044071512}
   - component: {fileID: 7418848335179033336}
   m_Layer: 0
   m_Name: Musket
@@ -130,21 +129,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 3
---- !u!114 &3672689378044071512
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3672689378044071508}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 748db6ac2b915a14fa2ada354d057d88, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cannonBall: {fileID: 994698120170999471, guid: f5349697518a2594b999752f8d619f6c, type: 3}
-  firePoint: {fileID: 8960772820493618371}
-  muzzleFlash: {fileID: 6841102533094397934}
 --- !u!114 &7418848335179033336
 MonoBehaviour:
   m_ObjectHideFlags: 0
