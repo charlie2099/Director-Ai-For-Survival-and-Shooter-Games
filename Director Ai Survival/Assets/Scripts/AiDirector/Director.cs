@@ -12,14 +12,14 @@ namespace AiDirector
         private int _enemyPopCount;
         private int _killstreak;
 
-        private float timer = 1.0f;
+        private float timer = 0.0f;
 
         private void Update()
         {
             if (Time.time > timer)
             {
                 print("Current Intensity: " + DirectorIntensityCalculator.Instance.CalculatePerceivedIntensityPercentage(playerTemplate, this));
-                timer = Time.time + 1.0f;
+                //timer = Time.time + 1.0f;
             }
         }
 

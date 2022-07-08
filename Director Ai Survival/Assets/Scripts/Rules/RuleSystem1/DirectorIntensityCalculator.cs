@@ -26,9 +26,12 @@ namespace Rules
                 Debug.LogError("There are multiple instances of DirectorIntensityCalculator active!");
             }
             
-            _rules.Add(new DistanceFromEnemyRule(5f, 4f));  // distance, intensity
-            //_rules.Add(new DistanceFromEnemyRule(10f, 2f));
-            //Debug.Log("Rules " + _rules.Count);
+            // distance, intensity
+            //_rules.Add(new DistanceFromEnemyRule(LessThan,5f, 4f));
+            //_rules.Add(new DistanceFromEnemyRule(MoreThan,20f, 6f));
+            _rules.Add(new DistanceFromEnemyRule(2f, 10f));  // if enemy less than 5 metres from player, increase intensity by 4
+            _rules.Add(new DistanceFromEnemyRule(5f, 5f)); // if enemy less than 20 metres from player, increase intensity by 6; // DOESN'T WORK, PASS IN MORE ARGUEMENTS?
+            _rules.Add(new DistanceFromEnemyRule(10f, 2f));
         }
         
         public float CalculatePerceivedIntensityPercentage(PlayerTemplate player, Director director) 

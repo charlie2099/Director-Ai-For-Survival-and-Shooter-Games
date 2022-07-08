@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using AiDirector;
+using UnityEngine;
 
 namespace Rules
 {
@@ -18,10 +19,10 @@ namespace Rules
             float intensity = 0; 
             foreach (var rule in _rules)
             {
-                intensity = Math.Max(intensity, rule.CalculatePerceivedIntensity(player, director));
+                intensity = Mathf.Max(intensity, rule.CalculatePerceivedIntensity(player, director));
+                // Applies the rule which outputs the greatest intensity value
             }
             return intensity;
-            // ^ Applies the one which outputs the greatest intensity value
         }
     }
 }

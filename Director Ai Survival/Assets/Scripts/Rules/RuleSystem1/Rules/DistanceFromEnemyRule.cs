@@ -9,7 +9,7 @@ namespace Rules
     {
         private float _intensity;
         private float _distance;
-        private float _distanceToClosestEnemy;
+        private Transform _closestEnemy;
 
         public DistanceFromEnemyRule(float distance, float intensity)
         {
@@ -19,25 +19,89 @@ namespace Rules
 
         private float GetClosestEnemy(PlayerTemplate player, Director director)
         {
+            float distanceToClosestEnemy = 0;
+            Vector2 currentPos = player.transform.position;
+            
             foreach (var enemy in director.GetEnemyPositions())
             {
-                float distanceFromPlayerToEnemy = Vector2.Distance(player.transform.position, enemy.position); 
+                float distanceFromPlayerToEnemy = Vector2.Distance(currentPos, enemy.position);
+                
+                if (distanceFromPlayerToEnemy < _distance)
+                {
+                    distanceToClosestEnemy = distanceFromPlayerToEnemy;
+                    _closestEnemy = enemy;
+                    _closestEnemy.gameObject.GetComponentInChildren<SpriteRenderer>().color = Color.green;
+                }
+                else 
+                {
+                    enemy.gameObject.GetComponentInChildren<SpriteRenderer>().color = Color.red;
+                }
+            }
+
+            Debug.Log("Closest enemy [" + _closestEnemy.GetInstanceID() + "]: " + distanceToClosestEnemy);
+            return distanceToClosestEnemy;
+            // returns ZERO if not close to enemy!
+            
+            /*foreach (var enemy in director.GetEnemyPositions())
+            {
+
+                /*Vector2 directionToTarget = enemy.position - player.transform.position;
+                float squaredDirectionToTarget = directionToTarget.sqrMagnitude;
+
+                if (squaredDirectionToTarget < _distance)
+                {
+                    _distanceToClosestEnemy = squaredDirectionToTarget;
+                }#1#
+                //float distanceFromPlayerToEnemy = Vector2.Distance(player.transform.position, enemy.position);
+                //_distanceToClosestEnemy = enemy.OrderBy(enemy => (transform.position - enemy.coords).sqrMagnitude);
+                //_distanceToClosestEnemy = Mathf.Min(distanceFromPlayerToEnemy);
                 //Debug.Log("Distance to enemy [" + enemy.GetInstanceID() + "] :" + distanceFromPlayerToEnemy);
-                _distanceToClosestEnemy = Math.Max(distanceFromPlayerToEnemy, _distanceToClosestEnemy);
+                //_distanceToClosestEnemy = Math.Min(distanceFromPlayerToEnemy, _distanceToClosestEnemy);
+                //_distanceToClosestEnemy = Math.Min(distanceFromPlayerToEnemy, _distanceToClosestEnemy);
+                //discount = Math.Max(rule.CalculateCustomerDiscount(customer), discount);
                 //Debug.Log("Distance to closest Enemy: " + _distanceToClosestEnemy);
             }
-            //Debug.Log("Distance to closest Enemy: " + _distanceToClosestEnemy);
-            return _distanceToClosestEnemy;
+            Debug.Log("Distance to closest Enemy: " + _distanceToClosestEnemy);
+            return _distanceToClosestEnemy;*/
         }
 
         public float CalculatePerceivedIntensity(PlayerTemplate player, Director director)
         {
-            //Debug.Log("Enemy positions container size: " + director.GetEnemyPositions().Length);
-            if (GetClosestEnemy(player, director) > _distance)
+            float distanceToClosestEnemy = 0;
+            Vector2 currentPos = player.transform.position;
+            
+            foreach (var enemy in director.GetEnemyPositions())
             {
-                _intensity = director.IncreaseIntensity(_intensity);
+                float distanceFromPlayerToEnemy = Vector2.Distance(currentPos, enemy.position);
+                
+                if (distanceFromPlayerToEnemy < _distance)
+                {
+                    distanceToClosestEnemy = distanceFromPlayerToEnemy;
+                    _closestEnemy = enemy;
+                    _closestEnemy.gameObject.GetComponentInChildren<SpriteRenderer>().color = Color.green;
+                    return _intensity;
+                }
+                else 
+                {
+                    enemy.gameObject.GetComponentInChildren<SpriteRenderer>().color = Color.red;
+                }
             }
-            return _intensity;
+            return 0;
+
+
+
+            //Debug.Log("Distance: " + _distance);
+            //Debug.Log("Distance to closest enemy: " + GetClosestEnemy(player, director));
+
+            // If closest enemy to player is less than the specified rule distance, increase intensity
+            /*if (GetClosestEnemy(player, director) < _distance)
+            {
+                return _intensity; /* = director.IncreaseIntensity(_intensity)#1#
+            }
+            else
+            {
+                return 0;
+            }*/
         }
     }
 }
