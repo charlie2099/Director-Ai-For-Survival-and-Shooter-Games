@@ -18,9 +18,9 @@ namespace Rules
 
         public float CalculatePerceivedIntensity(PlayerTemplate player, Director director)
         {
-            foreach (var enemy in director.GetEnemyPositions())
+            foreach (var enemy in director.activeEnemies)
             {
-                if (Vector2.Distance(player.transform.position, enemy.position) > _distance &&
+                if (Vector2.Distance(player.transform.position, enemy.transform.position) > _distance &&
                     director.EnemyKilled())
                 {
                     //return director.IncreaseIntensity(_intensity);

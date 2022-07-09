@@ -22,14 +22,14 @@ namespace Rules
             float distanceToClosestEnemy = 0;
             Vector2 currentPos = player.transform.position;
             
-            foreach (var enemy in director.GetEnemyPositions())
+            foreach (var enemy in director.activeEnemies)
             {
-                float distanceFromPlayerToEnemy = Vector2.Distance(currentPos, enemy.position);
+                float distanceFromPlayerToEnemy = Vector2.Distance(currentPos, enemy.transform.position);
                 
                 if (distanceFromPlayerToEnemy < _distance)
                 {
                     distanceToClosestEnemy = distanceFromPlayerToEnemy;
-                    _closestEnemy = enemy;
+                    _closestEnemy = enemy.transform;
                     _closestEnemy.gameObject.GetComponentInChildren<SpriteRenderer>().color = Color.green;
                 }
                 else 
@@ -70,14 +70,14 @@ namespace Rules
             float distanceToClosestEnemy = 0;
             Vector2 currentPos = player.transform.position;
             
-            foreach (var enemy in director.GetEnemyPositions())
+            foreach (var enemy in director.activeEnemies)
             {
-                float distanceFromPlayerToEnemy = Vector2.Distance(currentPos, enemy.position);
+                float distanceFromPlayerToEnemy = Vector2.Distance(currentPos, enemy.transform.position);
                 
                 if (distanceFromPlayerToEnemy < _distance)
                 {
                     distanceToClosestEnemy = distanceFromPlayerToEnemy;
-                    _closestEnemy = enemy;
+                    _closestEnemy = enemy.transform;
                     _closestEnemy.gameObject.GetComponentInChildren<SpriteRenderer>().color = Color.green;
                     return _intensity;
                 }

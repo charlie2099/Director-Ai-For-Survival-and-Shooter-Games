@@ -18,9 +18,7 @@ namespace AiDirector
             Respite
         }
         
-        [Header("INTENSITY ADJUSTMENT")] 
-        [SerializeField] private float distanceFromPlayer;
-        [SerializeField] private float proximityIntensity;
+        //[Header("INTENSITY ADJUSTMENT")]
 
         [Header("TEMPO")]
         [SerializeField] [Range(70, 100)] private int peakIntensityThreshold;
@@ -35,7 +33,6 @@ namespace AiDirector
         [SerializeField] private int maxRespitePopulation;
 
         [Header("ENEMY DATA")]
-        [SerializeField] private Transform[] enemies;
         [HideInInspector] public List<GameObject> activeEnemies = new List<GameObject>();
         [HideInInspector] public int maxPopulationCount;
         
@@ -45,8 +42,6 @@ namespace AiDirector
         
         private Tempo _currentTempo;
         private float _perceivedIntensity;
-        private float _intensity;
-        private int _enemyPopCount;
         private int _killstreak;
         private float timer = 0.0f;
         private float _timeSpentInPeak;
@@ -72,14 +67,7 @@ namespace AiDirector
 
         private void Update()
         {
-            if (Time.time > timer)
-            {
-                print("Current Intensity: " + DirectorIntensityCalculator.Instance.CalculatePerceivedIntensityPercentage(playerTemplate, this));
-                //timer = Time.time + 1.0f;
-            }
-            
-            CheckDistanceFromPlayer();
-            IntensityFSM();
+            IntensityFsm();
             TempoFSM();
 
             // if PEAK tempo and X amount of time has passed, next state 
@@ -102,6 +90,9 @@ namespace AiDirector
                 _currentTempo = Tempo.BuildUp;
                 _timeSpentInRespite = defaultRespiteDuration;
             }
+            
+            print("Perceived Intensity: <color=red>" + GetPerceivedIntensity()+ "</color>");
+            //print("Director State: <color=magenta>" + GetTempo() + "</color>");
         }
 
         /*public float IncreaseIntensity(float intensity)
@@ -123,14 +114,9 @@ namespace AiDirector
         
         public float GetPerceivedIntensity()
         { 
-            return _intensity;
+            return _perceivedIntensity;
         }
 
-        public Transform[] GetEnemyPositions()
-        {
-            return enemies;
-        }
-        
         public GameObject GetPlayer()
         {
             return player;
@@ -160,35 +146,8 @@ namespace AiDirector
         {
             activeEnemies.Remove(enemy);
         }
-        
-        private void CheckDistanceFromPlayer()
-        {
-            if (player != null && _currentTempo != Tempo.PeakFade)
-            {
-                Vector2 playerPos = player.transform.position;
 
-                foreach (var enemy in activeEnemies)
-                {
-                    if (enemy != null)
-                    {
-                        Vector2 enemyPos = enemy.transform.position;
-
-                        if (GetDistanceFromPlayerToEnemy(enemyPos) < distanceFromPlayer)
-                        {
-                            IncreaseIntensity(proximityIntensity);
-                        }
-                    }
-                }
-            }
-        }
-        
-        private float GetDistanceFromPlayerToEnemy(Vector2 enemy)
-        {
-            Vector2 playerPos = player.transform.position;
-            return Vector2.Distance(playerPos, enemy);
-        }
-
-        public void TempoFSM()
+        private void TempoFSM()
         {
             switch (_currentTempo)
             {
@@ -208,13 +167,14 @@ namespace AiDirector
             }
         }
 
-        public void IntensityFSM()
+        private void IntensityFsm()
         {
             if (_perceivedIntensity > 0 && _perceivedIntensity < peakIntensityThreshold)
             {
                 _currentTempo = Tempo.BuildUp;
                 //_perceivedIntensity += 0.1f * Time.deltaTime;
-                IncreaseIntensity(0.1f);
+                //IncreaseIntensity(0.1f);
+                IncreaseIntensity();
             }
             else if (_perceivedIntensity >= peakIntensityThreshold)
             {
@@ -227,18 +187,20 @@ namespace AiDirector
                 _timeSpentInRespite -= Time.deltaTime;
             }
         }
-        
-        public void IncreaseIntensity(float amount)
+
+        private void IncreaseIntensity()
         {
-            //_perceivedIntensity += amount;
-            _perceivedIntensity += amount * Time.deltaTime;
+            float intensity = DirectorIntensityCalculator.Instance.CalculatePerceivedIntensityPercentage(playerTemplate, this);
+            //print("Current Intensity: <color=orange>" + intensity + "</color>");
+            _perceivedIntensity += intensity * Time.deltaTime;
+            
             if (_perceivedIntensity > 100)
             {
                 _perceivedIntensity = 100;
             }
         }
-    
-        public void DecreaseIntensity(float amount)
+
+        private void DecreaseIntensity(float amount)
         {
             _perceivedIntensity -= amount;
             if (_perceivedIntensity < 0)
