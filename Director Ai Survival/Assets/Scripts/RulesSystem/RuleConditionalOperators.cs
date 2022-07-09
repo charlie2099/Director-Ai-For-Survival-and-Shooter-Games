@@ -1,4 +1,4 @@
-﻿namespace Rules
+﻿namespace RulesSystem
 {
     public class RuleConditionalOperators
     {

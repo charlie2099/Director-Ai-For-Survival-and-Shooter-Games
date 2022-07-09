@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Rules;
+using RulesSystem;
 using UnityEngine;
 
 namespace AiDirector
@@ -8,17 +9,11 @@ namespace AiDirector
     public class Director : MonoBehaviour
     {
         public static Director Instance;
+        public DirectorState directorState = new DirectorState();
 
-        //[SerializeField] private DirectorState _directorState;
-        public enum Tempo 
-        {
-            BuildUp,
-            Peak,
-            PeakFade,
-            Respite
-        }
-        
-        //[Header("INTENSITY ADJUSTMENT")]
+        [Header("INTENSITY")]
+        [SerializeField] private float intensityCalculationRate = 1.0f;
+        [SerializeField] private int intensityScaler = 60;
 
         [Header("TEMPO")]
         [SerializeField] [Range(70, 100)] private int peakIntensityThreshold;
@@ -40,12 +35,12 @@ namespace AiDirector
         [SerializeField] private PlayerTemplate playerTemplate;
         [SerializeField] private GameObject player;
         
-        private Tempo _currentTempo;
         private float _perceivedIntensity;
         private int _killstreak;
         private float timer = 0.0f;
         private float _timeSpentInPeak;
         private float _timeSpentInRespite;
+        private float _timePassed4;
 
         private void Awake()
         {
@@ -63,6 +58,7 @@ namespace AiDirector
         {
             _timeSpentInPeak = defaultPeakDuration;
             _timeSpentInRespite = defaultRespiteDuration;
+            _timePassed4 = intensityCalculationRate;
         }
 
         private void Update()
@@ -71,41 +67,29 @@ namespace AiDirector
             TempoFSM();
 
             // if PEAK tempo and X amount of time has passed, next state 
-            if(_timeSpentInPeak <= 0 && _currentTempo == Tempo.Peak)
+            if(_timeSpentInPeak <= 0 && directorState.CurrentTempo == DirectorState.Tempo.Peak)
             {
                 _perceivedIntensity = 0;
-                _currentTempo = Tempo.PeakFade;
+                directorState.CurrentTempo = DirectorState.Tempo.PeakFade;
                 _timeSpentInPeak = defaultPeakDuration;
             }
 
-            if (_currentTempo == Tempo.PeakFade && GetEnemyPopulationCount() == 0)
+            if (directorState.CurrentTempo == DirectorState.Tempo.PeakFade && GetEnemyPopulationCount() == 0)
             {
-                _currentTempo = Tempo.Respite;
+                directorState.CurrentTempo = DirectorState.Tempo.Respite;
             }
         
             // if RESPITE tempo and X amount of time has passed, next state
-            if (_timeSpentInRespite <= 0 && _currentTempo == Tempo.Respite)
+            if (_timeSpentInRespite <= 0 && directorState.CurrentTempo == DirectorState.Tempo.Respite)
             {
                 _perceivedIntensity = 0.1f;
-                _currentTempo = Tempo.BuildUp;
+                directorState.CurrentTempo = DirectorState.Tempo.BuildUp;
                 _timeSpentInRespite = defaultRespiteDuration;
             }
             
             print("Perceived Intensity: <color=red>" + GetPerceivedIntensity()+ "</color>");
-            //print("Director State: <color=magenta>" + GetTempo() + "</color>");
+            //print("Director State: <color=magenta>" + directorState.CurrentTempo + "</color>");
         }
-
-        /*public float IncreaseIntensity(float intensity)
-        {
-            _intensity += intensity;
-            return _intensity;
-        }
-        
-        public float DecreaseIntensity(float intensity)
-        {
-            _intensity -= intensity;
-            return _intensity;
-        }*/
 
         public float GetEnemyPopulationCount()
         {
@@ -131,12 +115,7 @@ namespace AiDirector
         {
             return _killstreak;
         }
-        
-        public Tempo GetTempo()
-        {
-            return _currentTempo;
-        }
-        
+
         public void AddEnemy(GameObject enemy)
         {
             activeEnemies.Add(enemy);
@@ -149,19 +128,19 @@ namespace AiDirector
 
         private void TempoFSM()
         {
-            switch (_currentTempo)
+            switch (directorState.CurrentTempo)
             {
-                case Tempo.BuildUp:
+                case DirectorState.Tempo.BuildUp:
                     maxPopulationCount = maxBuildUpPopulation;
                     break;
-                case Tempo.Peak:
+                case DirectorState.Tempo.Peak:
                     maxPopulationCount = maxPeakPopulation;
                     break;
-                case Tempo.PeakFade:
+                case DirectorState.Tempo.PeakFade:
                     maxPopulationCount = 0;
                     _perceivedIntensity = 0;
                     break;
-                case Tempo.Respite:
+                case DirectorState.Tempo.Respite:
                     maxPopulationCount = maxRespitePopulation;
                     break;
             }
@@ -171,32 +150,38 @@ namespace AiDirector
         {
             if (_perceivedIntensity > 0 && _perceivedIntensity < peakIntensityThreshold)
             {
-                _currentTempo = Tempo.BuildUp;
+                directorState.CurrentTempo = DirectorState.Tempo.BuildUp;
                 //_perceivedIntensity += 0.1f * Time.deltaTime;
                 //IncreaseIntensity(0.1f);
-                IncreaseIntensity();
+                IncreaseIntensity(); // TODO: Define intensity calculation rate (currently every frame!)
             }
             else if (_perceivedIntensity >= peakIntensityThreshold)
             {
-                _currentTempo = Tempo.Peak;
+                directorState.CurrentTempo = DirectorState.Tempo.Peak;
                 _timeSpentInPeak -= Time.deltaTime;
             }
-            else if(_currentTempo != Tempo.PeakFade)
+            else if(directorState.CurrentTempo != DirectorState.Tempo.PeakFade)
             {
-                _currentTempo = Tempo.Respite;
+                directorState.CurrentTempo = DirectorState.Tempo.Respite;
                 _timeSpentInRespite -= Time.deltaTime;
             }
         }
 
         private void IncreaseIntensity()
         {
-            float intensity = DirectorIntensityCalculator.Instance.CalculatePerceivedIntensityPercentage(playerTemplate, this);
-            //print("Current Intensity: <color=orange>" + intensity + "</color>");
-            _perceivedIntensity += intensity * Time.deltaTime;
-            
-            if (_perceivedIntensity > 100)
+            // Calculates intensity every second
+            if (Time.time > _timePassed4)
             {
-                _perceivedIntensity = 100;
+                float intensity = DirectorIntensityCalculator.Instance.CalculatePerceivedIntensityPercentage(playerTemplate, this);
+                //print("Current Intensity: <color=orange>" + intensity + "</color>");
+                _perceivedIntensity += intensity * intensityScaler * Time.deltaTime;
+            
+                if (_perceivedIntensity > 100)
+                {
+                    _perceivedIntensity = 100;
+                }
+                
+                _timePassed4 = Time.time + intensityCalculationRate;
             }
         }
 
@@ -207,6 +192,16 @@ namespace AiDirector
             {
                 _perceivedIntensity = 0;
             }
+        }
+
+        public float GetIntensityCalculationRate()
+        {
+            return intensityCalculationRate;
+        }
+
+        public int GetIntensityScalar()
+        {
+            return intensityScaler;
         }
     }
 }

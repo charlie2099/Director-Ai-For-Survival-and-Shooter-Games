@@ -1,9 +1,7 @@
-﻿using System;
-using AiDirector;
-using Unity.VisualScripting;
+﻿using AiDirector;
 using UnityEngine;
 
-namespace Rules
+namespace RulesSystem.Rules
 {
     public class DistanceFromEnemyRule : IDirectorIntensityRule
     {
@@ -87,16 +85,14 @@ namespace Rules
                 }
             }
             return 0;
-
-
-
-            //Debug.Log("Distance: " + _distance);
+            
+            /*//Debug.Log("Distance: " + _distance);
             //Debug.Log("Distance to closest enemy: " + GetClosestEnemy(player, director));
 
             // If closest enemy to player is less than the specified rule distance, increase intensity
-            /*if (GetClosestEnemy(player, director) < _distance)
+            if (GetClosestEnemy(player, director) < _distance)
             {
-                return _intensity; /* = director.IncreaseIntensity(_intensity)#1#
+                return _intensity; /* = director.IncreaseIntensity(_intensity)#2#
             }
             else
             {

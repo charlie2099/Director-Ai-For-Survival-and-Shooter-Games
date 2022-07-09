@@ -1737,7 +1737,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 4
   m_Sprite: {fileID: -7133241613982398618, guid: c11b5d9b153618c43ac25456e9e95e2b, type: 3}
-  m_Color: {r: 0.7254902, g: 0.7254902, b: 0.7254902, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -8180,11 +8180,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2de7a3d50a4345b48db5d48048c4453b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  intensityCalculationRate: 0.1
+  intensityScaler: 10
   peakIntensityThreshold: 70
   defaultPeakDuration: 15
   defaultRespiteDuration: 10
-  maxBuildUpPopulation: 3
-  maxPeakPopulation: 6
+  maxBuildUpPopulation: 2
+  maxPeakPopulation: 4
   maxRespitePopulation: 0
   activeEnemies: []
   maxPopulationCount: 0

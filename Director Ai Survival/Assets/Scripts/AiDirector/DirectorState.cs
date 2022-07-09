@@ -6,18 +6,19 @@
         private float _buildUpDuration;
         private float _peakDuration;
         private float _respiteDuration;
-        
+
+        public Tempo CurrentTempo
+        {
+            get => _currentTempo;
+            set { _currentTempo = value; }
+        }
+
         public enum Tempo
         {
             BuildUp,
-            Peal,
+            Peak,
             PeakFade,
             Respite
-        }
-
-        public Tempo GetTempo()
-        {
-            return _currentTempo;
         }
 
         public float GetBuildUpDuration()

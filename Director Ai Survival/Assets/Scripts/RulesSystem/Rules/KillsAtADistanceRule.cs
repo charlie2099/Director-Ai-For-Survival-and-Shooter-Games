@@ -1,7 +1,7 @@
 ﻿using AiDirector;
 using UnityEngine;
 
-namespace Rules
+namespace RulesSystem.Rules
 {
     public class KillsAtADistanceRule : IDirectorIntensityRule
     {
