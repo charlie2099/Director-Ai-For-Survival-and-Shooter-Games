@@ -23,7 +23,7 @@ namespace Rules
                 if (Vector2.Distance(player.transform.position, enemy.position) > _distance &&
                     director.EnemyKilled())
                 {
-                    return director.IncreaseIntensity(_intensity);
+                    //return director.IncreaseIntensity(_intensity);
                 }
             }
             return _intensity;
