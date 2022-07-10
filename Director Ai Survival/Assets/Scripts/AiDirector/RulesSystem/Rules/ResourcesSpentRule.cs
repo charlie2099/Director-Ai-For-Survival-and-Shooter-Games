@@ -1,7 +1,6 @@
-﻿using AiDirector;
-using RulesSystem.Interfaces;
+﻿using AiDirector.RulesSystem.Interfaces;
 
-namespace RulesSystem.Rules
+namespace AiDirector.RulesSystem.Rules
 {
     public class ResourcesSpentRule : IDirectorIntensityRule
     {

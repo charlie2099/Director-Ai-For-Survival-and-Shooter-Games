@@ -1,17 +1,16 @@
-﻿using AiDirector;
-using RulesSystem.Interfaces;
+﻿using AiDirector.RulesSystem.Interfaces;
 using UnityEngine;
 
-namespace RulesSystem.Rules
+namespace AiDirector.RulesSystem.Rules
 {
     public class ConsumableUseFrequencyRule : IDirectorIntensityRule
     {
         private float _clock;
-        private float _clock2;
         private float _intensity;
         private float _timePassed;
         private float _intensityDuration;
         private int _consumablesUsed;
+        private bool _active;
 
         public ConsumableUseFrequencyRule(int consumablesUsed, float timePassed, float intensityDuration, float intensity)
         {
@@ -25,22 +24,29 @@ namespace RulesSystem.Rules
         {
             _clock += 1 * director.GetIntensityCalculationRate();
 
-            if (director.GetPlayer().GetConsumablesUsed() >= _consumablesUsed && _clock >= _timePassed)
+            if (director.GetPlayer().GetConsumablesUsed() >= _consumablesUsed && _clock >= _timePassed && !_active)
             {
-                _clock2 += 1 * director.GetIntensityCalculationRate();
+                //Debug.Log("<color=green>Intensity duration started</color>");
+                _timePassed = _clock + _intensityDuration;
+                _active = true;
+            }
 
-                if (_clock2 >= _intensityDuration)
+            if (_active)
+            {
+                if (_clock >= _timePassed)
                 {
-                    //_consumablesUsed += _consumablesUsed;
-                    return false;
+                    //Debug.Log("<color=orange>Intensity duration ended</color>");
+                    _consumablesUsed += _consumablesUsed;
+                    _active = false;
                 }
                 return true;
             }
-
-            /*if (_clock >= _timePassed)
+            
+            if (_clock >= _timePassed && !_active)
             {
+                //Debug.Log("<color=red>Rule was not satisfied</color>");
                 _clock = 0;
-            }*/
+            }
             return false;
         }
 

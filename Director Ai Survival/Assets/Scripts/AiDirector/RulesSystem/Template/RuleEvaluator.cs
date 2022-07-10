@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Rules
+namespace AiDirector.RulesSystem.Template
 {
     /*
      * Evaluates the state

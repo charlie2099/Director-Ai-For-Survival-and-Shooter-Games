@@ -99,10 +99,12 @@ namespace AiDirector
             var playerPos = Director.Instance.GetPlayer().transform.position;
             var posInSpawnRadius = playerPos + Random.insideUnitSphere * radius;
             posInSpawnRadius.z = 20;
-        
+            
+            // Spown a random enemy from the prefabs list
             _randomEnemy = Random.Range(0, enemies.Length);
             GameObject enemy = Instantiate(enemies[_randomEnemy], posInSpawnRadius, Quaternion.identity);
-            enemy.GetComponent<AIDestinationSetter>().target = Director.Instance.GetPlayer().transform;
+            
+            //enemy.GetComponent<AIDestinationSetter>().target = Director.Instance.GetPlayer().transform;
             if (enemyHierarchyContainer != null)
             {
                 enemy.transform.parent = enemyHierarchyContainer.transform;

@@ -1,8 +1,7 @@
-﻿using AiDirector;
-using RulesSystem.Interfaces;
+﻿using AiDirector.RulesSystem.Interfaces;
 using UnityEngine;
 
-namespace RulesSystem.Rules
+namespace AiDirector.RulesSystem.Rules
 {
     public class DistanceFromEnemyRule : IDirectorIntensityRule
     {
@@ -22,7 +21,7 @@ namespace RulesSystem.Rules
             foreach (var enemy in director.activeEnemies)
             {
                 float distanceFromPlayerToEnemy = Vector2.Distance(currentPos, enemy.transform.position);
-                
+
                 if (distanceFromPlayerToEnemy < _distance)
                 {
                     return _intensity;

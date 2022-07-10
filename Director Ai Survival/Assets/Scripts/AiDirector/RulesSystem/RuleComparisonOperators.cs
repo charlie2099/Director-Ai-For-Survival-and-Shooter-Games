@@ -1,6 +1,6 @@
-﻿namespace RulesSystem
+﻿namespace AiDirector.RulesSystem
 {
-    public class RuleConditionalOperators
+    public class RuleComparisonOperators
     {
         public enum ComparisonOperators
         {
@@ -9,7 +9,7 @@
             And,
             Or,
             Not,
-            EqualTo,
+            EqualTo
         }
     }
 }

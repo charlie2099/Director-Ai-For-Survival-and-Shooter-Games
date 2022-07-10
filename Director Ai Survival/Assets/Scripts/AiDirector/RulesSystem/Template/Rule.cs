@@ -1,4 +1,4 @@
-namespace Rules
+namespace AiDirector.RulesSystem.Template
 {
     /*
      * Here is how a designer will come and define their own rules for the director system

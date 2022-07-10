@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
-using AiDirector;
-using RulesSystem.Interfaces;
-using RulesSystem.RuleEngine;
-using RulesSystem.Rules;
+using AiDirector.RulesSystem.Interfaces;
+using AiDirector.RulesSystem.RuleEngine;
+using AiDirector.RulesSystem.Rules;
 using UnityEngine;
 
-namespace RulesSystem
+namespace AiDirector.RulesSystem
 {
     /*
      * [Info]
@@ -19,7 +18,7 @@ namespace RulesSystem
     {
         public static DirectorIntensityCalculator Instance;
         private List<IDirectorIntensityRule> _rules = new List<IDirectorIntensityRule>();
-        
+
         private DirectorIntensityCalculator()
         {
             if (Instance == null)
@@ -30,18 +29,14 @@ namespace RulesSystem
             {
                 Debug.LogError("There are multiple instances of DirectorIntensityCalculator active!");
             }
-            
-            //_rules.Add(new DistanceFromEnemyRule(LessThan,5f, 4f));
-            //_rules.Add(new DistanceFromEnemyRule(MoreThan,20f, 6f));
-            
-            _rules.Add(new DistanceFromEnemyRule(2f, 10f));  // if enemy less than 2 metres from player,  increase intensity by 10
-            _rules.Add(new DistanceFromEnemyRule(5f, 5f));   // if enemy less than 5 metres from player,  increase intensity by 5; 
-            _rules.Add(new DistanceFromEnemyRule(10f, 2f));  // if enemy less than 10 metres from player, increase intensity by 2; 
-            _rules.Add(new PlayerIdleRule(5,3));
-            _rules.Add(new HealthLowRule(50, 2f));
-            _rules.Add(new PlayerAggressionRule(5, 2f));
+
+            _rules.Add(new DistanceFromEnemyRule(3f, 8f)); 
+            _rules.Add(new DistanceFromEnemyRule(6f, 4f));  
+            _rules.Add(new PlayerIdleRule(5f,3f));
+            _rules.Add(new HealthLowRule(50f, 2f));
+            _rules.Add(new PlayerAggressionRule(5f, 2f));
             _rules.Add(new ResourcesSpentRule(30, 4f));
-            //_rules.Add(new ConsumableUseFrequencyRule(2, 5f, 2f, 3f));
+            _rules.Add(new ConsumableUseFrequencyRule(2, 5f, 3f, 5f));
             
             
             // [OPTION 2]

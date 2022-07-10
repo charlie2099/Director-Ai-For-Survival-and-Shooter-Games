@@ -1,4 +1,4 @@
-﻿namespace Rules
+﻿namespace AiDirector.RulesSystem.Template
 {
     /*
      * Interface that rules follow

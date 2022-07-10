@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Rules;
-using RulesSystem;
+using AiDirector.RulesSystem;
 using UnityEngine;
 
 namespace AiDirector

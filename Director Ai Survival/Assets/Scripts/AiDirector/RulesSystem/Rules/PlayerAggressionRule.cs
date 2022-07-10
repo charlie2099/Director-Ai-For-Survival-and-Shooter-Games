@@ -1,9 +1,8 @@
-﻿using AiDirector;
+﻿using AiDirector.RulesSystem.Interfaces;
 using Items;
-using RulesSystem.Interfaces;
 using UnityEngine;
 
-namespace RulesSystem.Rules
+namespace AiDirector.RulesSystem.Rules
 {
     public class PlayerAggressionRule : IDirectorIntensityRule
     {
