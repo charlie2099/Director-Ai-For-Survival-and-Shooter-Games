@@ -1,6 +1,6 @@
 ﻿using AiDirector;
 
-namespace RulesSystem
+namespace RulesSystem.Interfaces
 {
     /*
      * Interface that all rules inherit from

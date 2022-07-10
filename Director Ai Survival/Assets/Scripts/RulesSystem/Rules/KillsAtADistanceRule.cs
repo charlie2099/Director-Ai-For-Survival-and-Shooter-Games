@@ -1,4 +1,5 @@
 ﻿using AiDirector;
+using RulesSystem.Interfaces;
 using UnityEngine;
 
 namespace RulesSystem.Rules

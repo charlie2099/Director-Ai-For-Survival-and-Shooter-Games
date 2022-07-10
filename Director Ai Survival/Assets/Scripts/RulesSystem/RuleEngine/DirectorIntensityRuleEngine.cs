@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using AiDirector;
-using Rules;
+using RulesSystem.Interfaces;
 using UnityEngine;
 
-namespace RulesSystem
+namespace RulesSystem.RuleEngine
 {
     public class DirectorIntensityRuleEngine
     {

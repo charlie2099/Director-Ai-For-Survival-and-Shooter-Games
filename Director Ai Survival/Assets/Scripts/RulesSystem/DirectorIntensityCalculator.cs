@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using AiDirector;
 using Rules;
+using RulesSystem.Interfaces;
+using RulesSystem.RuleEngine;
 using RulesSystem.Rules;
 using UnityEngine;
 
@@ -37,6 +39,7 @@ namespace RulesSystem
             _rules.Add(new DistanceFromEnemyRule(5f, 5f));   // if enemy less than 5 metres from player,  increase intensity by 5; 
             _rules.Add(new DistanceFromEnemyRule(10f, 2f));  // if enemy less than 10 metres from player, increase intensity by 2; 
             _rules.Add(new PlayerIdleRule(5,3));
+            _rules.Add(new HealthLowRule(50, 2f));
             
             // [OPTION 2]
             // Using Reflection
