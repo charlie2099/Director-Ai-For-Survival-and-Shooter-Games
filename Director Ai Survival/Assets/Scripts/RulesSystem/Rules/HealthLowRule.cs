@@ -14,9 +14,9 @@ namespace RulesSystem.Rules
             _intensity = intensity;
         }
 
-        public float CalculatePerceivedIntensity(PlayerTemplate player, Director director)
+        public float CalculatePerceivedIntensity(Director director)
         {
-            if (player.GetHealth() <= _lowHealth)
+            if (director.GetPlayer().GetHealth() <= _lowHealth)
             {
                 return _intensity;
             }

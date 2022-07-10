@@ -1678,7 +1678,6 @@ GameObject:
   - component: {fileID: 137695922}
   - component: {fileID: 137695921}
   - component: {fileID: 137695927}
-  - component: {fileID: 137695931}
   - component: {fileID: 137695925}
   - component: {fileID: 137695920}
   - component: {fileID: 137695919}
@@ -1952,18 +1951,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slider: {fileID: 1123203044}
---- !u!114 &137695931
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 137695916}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e36146a00ed4a48915463c07a764bf6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &154794735
 GameObject:
   m_ObjectHideFlags: 0
@@ -8190,8 +8177,7 @@ MonoBehaviour:
   maxRespitePopulation: 0
   activeEnemies: []
   maxPopulationCount: 0
-  playerTemplate: {fileID: 137695931}
-  player: {fileID: 137695916}
+  player: {fileID: 137695925}
 --- !u!114 &715020461
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -9,7 +9,7 @@ namespace RulesSystem.Rules
         private float _timeSpentIdle;
         private float _intensity;
         private float _clock;
-        private Vector2 lastKnownPlayerPosition; 
+        private Vector2 _lastKnownPlayerPosition; 
         
         public PlayerIdleRule(float timeSpentIdle, float intensity)
         {
@@ -17,18 +17,18 @@ namespace RulesSystem.Rules
             _intensity = intensity;
         }
 
-        private bool PlayerIsIdle(PlayerTemplate player, Director director)
+        private bool PlayerIsIdle(Director director)
         {
             _clock += 1 * director.GetIntensityCalculationRate();
 
             if (_clock <= 1.0f)
             {
-                lastKnownPlayerPosition = player.transform.position;
+                _lastKnownPlayerPosition = director.GetPlayer().transform.position;
             }
-            else if (_clock >= 5)
+            else if (_clock >= _timeSpentIdle)
             {
-                Vector2 newPlayerPosition = player.transform.position;
-                if (newPlayerPosition == lastKnownPlayerPosition)
+                Vector2 newPlayerPosition = director.GetPlayer().transform.position;
+                if (newPlayerPosition == _lastKnownPlayerPosition)
                 {
                     Debug.Log("IDLE!");
                     return true;
@@ -38,9 +38,9 @@ namespace RulesSystem.Rules
             return false;
         }
 
-        public float CalculatePerceivedIntensity(PlayerTemplate player, Director director)
+        public float CalculatePerceivedIntensity(Director director)
         {
-            if (PlayerIsIdle(player, director))
+            if (PlayerIsIdle(director))
             {
                 return _intensity;
             }

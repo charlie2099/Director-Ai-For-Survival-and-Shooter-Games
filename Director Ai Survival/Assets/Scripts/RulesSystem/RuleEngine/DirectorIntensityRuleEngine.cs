@@ -14,12 +14,12 @@ namespace RulesSystem.RuleEngine
             _rules.AddRange(rules); // Appends items to the end of array
         }
 
-        public float CalculatePerceivedIntensityPercentage(PlayerTemplate player, Director director) 
+        public float CalculatePerceivedIntensityPercentage(Director director) 
         {
             float intensity = 0; 
             foreach (var rule in _rules)
             {
-                intensity = Mathf.Max(intensity, rule.CalculatePerceivedIntensity(player, director));
+                intensity = Mathf.Max(intensity, rule.CalculatePerceivedIntensity(director));
                 // Applies the rule which outputs the greatest intensity value
             }
             return intensity;

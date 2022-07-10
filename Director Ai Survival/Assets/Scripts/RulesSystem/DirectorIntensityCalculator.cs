@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using AiDirector;
-using Rules;
 using RulesSystem.Interfaces;
 using RulesSystem.RuleEngine;
 using RulesSystem.Rules;
@@ -40,6 +39,10 @@ namespace RulesSystem
             _rules.Add(new DistanceFromEnemyRule(10f, 2f));  // if enemy less than 10 metres from player, increase intensity by 2; 
             _rules.Add(new PlayerIdleRule(5,3));
             _rules.Add(new HealthLowRule(50, 2f));
+            _rules.Add(new PlayerAggressionRule(5, 2f));
+            _rules.Add(new ResourcesSpentRule(30, 4f));
+            //_rules.Add(new ConsumableUseFrequencyRule(2, 5f, 2f, 3f));
+            
             
             // [OPTION 2]
             // Using Reflection
@@ -60,10 +63,10 @@ namespace RulesSystem
             Using a user interface that allows the designer to add rules to the system without touching this class*/
         }
         
-        public float CalculatePerceivedIntensityPercentage(PlayerTemplate player, Director director) 
+        public float CalculatePerceivedIntensityPercentage(Director director) 
         {
             var engine = new DirectorIntensityRuleEngine(_rules);
-            return engine.CalculatePerceivedIntensityPercentage(player, director);
+            return engine.CalculatePerceivedIntensityPercentage(director);
             // Outputs the greatest intensity value?
         }
     }

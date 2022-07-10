@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Inventory;
 using Items;
 using UnityEngine;
 
@@ -14,6 +15,7 @@ public class Player : Entity
     [SerializeField] private Sprite _defaultSprite;
     [SerializeField] private Sprite _shootingSprite;
 
+    private InventorySystem _inventorySystem;
     private SpriteRenderer _spriteRenderer;
     private Item _activeItem = new Item();
     private float _maxHealth;
@@ -21,9 +23,27 @@ public class Player : Entity
     private float _maxHunger;
     private int _currentEnergy;
     private float _currentHunger;
+    private int _consumablesUsed;
+
+    private void OnEnable()
+    {
+        /*for (int i = 0; i < FindObjectsOfType<Apple>().Length; i++)
+        {
+            FindObjectsOfType<Apple>()[i].ItemConsumed += () => _consumablesUsed++;
+        }*/
+    }
+
+    private void OnDisable()
+    {
+        /*for (int i = 0; i < FindObjectsOfType<Apple>().Length; i++)
+        {
+            FindObjectsOfType<Apple>()[i].ItemConsumed -= () => _consumablesUsed++;
+        }*/
+    }
 
     private void Awake()
     {
+        _inventorySystem = GetComponent<InventorySystem>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
@@ -50,6 +70,10 @@ public class Player : Entity
             if (GetItemInHand() != null)
             {
                 GetItemInHand().UseItem();
+                if (GetItemTypeInHand() == ItemType.Type.APPLE)
+                {
+                    _consumablesUsed++;
+                }
             }
         }
         
@@ -156,5 +180,23 @@ public class Player : Entity
     public ItemType.Type GetItemTypeInHand()
     {
         return _activeItem.GetItemType();
+    }
+
+    public int GetConsumablesUsed()
+    {
+        return _consumablesUsed;
+    }
+
+    public int GetTotalResourcesGathered()
+    {
+        int totalItemsInPlayerInventory = 0;
+        foreach (var slot in _inventorySystem.inventorySlots)
+        {
+            foreach (var item in slot.itemStackList)
+            {
+                totalItemsInPlayerInventory++;
+            }
+        }
+        return totalItemsInPlayerInventory;
     }
 }

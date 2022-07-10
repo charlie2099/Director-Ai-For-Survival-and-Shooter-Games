@@ -32,9 +32,8 @@ namespace AiDirector
         [HideInInspector] public int maxPopulationCount;
         
         [Header("PLAYER DATA")]
-        [SerializeField] private PlayerTemplate playerTemplate;
-        [SerializeField] private GameObject player;
-        
+        [SerializeField] private Player player;
+
         private float _perceivedIntensity;
         private int _killstreak;
         private float timer = 0.0f;
@@ -101,7 +100,7 @@ namespace AiDirector
             return _perceivedIntensity;
         }
 
-        public GameObject GetPlayer()
+        public Player GetPlayer()
         {
             return player;
         }
@@ -172,7 +171,7 @@ namespace AiDirector
             // Calculates intensity every second
             if (Time.time > _timePassed4)
             {
-                float intensity = DirectorIntensityCalculator.Instance.CalculatePerceivedIntensityPercentage(playerTemplate, this);
+                float intensity = DirectorIntensityCalculator.Instance.CalculatePerceivedIntensityPercentage(this);
                 //print("Current Intensity: <color=orange>" + intensity + "</color>");
                 _perceivedIntensity += intensity * intensityScaler * Time.deltaTime;
             
