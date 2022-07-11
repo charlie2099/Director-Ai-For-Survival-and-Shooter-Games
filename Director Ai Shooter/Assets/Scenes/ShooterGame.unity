@@ -316,7 +316,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1422364360}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &56081510
 MonoBehaviour:
@@ -451,7 +451,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1422364360}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &68499882
 GameObject:
@@ -76344,9 +76344,9 @@ Transform:
   m_LocalPosition: {x: -27.725077, y: -14.675537, z: -11.769554}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 66439573}
   - {fileID: 1970553791}
   - {fileID: 56081509}
+  - {fileID: 66439573}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -86264,6 +86264,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1970553791}
   - component: {fileID: 1970553792}
+  - component: {fileID: 1970553796}
   - component: {fileID: 1970553793}
   - component: {fileID: 1970553794}
   - component: {fileID: 1970553795}
@@ -86286,7 +86287,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1422364360}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1970553792
 MonoBehaviour:
@@ -86300,24 +86301,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3de5721070921ec4baaf50f6848370c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugMode: 1
-  debugPanel: {fileID: 336913504}
-  distanceFromPlayer: 2
-  proximityIntensity: 5
+  intensityCalculationRate: 1
+  intensityScaler: 60
   peakIntensityThreshold: 70
   defaultPeakDuration: 15
   defaultRespiteDuration: 10
   maxBuildUpPopulation: 5
   maxPeakPopulation: 20
   maxRespitePopulation: 0
-  player: {fileID: 880795078}
   activeEnemies: []
   maxPopulationCount: 0
+  player: {fileID: 880795079}
   maxItemSpawns: 0
   items: []
   objectContainers:
   - {fileID: 2085618236}
   - {fileID: 1402537871}
+  debugMode: 1
+  debugPanel: {fileID: 336913504}
 --- !u!114 &1970553793
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -86530,6 +86531,18 @@ MonoBehaviour:
     pivotPointRoot: {fileID: 0}
     spreadOutCount: 1
   showGraphs: 1
+--- !u!114 &1970553796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1970553790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9144598138904314b6655a464687d57f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1984646782
 PrefabInstance:
   m_ObjectHideFlags: 0

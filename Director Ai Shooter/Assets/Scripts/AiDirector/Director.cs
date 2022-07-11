@@ -1,5 +1,6 @@
-﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using AiDirector.AAS;
 using AiDirector.RulesSystem;
 using UnityEngine;
 
@@ -17,7 +18,7 @@ namespace AiDirector
         [Header("TEMPO")]
         [SerializeField] [Range(70, 100)] private int peakIntensityThreshold;
         [Space]
-        
+    
         [Tooltip("Default value, but can be dynamically altered by the Director")]
         [SerializeField] private float defaultPeakDuration;
         [SerializeField] private float defaultRespiteDuration;
@@ -33,11 +34,22 @@ namespace AiDirector
         [Header("PLAYER DATA")]
         [SerializeField] private Player player;
 
+        [Header("ITEMS")]
+        [SerializeField] private int maxItemSpawns;
+        [SerializeField] private GameObject[] items;
+        //[SerializeField] private ItemData[] items;
+
+        [Header("RANDOMISE ON PLAY")]
+        [SerializeField] private GameObject[] objectContainers;
+        
+        [Header("DEBUG")]
+        [SerializeField] private bool debugMode = false;
+        [SerializeField] private GameObject debugPanel;
+        
         private float _perceivedIntensity;
-        private int _killstreak;
-        private float _timer;
         private float _timeSpentInPeak;
         private float _timeSpentInRespite;
+        private float _timer;
         private float _timePassed4;
 
         private void Awake()
@@ -57,6 +69,10 @@ namespace AiDirector
             _timeSpentInPeak = defaultPeakDuration;
             _timeSpentInRespite = defaultRespiteDuration;
             _timePassed4 = intensityCalculationRate;
+        
+            debugPanel.SetActive(debugMode);
+        
+            RandomiseSpawnOnPlay();
         }
 
         private void Update()
@@ -93,9 +109,9 @@ namespace AiDirector
         {
             return ActiveAreaSet.EnemyPopulationCount;
         }
-        
+
         public float GetPerceivedIntensity()
-        { 
+        {
             return _perceivedIntensity;
         }
 
@@ -103,17 +119,60 @@ namespace AiDirector
         {
             return player;
         }
-
-        public bool EnemyKilled()
+        
+        public float GetPeakDuration()
         {
-            return true;
+            return _timeSpentInPeak;
         }
 
-        public int GetKillStreak()
+        public float GetRespiteDuration()
         {
-            return _killstreak;
+            return _timeSpentInRespite;
         }
 
+        public void IncreaseIntensity()
+        {
+            // Calculates intensity every second
+            if (Time.time > _timePassed4)
+            {
+                float intensity = DirectorIntensityCalculator.Instance.CalculatePerceivedIntensityPercentage(this);
+                //print("Current Intensity: <color=orange>" + intensity + "</color>");
+                _perceivedIntensity += intensity * intensityScaler * Time.deltaTime;
+            
+                if (_perceivedIntensity > 100)
+                {
+                    _perceivedIntensity = 100;
+                }
+                
+                _timePassed4 = Time.time + intensityCalculationRate;
+            }
+        }
+    
+        public void DecreaseIntensity(float amount)
+        {
+            _perceivedIntensity -= amount;
+            if (_perceivedIntensity < 0)
+            {
+                _perceivedIntensity = 0;
+            }
+        }
+        
+        public float GetIntensityCalculationRate()
+        {
+            return intensityCalculationRate;
+        }
+
+        public int GetIntensityScalar()
+        {
+            return intensityScaler;
+        }
+
+        private float GetDistanceFromPlayerToEnemy(Vector2 enemy)
+        {
+            Vector2 playerPos = player.transform.position;
+            return Vector2.Distance(playerPos, enemy);
+        }
+        
         public void AddEnemy(GameObject enemy)
         {
             activeEnemies.Add(enemy);
@@ -151,7 +210,7 @@ namespace AiDirector
                 directorState.CurrentTempo = DirectorState.Tempo.BuildUp;
                 //_perceivedIntensity += 0.1f * Time.deltaTime;
                 //IncreaseIntensity(0.1f);
-                IncreaseIntensity(); // TODO: Define intensity calculation rate (currently every frame!)
+                IncreaseIntensity(); 
             }
             else if (_perceivedIntensity >= peakIntensityThreshold)
             {
@@ -165,41 +224,34 @@ namespace AiDirector
             }
         }
 
-        private void IncreaseIntensity()
+        private void RandomiseSpawnOnPlay()
         {
-            // Calculates intensity every second
-            if (Time.time > _timePassed4)
+            if (objectContainers != null)
             {
-                float intensity = DirectorIntensityCalculator.Instance.CalculatePerceivedIntensityPercentage(this);
-                //print("Current Intensity: <color=orange>" + intensity + "</color>");
-                _perceivedIntensity += intensity * intensityScaler * Time.deltaTime;
-            
-                if (_perceivedIntensity > 100)
+                // iterates through containers
+                foreach (var entity in objectContainers)
                 {
-                    _perceivedIntensity = 100;
+                    // iterates through items within each container
+                    for (var j = 0; j < entity.transform.childCount; j++)
+                    {
+                        var randBool = (Random.Range(0, 2) == 0);
+                        entity.transform.GetChild(j).gameObject.SetActive(randBool);
+                    }
                 }
-                
-                _timePassed4 = Time.time + intensityCalculationRate;
             }
         }
 
-        private void DecreaseIntensity(float amount)
+        public IEnumerator CheckIfIntensityShouldBeginDeclining()
         {
-            _perceivedIntensity -= amount;
-            if (_perceivedIntensity < 0)
+            float intensityCheck = _perceivedIntensity;
+            yield return new WaitForSeconds(5.0f);
+            if (intensityCheck == _perceivedIntensity)
             {
-                _perceivedIntensity = 0;
+                DecreaseIntensity(0.001f * Time.time);
             }
-        }
-
-        public float GetIntensityCalculationRate()
-        {
-            return intensityCalculationRate;
-        }
-
-        public int GetIntensityScalar()
-        {
-            return intensityScaler;
+        
+            // 5.0    10 seconds later    10.0     
         }
     }
 }
+

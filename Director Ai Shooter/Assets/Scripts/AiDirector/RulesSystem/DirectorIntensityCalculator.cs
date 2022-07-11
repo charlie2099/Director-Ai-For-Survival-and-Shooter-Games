@@ -34,11 +34,8 @@ namespace AiDirector.RulesSystem
             _rules.Add(new DistanceFromEnemyRule(6f, 4f));  
             _rules.Add(new PlayerIdleRule(5f,3f));
             _rules.Add(new HealthLowRule(50f, 2f));
-            _rules.Add(new PlayerAggressionRule(5f, 2f));
-            _rules.Add(new ResourcesSpentRule(30, 4f));
-            _rules.Add(new ConsumableUseFrequencyRule(2, 5f, 3f, 5f));
-            
-            
+
+
             // [OPTION 2]
             // Using Reflection
             /*var ruleType = typeof(IDirectorIntensityRule);
