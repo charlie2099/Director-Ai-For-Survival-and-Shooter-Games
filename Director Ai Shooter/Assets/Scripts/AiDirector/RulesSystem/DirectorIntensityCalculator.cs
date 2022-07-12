@@ -30,10 +30,10 @@ namespace AiDirector.RulesSystem
                 Debug.LogError("There are multiple instances of DirectorIntensityCalculator active!");
             }
 
-            _rules.Add(new DistanceFromEnemyRule(3f, 8f)); 
-            _rules.Add(new DistanceFromEnemyRule(6f, 4f));  
-            _rules.Add(new PlayerIdleRule(5f,3f));
-            _rules.Add(new HealthLowRule(50f, 2f));
+            //_rules.Add(new DistanceFromEnemyRule(3f, 8f)); 
+            //_rules.Add(new DistanceFromEnemyRule(6f, 4f));  
+            //_rules.Add(new PlayerIdleRule(5f,3f));
+            //_rules.Add(new HealthLowRule(50f, 2f));
 
 
             // [OPTION 2]

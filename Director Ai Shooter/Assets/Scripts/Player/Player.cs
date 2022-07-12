@@ -8,7 +8,8 @@ public class Player : Entity
 {
     private int _score = 0;
     private int _kills = 0;
-    private int _maxHealth; 
+    private int _maxHealth;
+    private PlayerShooting _playerShooting;
 
     private void OnEnable()
     {
@@ -20,6 +21,11 @@ public class Player : Entity
     {
         EventManager.StopListening("EnemyDied", IncrementKillCount);
         EventManager.StopListening("GeneratorOnline", IncrementScore);
+    }
+
+    private void Awake()
+    {
+        _playerShooting = GetComponent<PlayerShooting>();
     }
 
     private void Start()
@@ -71,6 +77,11 @@ public class Player : Entity
     public int GetMaxHealth()
     {
         return this._maxHealth;
+    }
+
+    public PlayerShooting GetWeapon()
+    {
+        return _playerShooting;
     }
 
     public void SetHealth(int amount)
