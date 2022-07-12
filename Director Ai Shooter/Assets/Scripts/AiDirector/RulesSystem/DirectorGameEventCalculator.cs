@@ -1,25 +1,18 @@
 ﻿using System.Collections.Generic;
 using AiDirector.RulesSystem.Interfaces;
 using AiDirector.RulesSystem.RuleEngine;
+using AiDirector.RulesSystem.Rules.GameEventRules;
 using AiDirector.RulesSystem.Rules.IntensityRules;
 using UnityEngine;
 
 namespace AiDirector.RulesSystem
 {
-    /*
-     * [Info]
-     * Provides an output (intensity) that the Director utilises to determine behaviour
-     *
-     * [Note]
-     * After creating a rule, make sure to add it to the rules list in the constructor below
-     * so that it is utilised.
-     */
-    public class DirectorIntensityCalculator : MonoBehaviour
+    public class DirectorGameEventCalculator
     {
-        public static DirectorIntensityCalculator Instance;
-        private List<IDirectorIntensityRule> _rules = new List<IDirectorIntensityRule>();
+        public static DirectorGameEventCalculator Instance;
+        private List<IDirectorGameEventRule> _rules = new List<IDirectorGameEventRule>();
 
-        private DirectorIntensityCalculator()
+        private DirectorGameEventCalculator()
         {
             if (Instance == null)
             {
@@ -30,11 +23,7 @@ namespace AiDirector.RulesSystem
                 Debug.LogError("There are multiple instances of DirectorIntensityCalculator active!");
             }
 
-            _rules.Add(new DistanceFromEnemyRule(3f, 6f)); 
-            _rules.Add(new DistanceFromEnemyRule(6f, 2f));  
-            _rules.Add(new PlayerIdleRule(5f,3f));
-            _rules.Add(new HealthLowRule(50f, 2f));
-            _rules.Add(new HealthLowRule(10f, 6f));
+            //_rules.Add(new BossSpawningRule()); // int eventChance%
 
 
             // [OPTION 2]
@@ -56,11 +45,11 @@ namespace AiDirector.RulesSystem
             Using a user interface that allows the designer to add rules to the system without touching this class*/
         }
         
-        public float CalculatePerceivedIntensityOutput(Director director) 
+        public float CalculateGameEventOutput(Director director) 
         {
-            var engine = new DirectorIntensityRuleEngine(_rules);
-            return engine.CalculatePerceivedIntensityPercentage(director);
-            // Outputs the greatest intensity value
+            var engine = new DirectorGameEventRuleEngine(_rules);
+            return engine.CalculateGameEventOutput(director);
+            // Outputs the greatest chance value
         }
     }
 }

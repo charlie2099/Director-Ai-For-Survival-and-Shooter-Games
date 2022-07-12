@@ -73584,7 +73584,7 @@ MonoBehaviour:
   projectileContainer: {fileID: 2137916597}
   muzzleFlash: {fileID: 6042502}
   firePoint: {fileID: 632828365}
-  ammoMagCapacity: 10
+  ammoMagCapacity: 50
   numOfAmmoMags: 4
   bulletForce: 20
 --- !u!114 &880795088
@@ -86398,7 +86398,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -10.299927, y: 9.600098}
+  m_AnchoredPosition: {x: -10.299805, y: 9.600098}
   m_SizeDelta: {x: 390, y: 100}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1582343247
@@ -87211,8 +87211,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3de5721070921ec4baaf50f6848370c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  difficulty: 2
   intensityCalculationRate: 1
-  intensityScaler: 60
   peakIntensityThreshold: 70
   defaultPeakDuration: 15
   defaultRespiteDuration: 10

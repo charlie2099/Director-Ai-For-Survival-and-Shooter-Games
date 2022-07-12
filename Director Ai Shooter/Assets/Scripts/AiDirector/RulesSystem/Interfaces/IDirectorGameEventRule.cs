@@ -1,6 +1,6 @@
 ﻿namespace AiDirector.RulesSystem.Interfaces
 {
-    public interface IDirectorEventRule
+    public interface IDirectorGameEventRule
     {
         public float CalculateGameEvent(Director director);
     }

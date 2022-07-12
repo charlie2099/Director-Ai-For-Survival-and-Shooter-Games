@@ -76,9 +76,6 @@ public class PlayerShooting : MonoBehaviour
                 StartCoroutine(PlayMuzzleFlashEffect());
             }
         }
-        
-        print("Bullets left: " + _currentBulletCount);
-        print("Mags left: " + _currentMag);
     }
 
     private IEnumerator PlayMuzzleFlashEffect()
@@ -102,6 +99,16 @@ public class PlayerShooting : MonoBehaviour
     public void RefillAmmo()
     {
         _currentBulletCount = 10;
+    }
+
+    public int GetCurrentAmmo()
+    {
+        return _currentBulletCount;
+    }
+
+    public int GetMagCapacity()
+    {
+        return ammoMagCapacity;
     }
 }
 

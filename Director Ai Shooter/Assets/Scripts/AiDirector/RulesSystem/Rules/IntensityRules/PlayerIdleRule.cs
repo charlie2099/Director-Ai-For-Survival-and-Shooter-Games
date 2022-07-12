@@ -1,7 +1,7 @@
 ﻿using AiDirector.RulesSystem.Interfaces;
 using UnityEngine;
 
-namespace AiDirector.RulesSystem.Rules
+namespace AiDirector.RulesSystem.Rules.IntensityRules
 {
     public class PlayerIdleRule : IDirectorIntensityRule
     {

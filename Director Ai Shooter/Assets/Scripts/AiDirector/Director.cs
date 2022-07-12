@@ -11,9 +11,16 @@ namespace AiDirector
         public static Director Instance;
         public DirectorState directorState = new DirectorState();
 
+        private enum Difficulty
+        {
+            EASY, 
+            NORMAL,
+            HARD
+        }
+        [SerializeField] private Difficulty difficulty;
+
         [Header("INTENSITY")]
         [SerializeField] private float intensityCalculationRate = 1.0f;
-        [SerializeField] private int intensityScaler = 60;
 
         [Header("TEMPO")]
         [SerializeField] [Range(70, 100)] private int peakIntensityThreshold;
@@ -45,13 +52,16 @@ namespace AiDirector
         [Header("DEBUG")]
         [SerializeField] private bool debugMode = false;
         [SerializeField] private GameObject debugPanel;
-        
+
+        private ActiveAreaSet _activeAreaSet;
         private float _perceivedIntensity;
         private float _timeSpentInPeak;
         private float _timeSpentInRespite;
         private float _timer;
         private float _timePassed4;
-
+        private float _timePassed5;
+        private int _intensityScaler;
+        
         private void Awake()
         {
             if (Instance == null)
@@ -62,10 +72,25 @@ namespace AiDirector
             {
                 Debug.LogError("Only one instance of the Director should exist at any one time");
             }
+
+            _activeAreaSet = GetComponent<ActiveAreaSet>();
         }
 
         private void Start()
         {
+            if (difficulty == Difficulty.EASY)
+            {
+                _intensityScaler = 40;
+            }
+            else if (difficulty == Difficulty.NORMAL)
+            {
+                _intensityScaler = 60;
+            }
+            else if (difficulty == Difficulty.HARD)
+            {
+                _intensityScaler = 80;
+            }
+            
             _timeSpentInPeak = defaultPeakDuration;
             _timeSpentInRespite = defaultRespiteDuration;
             _timePassed4 = intensityCalculationRate;
@@ -107,7 +132,8 @@ namespace AiDirector
 
         public float GetEnemyPopulationCount()
         {
-            return ActiveAreaSet.EnemyPopulationCount;
+            return _activeAreaSet.GetEnemyPopulationCount();
+            //return ActiveAreaSet.EnemyPopulationCount;
         }
 
         public float GetPerceivedIntensity()
@@ -130,14 +156,14 @@ namespace AiDirector
             return _timeSpentInRespite;
         }
 
-        public void IncreaseIntensity()
+        public void IncreasePerceivedIntensityMetric()
         {
             // Calculates intensity every second
             if (Time.time > _timePassed4)
             {
-                float intensity = DirectorIntensityCalculator.Instance.CalculatePerceivedIntensityPercentage(this);
+                float intensity = DirectorIntensityCalculator.Instance.CalculatePerceivedIntensityOutput(this);
                 //print("Current Intensity: <color=orange>" + intensity + "</color>");
-                _perceivedIntensity += intensity * intensityScaler * Time.deltaTime;
+                _perceivedIntensity += intensity * _intensityScaler * Time.deltaTime;
             
                 if (_perceivedIntensity > 100)
                 {
@@ -147,8 +173,32 @@ namespace AiDirector
                 _timePassed4 = Time.time + intensityCalculationRate;
             }
         }
+
+        public void CalculateGameEvent()
+        {
+            // wait few seconds
+            // calculate game event
+            // (only one game event per peak phase)
+
+            //DirectorGameEventCalculator.Instance.CalculateGameEventOutput(this);
+
+            // Calculates intensity every second
+            /*if (Time.time > _timePassed5)
+            {
+                float intensity = DirectorIntensityCalculator.Instance.CalculatePerceivedIntensityPercentage(this);
+                //print("Current Intensity: <color=orange>" + intensity + "</color>");
+                _perceivedIntensity += intensity * _intensityScaler * Time.deltaTime;
+            
+                if (_perceivedIntensity > 100)
+                {
+                    _perceivedIntensity = 100;
+                }
+                
+                _timePassed5 = Time.time + intensityCalculationRate;
+            }*/
+        }
     
-        public void DecreaseIntensity(float amount)
+        public void DecreasePerceivedIntensityMetric(float amount)
         {
             _perceivedIntensity -= amount;
             if (_perceivedIntensity < 0)
@@ -164,7 +214,7 @@ namespace AiDirector
 
         public int GetIntensityScalar()
         {
-            return intensityScaler;
+            return _intensityScaler;
         }
 
         private float GetDistanceFromPlayerToEnemy(Vector2 enemy)
@@ -208,14 +258,14 @@ namespace AiDirector
             if (_perceivedIntensity > 0 && _perceivedIntensity < peakIntensityThreshold)
             {
                 directorState.CurrentTempo = DirectorState.Tempo.BuildUp;
-                //_perceivedIntensity += 0.1f * Time.deltaTime;
-                //IncreaseIntensity(0.1f);
-                IncreaseIntensity(); 
+                IncreasePerceivedIntensityMetric(); 
             }
             else if (_perceivedIntensity >= peakIntensityThreshold)
             {
                 directorState.CurrentTempo = DirectorState.Tempo.Peak;
                 _timeSpentInPeak -= Time.deltaTime;
+                CalculateGameEvent();
+                
             }
             else if(directorState.CurrentTempo != DirectorState.Tempo.PeakFade)
             {
@@ -247,10 +297,15 @@ namespace AiDirector
             yield return new WaitForSeconds(5.0f);
             if (intensityCheck == _perceivedIntensity)
             {
-                DecreaseIntensity(0.001f * Time.time);
+                DecreasePerceivedIntensityMetric(0.001f * Time.time);
             }
         
             // 5.0    10 seconds later    10.0     
+        }
+
+        public void SpawnBoss()
+        {
+            _activeAreaSet.SpawnBoss();
         }
     }
 }

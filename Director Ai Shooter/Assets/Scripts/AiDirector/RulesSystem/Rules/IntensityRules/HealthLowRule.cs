@@ -1,6 +1,6 @@
 ﻿using AiDirector.RulesSystem.Interfaces;
 
-namespace AiDirector.RulesSystem.Rules
+namespace AiDirector.RulesSystem.Rules.IntensityRules
 {
     public class HealthLowRule : IDirectorIntensityRule
     {

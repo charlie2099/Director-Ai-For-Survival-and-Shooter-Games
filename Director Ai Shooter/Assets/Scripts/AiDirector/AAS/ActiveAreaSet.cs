@@ -8,8 +8,6 @@ namespace AiDirector.AAS
     [RequireComponent(typeof(LineRenderer))]
     public class ActiveAreaSet : MonoBehaviour
     {
-        public static int EnemyPopulationCount;
-    
         [Header("CIRCLE PARAMETERS")]
         [SerializeField] private float radius         = 50;
         [SerializeField] private float lineWidth      = 1;
@@ -36,6 +34,7 @@ namespace AiDirector.AAS
         private float _timePassed;
         private float _timePassed2;
         private float _timePassed3 = 3.0f;
+        private int _enemyPopulationCount;
 
         private void Start()
         {
@@ -68,7 +67,7 @@ namespace AiDirector.AAS
                 }
 
                 // Spawn enemies every 0.5 seconds
-                if (Time.time > _timePassed2 && EnemyPopulationCount < Director.Instance.maxPopulationCount)
+                if (Time.time > _timePassed2 && _enemyPopulationCount < Director.Instance.maxPopulationCount)
                 {
                     SpawnEntity();
                     _timePassed2 += spawnInterval;
@@ -91,7 +90,7 @@ namespace AiDirector.AAS
                 DespawnEnemyOnAreaExit();
             }
 
-            EnemyPopulationCount = Director.Instance.activeEnemies.Count;
+            _enemyPopulationCount = Director.Instance.activeEnemies.Count;
         }
 
         private void SpawnEntity() // TODO: designer specifies layer for enemies to spawn on? 
@@ -157,6 +156,15 @@ namespace AiDirector.AAS
                 }
             }
         }
+
+        public void SpawnBoss()
+        {
+            var playerPos = Director.Instance.GetPlayer().transform.position;
+            var posInSpawnRadius = playerPos + Random.insideUnitSphere * radius;
+            GameObject boss = Instantiate(bosses[0], posInSpawnRadius, Quaternion.identity);
+            // Add to boss list or enemy list?
+            Director.Instance.AddEnemy(boss);
+        }
     
         void DrawActiveAreaCircle()
         {
@@ -174,6 +182,11 @@ namespace AiDirector.AAS
 
                 angle += (380f / segments);
             }
+        }
+
+        public int GetEnemyPopulationCount()
+        {
+            return _enemyPopulationCount;
         }
     }
 }

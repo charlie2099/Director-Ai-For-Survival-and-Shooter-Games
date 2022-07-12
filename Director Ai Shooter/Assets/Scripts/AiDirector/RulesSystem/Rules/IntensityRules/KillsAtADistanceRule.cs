@@ -1,7 +1,6 @@
 ﻿using AiDirector.RulesSystem.Interfaces;
-using UnityEngine;
 
-namespace AiDirector.RulesSystem.Rules
+namespace AiDirector.RulesSystem.Rules.IntensityRules
 {
     public class KillsAtADistanceRule : IDirectorIntensityRule
     {
@@ -14,6 +13,8 @@ namespace AiDirector.RulesSystem.Rules
             _kills = kills;
             _distance = distance;
             _intensity = intensity;
+
+            //DistanceFromEnemyRule distanceFromEnemyRule = new DistanceFromEnemyRule(10, 1);
         }
 
         public float CalculatePerceivedIntensity(Director director)
