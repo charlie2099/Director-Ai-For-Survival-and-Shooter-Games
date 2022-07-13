@@ -1,19 +1,20 @@
 ﻿using AiDirector.RulesSystem.Interfaces;
-using AiDirector.RulesSystem.Rules.IntensityRules;
+using UnityEngine;
 
 namespace AiDirector.RulesSystem.Rules.GameEventRules
 {
-    public class BossSpawningRule : IDirectorGameEventRule
+    public class RespiteSkipRule : IDirectorGameEventRule
     {
         public bool CalculateGameEvent(Director director)
         {
-            /*if (director.GetPlayer().GetCurrentHealth() == director.GetPlayer().GetMaxHealth() &&
-                director.GetPlayer().GetWeapon().GetCurrentAmmo() == director.GetPlayer().GetWeapon().GetMagCapacity() &&
-                director.GetPerceivedIntensity() > 50)*/
-
-            if(director.GetPlayer().GetCurrentHealth() >= 50 && director.directorState.CurrentTempo == DirectorState.Tempo.Peak)
+            if (director.GetPlayer().GetCurrentHealth() <= 50)
             {
-                director.SpawnBoss();
+                //Debug.Log("Respite skip rule");
+                //director.DecreasePerceivedIntensityMetric(50);
+                
+                director.TestMethod();
+                
+                //director.directorState.CurrentTempo = DirectorState.Tempo.Peak;
                 return true;
 
                 // returns true if condition is met, and then the director compares it between all other events 

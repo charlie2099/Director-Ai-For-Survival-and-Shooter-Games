@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AiDirector.RulesSystem.Interfaces;
 using AiDirector.RulesSystem.RuleEngine;
 using AiDirector.RulesSystem.Rules.GameEventRules;
@@ -7,10 +8,11 @@ using UnityEngine;
 
 namespace AiDirector.RulesSystem
 {
-    public class DirectorGameEventCalculator
+    public class DirectorGameEventCalculator : MonoBehaviour
     {
+        //public Action OnDirectorEvent;
         public static DirectorGameEventCalculator Instance;
-        private List<IDirectorGameEventRule> _rules = new List<IDirectorGameEventRule>();
+        private List<IDirectorGameEventRule> _rules;
 
         private DirectorGameEventCalculator()
         {
@@ -23,7 +25,11 @@ namespace AiDirector.RulesSystem
                 Debug.LogError("There are multiple instances of DirectorIntensityCalculator active!");
             }
 
-            //_rules.Add(new BossSpawningRule()); // int eventChance%
+            _rules = new List<IDirectorGameEventRule>()
+            {
+                new BossSpawningRule(),
+                new RespiteSkipRule()
+            };
 
 
             // [OPTION 2]
@@ -34,22 +40,24 @@ namespace AiDirector.RulesSystem
                 .Select(r => Activator.CreateInstance(r) as IDirectorIntensityRule);
 
             var engine = new DirectorIntensityRuleEngine(rules);
-            return engine.CalculatePerceivedIntensityPercentage(player, director); */ 
+            return engine.CalculatePerceivedIntensityPercentage(player, director); */
             /*^ [Info]
             Look at all types in current assembly of current type i.e. DirectorIntensityCalculator
             Filter down to just the types that are assignable from ruleType i.e. IDirectorIntensityRule, but not the interface itself
             Uses projection through .Select, which creates an instance of each one of the rules. Though rules should be stateless to use this technique!*/
-            
+
             /*[OPTION 3]
             A further alternative?
             Using a user interface that allows the designer to add rules to the system without touching this class*/
         }
         
-        public float CalculateGameEventOutput(Director director) 
+        public void CalculateGameEventOutput(Director director) 
         {
             var engine = new DirectorGameEventRuleEngine(_rules);
-            return engine.CalculateGameEventOutput(director);
-            // Outputs the greatest chance value
+            engine.CalculateGameEventOutput(director);
+            // Outputs all rules that return true? i.e. All rules whose conditions are met
+            
+            // invoke an event? That is subscribed to by the director?
         }
     }
 }

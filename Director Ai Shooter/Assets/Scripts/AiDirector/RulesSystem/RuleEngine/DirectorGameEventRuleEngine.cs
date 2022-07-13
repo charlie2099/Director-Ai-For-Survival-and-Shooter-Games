@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using AiDirector.RulesSystem.Interfaces;
 using UnityEngine;
 
@@ -12,24 +13,28 @@ namespace AiDirector.RulesSystem.RuleEngine
         {
             _rules.AddRange(rules); // Appends items to the end of array
         }
-
-        public float CalculateGameEventOutput(Director director) 
+        
+        public bool CalculateGameEventOutput(Director director)
         {
-            float chanceValue = 0; 
+            bool firstMatch = false; // rename to allMatchesFound?
+            foreach (var rule in _rules)
+            {
+                firstMatch = _rules.All(ctx => rule.CalculateGameEvent(director));
+                // Finds all rules that return true?
+            }
+
+            return firstMatch;
+
+
+            //_rules.All(ctx => true);
+            // TODO: Apply the rule which matches first 
+
+            /*float chanceValue = 0; 
             foreach (var rule in _rules)
             {
                 chanceValue = Mathf.Max(chanceValue, rule.CalculateGameEvent(director));
-                // Applies the rule which outputs the greatest intensity value
-            }
-            return chanceValue;
             
-            /*float intensity = 0; 
-            foreach (var rule in _rules)
-            {
-                intensity = Mathf.Max(intensity, rule.CalculatePerceivedIntensity(director));
-                // Applies the rule which outputs the greatest intensity value
-            }
-            return intensity;*/
+            }*/
         }
     }
 }

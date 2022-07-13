@@ -99,6 +99,14 @@ namespace AiDirector
             debugPanel.SetActive(debugMode);
         
             RandomiseSpawnOnPlay();
+            
+            InvokeRepeating(nameof(GameEvent), 0, 5);
+        }
+
+        public void GameEvent()
+        {
+            DirectorGameEventCalculator.Instance.CalculateGameEventOutput(this);
+            // Events should only happen once every so often
         }
 
         private void Update()
@@ -306,7 +314,13 @@ namespace AiDirector
 
         public void SpawnBoss()
         {
+            print("BOSS SPAWNED");
             _activeAreaSet.SpawnBoss();
+        }
+
+        public void TestMethod()
+        {
+            print("TEST METHOD CALLED");
         }
     }
 }

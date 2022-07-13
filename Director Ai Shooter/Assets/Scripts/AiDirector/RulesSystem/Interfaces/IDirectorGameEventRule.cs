@@ -2,6 +2,7 @@
 {
     public interface IDirectorGameEventRule
     {
-        public float CalculateGameEvent(Director director);
+        //public float CalculateGameEvent(Director director);
+        public bool CalculateGameEvent(Director director);
     }
 }

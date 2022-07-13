@@ -155,11 +155,30 @@ namespace AiDirector.AAS
 
         public void SpawnBoss()
         {
-            var playerPos = Director.Instance.GetPlayer().transform.position;
-            var posInSpawnRadius = playerPos + Random.insideUnitSphere * radius;
-            GameObject boss = Instantiate(bosses[0], posInSpawnRadius, Quaternion.identity);
-            // Add to boss list or enemy list?
+            Vector2 playerPos = Director.Instance.GetPlayer().transform.position;
+            //var posInSpawnRadius = playerPos + Random.insideUnitCircle * radius;
+            _randomEnemy = Random.Range(0, enemies.Length);
+
+            // TODO: Refactor hard-coded values. Should be replaced with the distance of the AAS circle from the player
+            for (int i = 0; i < _worldTilePositions.Count; i++)
+            {
+                if (Vector2.Distance(_worldTilePositions[i], playerPos) < radius && 
+                    Vector2.Distance(_worldTilePositions[i], playerPos) >= 10)
+                {
+                    _activeTiles.Add(i);
+                }
+            }
+
+            _randomTile = _activeTiles[Random.Range(0, _activeTiles.Count)];
+            float randomXpos = _worldTilePositions[_randomTile].x + 0.5f;
+            float randomYpos = _worldTilePositions[_randomTile].y + 0.5f;
+            var enemyPos = new Vector2(randomXpos, randomYpos); 
+            GameObject boss = Instantiate(bosses[0], enemyPos, Quaternion.identity);
+            boss.GetComponent<AIDestinationSetter>().target = Director.Instance.GetPlayer().transform;
+            if (enemyHierarchyContainer != null) { boss.transform.parent = enemyHierarchyContainer.transform; }
             Director.Instance.AddEnemy(boss);
+           
+            _activeTiles.Clear(); // TODO: Refactor!
         }
     
         void DrawActiveAreaCircle()
