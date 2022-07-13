@@ -87174,7 +87174,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1970553791}
   - component: {fileID: 1970553792}
-  - component: {fileID: 1970553796}
   - component: {fileID: 1970553793}
   - component: {fileID: 1970553794}
   - component: {fileID: 1970553795}
@@ -87211,13 +87210,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3de5721070921ec4baaf50f6848370c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  difficulty: 2
+  difficulty: 0
   intensityCalculationRate: 1
   peakIntensityThreshold: 70
   defaultPeakDuration: 15
   defaultRespiteDuration: 10
   maxBuildUpPopulation: 5
-  maxPeakPopulation: 20
+  maxPeakPopulation: 10
   maxRespitePopulation: 0
   activeEnemies: []
   maxPopulationCount: 0
@@ -87245,6 +87244,7 @@ MonoBehaviour:
   radius: 15
   lineWidth: 0.25
   updateInterval: 2
+  tileMap: {fileID: 454572930}
   layerMask:
     serializedVersion: 2
     m_Bits: 256
@@ -87442,18 +87442,6 @@ MonoBehaviour:
     pivotPointRoot: {fileID: 0}
     spreadOutCount: 1
   showGraphs: 1
---- !u!114 &1970553796
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1970553790}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9144598138904314b6655a464687d57f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1984646782
 PrefabInstance:
   m_ObjectHideFlags: 0

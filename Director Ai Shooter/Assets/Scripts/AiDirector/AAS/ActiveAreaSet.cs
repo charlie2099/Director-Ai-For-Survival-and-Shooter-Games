@@ -1,6 +1,8 @@
+using System.Collections.Generic;
 using System.Linq;
 using Pathfinding;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 using Random = UnityEngine.Random;
 
 namespace AiDirector.AAS
@@ -14,6 +16,7 @@ namespace AiDirector.AAS
         [SerializeField] private float updateInterval = 1.0f;
     
         [Header("SPAWN CONSTRAINTS")] 
+        [SerializeField] private Tilemap tileMap;
         [SerializeField] private LayerMask layerMask;
 
         [Header("ENEMIES")]
@@ -26,15 +29,18 @@ namespace AiDirector.AAS
         [SerializeField] private GameObject enemyHierarchyContainer;
         [SerializeField] private GameObject bossHierarchyContainer;
 
+        private List<Vector2> _worldTilePositions;
         private LineRenderer _line;
         private AstarPath _astar;
         private GridGraph _gridGraph;
         private int segments       = 50;
-        private int _randomEnemy;
         private float _timePassed;
         private float _timePassed2;
         private float _timePassed3 = 3.0f;
         private int _enemyPopulationCount;
+        private int _randomEnemy;
+        private int _randomTile;
+        private List<int> _activeTiles = new List<int>();
 
         private void Start()
         {
@@ -50,6 +56,8 @@ namespace AiDirector.AAS
 
             _timePassed = updateInterval;
             _timePassed2 = spawnInterval;
+            
+            FindLocationsOfTiles();
         }
 
         private void Update()
@@ -95,42 +103,30 @@ namespace AiDirector.AAS
 
         private void SpawnEntity() // TODO: designer specifies layer for enemies to spawn on? 
         {
-            var playerPos = Director.Instance.GetPlayer().transform.position;
-            var posInSpawnRadius = playerPos + Random.insideUnitSphere * radius;
-            posInSpawnRadius.z = 20;
-        
+            Vector2 playerPos = Director.Instance.GetPlayer().transform.position;
+            //var posInSpawnRadius = playerPos + Random.insideUnitCircle * radius;
             _randomEnemy = Random.Range(0, enemies.Length);
-            GameObject enemy = Instantiate(enemies[_randomEnemy], posInSpawnRadius, Quaternion.identity);
-            enemy.GetComponent<AIDestinationSetter>().target = Director.Instance.GetPlayer().transform;
-            if (enemyHierarchyContainer != null)
-            {
-                enemy.transform.parent = enemyHierarchyContainer.transform;
-            }
-            Director.Instance.AddEnemy(enemy);
 
-            // De-spawn enemy if they spawn too close-by to player - Not ideal...
-            if (Vector2.Distance(playerPos, posInSpawnRadius) < 10)
-            {
-                DespawnEntity(enemy);
-            }
-        
-        
+            // TODO: Refactor hard-coded values. Should be replaced with the distance of the AAS circle from the player
+           for (int i = 0; i < _worldTilePositions.Count; i++)
+           {
+               if (Vector2.Distance(_worldTilePositions[i], playerPos) < radius && 
+                   Vector2.Distance(_worldTilePositions[i], playerPos) >= 10)
+               {
+                   _activeTiles.Add(i);
+               }
+           }
 
-            /*int layer = col.collider.gameObject.layer;
-        if (layer == layerMask)
-        {
-            // spawn enemies
-        }*/
-
-            /*if (enemy.layer != layerMask) // Not ideal...
-        {
-            DespawnEntity(enemy);
-        }*/
-
-            /*if (LayerMask.NameToLayer(layerMask.ToString()) == 1)
-        {
-            // raycast downwards from enemy spawn position?
-        }*/
+           _randomTile = _activeTiles[Random.Range(0, _activeTiles.Count)];
+           float randomXpos = _worldTilePositions[_randomTile].x + 0.5f;
+           float randomYpos = _worldTilePositions[_randomTile].y + 0.5f;
+           var enemyPos = new Vector2(randomXpos, randomYpos); 
+           GameObject enemy = Instantiate(enemies[_randomEnemy], enemyPos, Quaternion.identity);
+           enemy.GetComponent<AIDestinationSetter>().target = Director.Instance.GetPlayer().transform;
+           if (enemyHierarchyContainer != null) { enemy.transform.parent = enemyHierarchyContainer.transform; }
+           Director.Instance.AddEnemy(enemy);
+           
+           _activeTiles.Clear(); // TODO: Refactor!
         }
 
         private void DespawnEntity(GameObject entity)
@@ -187,6 +183,24 @@ namespace AiDirector.AAS
         public int GetEnemyPopulationCount()
         {
             return _enemyPopulationCount;
+        }
+        
+        private void FindLocationsOfTiles()
+        {
+            _worldTilePositions = new List<Vector2>();
+
+            for (int n = tileMap.cellBounds.xMin; n < tileMap.cellBounds.xMax; n++) // scan from left to right for tiles
+            {
+                for (int p = tileMap.cellBounds.yMin; p < tileMap.cellBounds.yMax; p++) // scan from bottom to top for tiles
+                {
+                    Vector3Int localPosition = new Vector3Int(n, p, (int)tileMap.transform.position.y); 
+                    Vector3 worldPosition = tileMap.CellToWorld(localPosition); 
+                    if (tileMap.HasTile(localPosition))
+                    {
+                        _worldTilePositions.Add(worldPosition);
+                    }
+                }
+            }
         }
     }
 }

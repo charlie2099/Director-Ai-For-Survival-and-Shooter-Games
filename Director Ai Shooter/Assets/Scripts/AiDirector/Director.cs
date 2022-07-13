@@ -10,6 +10,7 @@ namespace AiDirector
     {
         public static Director Instance;
         public DirectorState directorState = new DirectorState();
+        public DirectorIntensityCalculator directorIntensityCalculator = new DirectorIntensityCalculator(); 
 
         private enum Difficulty
         {
@@ -126,7 +127,7 @@ namespace AiDirector
                 _timeSpentInRespite = defaultRespiteDuration;
             }
             
-            print("Perceived Intensity: <color=red>" + GetPerceivedIntensity()+ "</color>");
+            //print("Perceived Intensity: <color=red>" + GetPerceivedIntensity()+ "</color>");
             //print("Director State: <color=magenta>" + directorState.CurrentTempo + "</color>");
         }
 
@@ -161,7 +162,7 @@ namespace AiDirector
             // Calculates intensity every second
             if (Time.time > _timePassed4)
             {
-                float intensity = DirectorIntensityCalculator.Instance.CalculatePerceivedIntensityOutput(this);
+                float intensity = directorIntensityCalculator.CalculatePerceivedIntensityOutput(this);
                 //print("Current Intensity: <color=orange>" + intensity + "</color>");
                 _perceivedIntensity += intensity * _intensityScaler * Time.deltaTime;
             
