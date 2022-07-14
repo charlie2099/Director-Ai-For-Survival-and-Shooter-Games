@@ -653,7 +653,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3527346280457394506, guid: 5e78525254161a745bd388c868ee6068, type: 3}
       propertyPath: m_Name
-      value: AmmoCrate (3)
+      value: AmmoCrate
       objectReference: {fileID: 0}
     - target: {fileID: 3527346280457394516, guid: 5e78525254161a745bd388c868ee6068, type: 3}
       propertyPath: m_RootOrder
@@ -1086,7 +1086,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7320826829573817190, guid: e8139f3be2046764995e8e7c3f448825, type: 3}
       propertyPath: m_Name
-      value: Generator (10)
+      value: Generator
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e8139f3be2046764995e8e7c3f448825, type: 3}
@@ -1104,7 +1104,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3527346280457394506, guid: 5e78525254161a745bd388c868ee6068, type: 3}
       propertyPath: m_Name
-      value: AmmoCrate (6)
+      value: AmmoCrate
       objectReference: {fileID: 0}
     - target: {fileID: 3527346280457394516, guid: 5e78525254161a745bd388c868ee6068, type: 3}
       propertyPath: m_RootOrder
@@ -1285,7 +1285,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3527346280457394506, guid: 5e78525254161a745bd388c868ee6068, type: 3}
       propertyPath: m_Name
-      value: AmmoCrate (11)
+      value: AmmoCrate
       objectReference: {fileID: 0}
     - target: {fileID: 3527346280457394516, guid: 5e78525254161a745bd388c868ee6068, type: 3}
       propertyPath: m_RootOrder
@@ -1765,7 +1765,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7320826829573817190, guid: e8139f3be2046764995e8e7c3f448825, type: 3}
       propertyPath: m_Name
-      value: Generator (5)
+      value: Generator
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e8139f3be2046764995e8e7c3f448825, type: 3}
@@ -72609,7 +72609,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7320826829573817190, guid: e8139f3be2046764995e8e7c3f448825, type: 3}
       propertyPath: m_Name
-      value: Generator (1)
+      value: Generator
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e8139f3be2046764995e8e7c3f448825, type: 3}
@@ -73118,7 +73118,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7320826829573817190, guid: e8139f3be2046764995e8e7c3f448825, type: 3}
       propertyPath: m_Name
-      value: Generator (2)
+      value: Generator
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e8139f3be2046764995e8e7c3f448825, type: 3}
@@ -73773,7 +73773,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3527346280457394506, guid: 5e78525254161a745bd388c868ee6068, type: 3}
       propertyPath: m_Name
-      value: AmmoCrate (10)
+      value: AmmoCrate
       objectReference: {fileID: 0}
     - target: {fileID: 3527346280457394516, guid: 5e78525254161a745bd388c868ee6068, type: 3}
       propertyPath: m_RootOrder
@@ -74016,7 +74016,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3527346280457394506, guid: 5e78525254161a745bd388c868ee6068, type: 3}
       propertyPath: m_Name
-      value: AmmoCrate (9)
+      value: AmmoCrate
       objectReference: {fileID: 0}
     - target: {fileID: 3527346280457394516, guid: 5e78525254161a745bd388c868ee6068, type: 3}
       propertyPath: m_RootOrder
@@ -74330,7 +74330,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7320826829573817190, guid: e8139f3be2046764995e8e7c3f448825, type: 3}
       propertyPath: m_Name
-      value: Generator (6)
+      value: Generator
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e8139f3be2046764995e8e7c3f448825, type: 3}
@@ -76445,7 +76445,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7320826829573817190, guid: e8139f3be2046764995e8e7c3f448825, type: 3}
       propertyPath: m_Name
-      value: Generator (7)
+      value: Generator
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e8139f3be2046764995e8e7c3f448825, type: 3}
@@ -76724,7 +76724,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7320826829573817190, guid: e8139f3be2046764995e8e7c3f448825, type: 3}
       propertyPath: m_Name
-      value: Generator (3)
+      value: Generator
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e8139f3be2046764995e8e7c3f448825, type: 3}
@@ -76790,7 +76790,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7320826829573817190, guid: e8139f3be2046764995e8e7c3f448825, type: 3}
       propertyPath: m_Name
-      value: Generator (4)
+      value: Generator
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e8139f3be2046764995e8e7c3f448825, type: 3}
@@ -86247,7 +86247,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7320826829573817190, guid: e8139f3be2046764995e8e7c3f448825, type: 3}
       propertyPath: m_Name
-      value: Generator (11)
+      value: Generator
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e8139f3be2046764995e8e7c3f448825, type: 3}
@@ -86629,7 +86629,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7320826829573817190, guid: e8139f3be2046764995e8e7c3f448825, type: 3}
       propertyPath: m_Name
-      value: Generator (8)
+      value: Generator
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e8139f3be2046764995e8e7c3f448825, type: 3}
@@ -86836,7 +86836,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3527346280457394506, guid: 5e78525254161a745bd388c868ee6068, type: 3}
       propertyPath: m_Name
-      value: AmmoCrate (8)
+      value: AmmoCrate
       objectReference: {fileID: 0}
     - target: {fileID: 3527346280457394516, guid: 5e78525254161a745bd388c868ee6068, type: 3}
       propertyPath: m_RootOrder
@@ -86974,7 +86974,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3527346280457394506, guid: 5e78525254161a745bd388c868ee6068, type: 3}
       propertyPath: m_Name
-      value: AmmoCrate (5)
+      value: AmmoCrate
       objectReference: {fileID: 0}
     - target: {fileID: 3527346280457394516, guid: 5e78525254161a745bd388c868ee6068, type: 3}
       propertyPath: m_RootOrder
@@ -87036,7 +87036,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3527346280457394506, guid: 5e78525254161a745bd388c868ee6068, type: 3}
       propertyPath: m_Name
-      value: AmmoCrate (7)
+      value: AmmoCrate
       objectReference: {fileID: 0}
     - target: {fileID: 3527346280457394516, guid: 5e78525254161a745bd388c868ee6068, type: 3}
       propertyPath: m_RootOrder
@@ -87174,7 +87174,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1970553791}
   - component: {fileID: 1970553792}
-  - component: {fileID: 1970553796}
   - component: {fileID: 1970553793}
   - component: {fileID: 1970553794}
   - component: {fileID: 1970553795}
@@ -87212,12 +87211,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   difficulty: 2
-  intensityCalculationRate: 1
+  intensityCalculationRate: 0.25
   peakIntensityThreshold: 70
-  defaultPeakDuration: 15
-  defaultRespiteDuration: 10
-  maxBuildUpPopulation: 5
-  maxPeakPopulation: 10
+  defaultPeakDuration: 5
+  defaultRespiteDuration: 5
+  maxBuildUpPopulation: 2
+  maxPeakPopulation: 3
   maxRespitePopulation: 0
   activeEnemies: []
   maxPopulationCount: 0
@@ -87225,6 +87224,7 @@ MonoBehaviour:
   maxItemSpawns: 0
   items:
   - {fileID: 3485054699769378800, guid: 6d92f8639697b8045a8581e2030c51ee, type: 3}
+  - {fileID: 3527346280457394506, guid: 5e78525254161a745bd388c868ee6068, type: 3}
   objectContainers:
   - {fileID: 2085618236}
   - {fileID: 1402537871}
@@ -87445,18 +87445,6 @@ MonoBehaviour:
     pivotPointRoot: {fileID: 0}
     spreadOutCount: 1
   showGraphs: 1
---- !u!114 &1970553796
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1970553790}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e7b266b784c4b7b9c571369b313d908, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1984646782
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -87569,7 +87557,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3527346280457394506, guid: 5e78525254161a745bd388c868ee6068, type: 3}
       propertyPath: m_Name
-      value: AmmoCrate (4)
+      value: AmmoCrate
       objectReference: {fileID: 0}
     - target: {fileID: 3527346280457394516, guid: 5e78525254161a745bd388c868ee6068, type: 3}
       propertyPath: m_RootOrder
@@ -87661,7 +87649,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3527346280457394506, guid: 5e78525254161a745bd388c868ee6068, type: 3}
       propertyPath: m_Name
-      value: AmmoCrate (2)
+      value: AmmoCrate
       objectReference: {fileID: 0}
     - target: {fileID: 3527346280457394516, guid: 5e78525254161a745bd388c868ee6068, type: 3}
       propertyPath: m_RootOrder
@@ -87798,7 +87786,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3527346280457394506, guid: 5e78525254161a745bd388c868ee6068, type: 3}
       propertyPath: m_Name
-      value: AmmoCrate (1)
+      value: AmmoCrate
       objectReference: {fileID: 0}
     - target: {fileID: 3527346280457394516, guid: 5e78525254161a745bd388c868ee6068, type: 3}
       propertyPath: m_RootOrder
@@ -87950,7 +87938,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7320826829573817190, guid: e8139f3be2046764995e8e7c3f448825, type: 3}
       propertyPath: m_Name
-      value: Generator (9)
+      value: Generator
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e8139f3be2046764995e8e7c3f448825, type: 3}

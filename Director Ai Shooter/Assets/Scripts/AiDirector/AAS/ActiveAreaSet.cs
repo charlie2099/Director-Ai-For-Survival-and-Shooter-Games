@@ -181,23 +181,6 @@ namespace AiDirector.AAS
             _activeTiles.Clear(); // TODO: Refactor!
         }
 
-        public void SpawnItem(string ItemName)
-        {
-            /*if (objectContainers != null)
-            {
-                // iterates through containers
-                foreach (var entity in objectContainers)
-                {
-                    // iterates through items within each container
-                    for (var j = 0; j < entity.transform.childCount; j++)
-                    {
-                        var randBool = (Random.Range(0, 2) == 0);
-                        entity.transform.GetChild(j).gameObject.SetActive(randBool);
-                    }
-                }
-            }*/
-        }
-    
         void DrawActiveAreaCircle()
         {
             float x;

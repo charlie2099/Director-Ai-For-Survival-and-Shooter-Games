@@ -1,33 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using AiDirector.RulesSystem.Interfaces;
 using AiDirector.RulesSystem.RuleEngine;
 using AiDirector.RulesSystem.Rules.GameEventRules;
-using UnityEngine;
 
 namespace AiDirector.RulesSystem
 {
-    public class DirectorGameEventCalculator : MonoBehaviour
+    public class DirectorGameEventCalculator
     {
-        //public Action OnDirectorEvent;
-        public static DirectorGameEventCalculator Instance;
         private List<IDirectorGameEventRule> _rules;
 
-        private DirectorGameEventCalculator()
+        public DirectorGameEventCalculator()
         {
-            if (Instance == null)
-            {
-                Instance = this;
-            }
-            else
-            {
-                Debug.LogError("There are multiple instances of DirectorIntensityCalculator active!");
-            }
-
             _rules = new List<IDirectorGameEventRule>()
             {
                 new BossSpawningRule(),
-                new MedkitSpawnOnPeakEnd()
+                new MedkitSpawnOnPeakEnd(),
+                new AmmoSpawnOnPeakEnd()
                 //new RespiteSkipRule()
             };
 

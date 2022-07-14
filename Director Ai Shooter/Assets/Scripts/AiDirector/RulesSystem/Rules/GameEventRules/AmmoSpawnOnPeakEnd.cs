@@ -2,14 +2,14 @@
 
 namespace AiDirector.RulesSystem.Rules.GameEventRules
 {
-    public class MedkitSpawnOnPeakEnd : IDirectorGameEventRule
+    public class AmmoSpawnOnPeakEnd : IDirectorGameEventRule
     {
         public void CalculateGameEvent(Director director)
         {
-            if (director.GetPlayer().GetCurrentHealth() <= 50 &&
+            if (director.GetPlayer().GetWeapon().GetCurrentAmmo() <= 5 &&
                 director.directorState.CurrentTempo == DirectorState.Tempo.Respite)
             {
-                director.SpawnItem("Medkit");
+                director.SpawnItem("AmmoCrate");
             }
         }
     }

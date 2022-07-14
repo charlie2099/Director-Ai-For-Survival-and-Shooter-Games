@@ -13,7 +13,8 @@ namespace AiDirector
     {
         public static Director Instance;
         public DirectorState directorState = new DirectorState();
-        public DirectorIntensityCalculator directorIntensityCalculator = new DirectorIntensityCalculator(); 
+        public DirectorIntensityCalculator directorIntensityCalculator = new DirectorIntensityCalculator();
+        public DirectorGameEventCalculator directorGameEventCalculator = new DirectorGameEventCalculator();
 
         private enum Difficulty
         {
@@ -57,8 +58,9 @@ namespace AiDirector
         [SerializeField] private GameObject debugPanel;
 
         private ActiveAreaSet _activeAreaSet;
-        private Dictionary<GameObject, Vector2> _itemDictionary = new Dictionary<GameObject, Vector2>();
-        //private List<Vector2> _itemSpawnLocations = new List<Vector2>();
+        private Dictionary<GameObject, Vector2> _itemSpawnLocationsDictionary = new Dictionary<GameObject, Vector2>();
+        private Dictionary<string, GameObject> _itemPrefabDictionary = new Dictionary<string, GameObject>();
+        private Dictionary<string, GameObject> _itemContainerDictionary = new Dictionary<string, GameObject>();
         private float _perceivedIntensity;
         private float _timeSpentInPeak;
         private float _timeSpentInRespite;
@@ -79,7 +81,7 @@ namespace AiDirector
         
         public void TriggerGameEvent()
         {
-            DirectorGameEventCalculator.Instance.CalculateGameEventOutput(this);
+            directorGameEventCalculator.CalculateGameEventOutput(this);
         }
 
         private void Awake()
@@ -253,27 +255,6 @@ namespace AiDirector
             }
         }
 
-        private void RandomiseItemSpawnOnPlay()
-        {
-            if (objectContainers != null)
-            {
-                // iterates through containers
-                foreach (var container in objectContainers)
-                {
-                    // iterates through items within each container
-                    for (var j = 0; j < container.transform.childCount; j++)
-                    {
-                        var randBool = (Random.Range(0, 2) == 0);
-                        container.transform.GetChild(j).gameObject.SetActive(randBool);
-                        //_itemSpawnLocations.Add(container.transform.GetChild(j).gameObject.transform.position);
-                        var item = container.transform.GetChild(j).gameObject;
-                        var itemPos = item.transform.position;
-                        _itemDictionary.Add(item, itemPos);
-                    }
-                }
-            }
-        }
-
         public IEnumerator CheckIfIntensityShouldBeginDeclining()
         {
             float intensityCheck = _perceivedIntensity;
@@ -296,23 +277,51 @@ namespace AiDirector
         {
             print("TEST METHOD CALLED");
         }
-
-        public void SpawnItem(string itemName, string itemContainer)
+        
+        private void RandomiseItemSpawnOnPlay()
         {
-            foreach (var item in _itemDictionary.Keys)
+            if (objectContainers != null)
+            {
+                foreach (var container in objectContainers)
+                {
+                    // iterates through items within each container
+                    for (var j = 0; j < container.transform.childCount; j++)
+                    {
+                        var randBool = (Random.Range(0, 2) == 0);
+                        container.transform.GetChild(j).gameObject.SetActive(randBool);
+            
+                        var item = container.transform.GetChild(j).gameObject;
+                        var itemPos = item.transform.position;
+                        _itemSpawnLocationsDictionary.Add(item, itemPos);
+                    }
+                }
+
+                foreach (var itemPrefab in items)
+                {
+                    _itemPrefabDictionary.Add(itemPrefab.name, itemPrefab);
+                }
+
+                foreach (var container in objectContainers)
+                {
+                    _itemContainerDictionary.Add(container.transform.GetChild(0).name, container);
+                }
+                
+                /*foreach (var item in _itemSpawnLocationsDictionary.Keys) // generators, medkits, ammocrates
+                {
+                    _itemSpawnLocationsDictionary.Add(item, item.transform.position);
+                }*/
+            }
+        }
+
+        public void SpawnItem(string itemName)
+        {
+            foreach (var item in _itemSpawnLocationsDictionary.Keys) // generators, medkits, ammocrates
             {
                 if (item == null)
                 {
-                    Instantiate(items[0], _itemDictionary[item], Quaternion.identity);
+                    GameObject spawnedItem = Instantiate(_itemPrefabDictionary[itemName], _itemSpawnLocationsDictionary[item], Quaternion.identity);
+                    spawnedItem.transform.parent = _itemContainerDictionary[itemName].transform;
                 }
-
-                /*if (item != null)
-                {
-                    if (item.name == itemName )
-                    {
-                        item.GetComponent<SpriteRenderer>().color = Color.blue;
-                    }
-                }*/
             }
         }
     }

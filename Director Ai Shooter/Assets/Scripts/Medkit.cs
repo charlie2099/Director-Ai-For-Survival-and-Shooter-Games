@@ -12,7 +12,6 @@ public class Medkit : MonoBehaviour
 
         if (col.gameObject.CompareTag("Player"))
         {
-            print("Hello");
             col.gameObject.GetComponent<Player>().SetHealth(healAmount);
             Destroy(gameObject);
         }
