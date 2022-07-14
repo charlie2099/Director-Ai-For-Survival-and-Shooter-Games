@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using AiDirector.RulesSystem.Interfaces;
 using AiDirector.RulesSystem.RuleEngine;
 using AiDirector.RulesSystem.Rules.GameEventRules;
-using AiDirector.RulesSystem.Rules.IntensityRules;
 using UnityEngine;
 
 namespace AiDirector.RulesSystem
@@ -28,7 +27,8 @@ namespace AiDirector.RulesSystem
             _rules = new List<IDirectorGameEventRule>()
             {
                 new BossSpawningRule(),
-                new RespiteSkipRule()
+                new MedkitSpawnOnPeakEnd()
+                //new RespiteSkipRule()
             };
 
 

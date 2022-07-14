@@ -1,8 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using AiDirector.AAS;
 using AiDirector.RulesSystem;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace AiDirector
 {
@@ -44,8 +47,7 @@ namespace AiDirector
 
         [Header("ITEMS")]
         [SerializeField] private int maxItemSpawns;
-        [SerializeField] private GameObject[] items;
-        //[SerializeField] private ItemData[] items;
+        [SerializeField] private List<GameObject> items;
 
         [Header("RANDOMISE ON PLAY")]
         [SerializeField] private GameObject[] objectContainers;
@@ -55,6 +57,8 @@ namespace AiDirector
         [SerializeField] private GameObject debugPanel;
 
         private ActiveAreaSet _activeAreaSet;
+        private Dictionary<GameObject, Vector2> _itemDictionary = new Dictionary<GameObject, Vector2>();
+        //private List<Vector2> _itemSpawnLocations = new List<Vector2>();
         private float _perceivedIntensity;
         private float _timeSpentInPeak;
         private float _timeSpentInRespite;
@@ -62,7 +66,22 @@ namespace AiDirector
         private float _timePassed4;
         private float _timePassed5;
         private int _intensityScaler;
+
+        private void OnEnable()
+        {
+            directorState.OnTempoChange += TriggerGameEvent;
+        }
+
+        private void OnDisable()
+        {
+            directorState.OnTempoChange -= TriggerGameEvent;
+        }
         
+        public void TriggerGameEvent()
+        {
+            DirectorGameEventCalculator.Instance.CalculateGameEventOutput(this);
+        }
+
         private void Awake()
         {
             if (Instance == null)
@@ -98,51 +117,47 @@ namespace AiDirector
         
             debugPanel.SetActive(debugMode);
         
-            RandomiseSpawnOnPlay();
-            
-            InvokeRepeating(nameof(GameEvent), 0, 5);
-        }
+            RandomiseItemSpawnOnPlay();
 
-        public void GameEvent()
-        {
-            DirectorGameEventCalculator.Instance.CalculateGameEventOutput(this);
-            // Events should only happen once every so often
+            directorState.CurrentTempo = DirectorState.Tempo.Respite;
         }
+        
 
         private void Update()
         {
-            IntensityFsm();
             TempoFsm();
 
-            // if PEAK tempo and X amount of time has passed, next state 
+            if (_perceivedIntensity >= peakIntensityThreshold && directorState.CurrentTempo == DirectorState.Tempo.BuildUp)
+            {
+                directorState.CurrentTempo = DirectorState.Tempo.Peak;
+            }
+
+            // if PEAK tempo and X amount of time has passed, change state to PEAK-FADE
             if(_timeSpentInPeak <= 0 && directorState.CurrentTempo == DirectorState.Tempo.Peak)
             {
                 _perceivedIntensity = 0;
                 directorState.CurrentTempo = DirectorState.Tempo.PeakFade;
-                _timeSpentInPeak = defaultPeakDuration;
+                _timeSpentInPeak = defaultPeakDuration; // unreachable
             }
 
-            if (directorState.CurrentTempo == DirectorState.Tempo.PeakFade && GetEnemyPopulationCount() == 0)
+            // If PEAK-FADE tempo and all enemies killed, change state to RESPITE 
+            if (GetEnemyPopulationCount() == 0 && directorState.CurrentTempo == DirectorState.Tempo.PeakFade)
             {
                 directorState.CurrentTempo = DirectorState.Tempo.Respite;
             }
         
-            // if RESPITE tempo and X amount of time has passed, next state
+            // if RESPITE tempo and X amount of time has passed, change state to BUILD-UP
             if (_timeSpentInRespite <= 0 && directorState.CurrentTempo == DirectorState.Tempo.Respite)
             {
                 _perceivedIntensity = 0.1f;
                 directorState.CurrentTempo = DirectorState.Tempo.BuildUp;
-                _timeSpentInRespite = defaultRespiteDuration;
+                _timeSpentInRespite = defaultRespiteDuration; // unreachable
             }
-            
-            //print("Perceived Intensity: <color=red>" + GetPerceivedIntensity()+ "</color>");
-            //print("Director State: <color=magenta>" + directorState.CurrentTempo + "</color>");
         }
 
         public float GetEnemyPopulationCount()
         {
             return _activeAreaSet.GetEnemyPopulationCount();
-            //return ActiveAreaSet.EnemyPopulationCount;
         }
 
         public float GetPerceivedIntensity()
@@ -183,30 +198,6 @@ namespace AiDirector
             }
         }
 
-        public void CalculateGameEvent()
-        {
-            // wait few seconds
-            // calculate game event
-            // (only one game event per peak phase)
-
-            //DirectorGameEventCalculator.Instance.CalculateGameEventOutput(this);
-
-            // Calculates intensity every second
-            /*if (Time.time > _timePassed5)
-            {
-                float intensity = DirectorIntensityCalculator.Instance.CalculatePerceivedIntensityPercentage(this);
-                //print("Current Intensity: <color=orange>" + intensity + "</color>");
-                _perceivedIntensity += intensity * _intensityScaler * Time.deltaTime;
-            
-                if (_perceivedIntensity > 100)
-                {
-                    _perceivedIntensity = 100;
-                }
-                
-                _timePassed5 = Time.time + intensityCalculationRate;
-            }*/
-        }
-    
         public void DecreasePerceivedIntensityMetric(float amount)
         {
             _perceivedIntensity -= amount;
@@ -226,12 +217,6 @@ namespace AiDirector
             return _intensityScaler;
         }
 
-        private float GetDistanceFromPlayerToEnemy(Vector2 enemy)
-        {
-            Vector2 playerPos = player.transform.position;
-            return Vector2.Distance(playerPos, enemy);
-        }
-        
         public void AddEnemy(GameObject enemy)
         {
             activeEnemies.Add(enemy);
@@ -248,53 +233,42 @@ namespace AiDirector
             {
                 case DirectorState.Tempo.BuildUp:
                     maxPopulationCount = maxBuildUpPopulation;
+                    IncreasePerceivedIntensityMetric();
                     break;
+                
                 case DirectorState.Tempo.Peak:
                     maxPopulationCount = maxPeakPopulation;
+                    _timeSpentInPeak -= Time.deltaTime;
                     break;
+                
                 case DirectorState.Tempo.PeakFade:
                     maxPopulationCount = 0;
                     _perceivedIntensity = 0;
                     break;
+                
                 case DirectorState.Tempo.Respite:
                     maxPopulationCount = maxRespitePopulation;
+                    _timeSpentInRespite -= Time.deltaTime;
                     break;
             }
         }
 
-        private void IntensityFsm()
-        {
-            if (_perceivedIntensity > 0 && _perceivedIntensity < peakIntensityThreshold)
-            {
-                directorState.CurrentTempo = DirectorState.Tempo.BuildUp;
-                IncreasePerceivedIntensityMetric(); 
-            }
-            else if (_perceivedIntensity >= peakIntensityThreshold)
-            {
-                directorState.CurrentTempo = DirectorState.Tempo.Peak;
-                _timeSpentInPeak -= Time.deltaTime;
-                CalculateGameEvent();
-                
-            }
-            else if(directorState.CurrentTempo != DirectorState.Tempo.PeakFade)
-            {
-                directorState.CurrentTempo = DirectorState.Tempo.Respite;
-                _timeSpentInRespite -= Time.deltaTime;
-            }
-        }
-
-        private void RandomiseSpawnOnPlay()
+        private void RandomiseItemSpawnOnPlay()
         {
             if (objectContainers != null)
             {
                 // iterates through containers
-                foreach (var entity in objectContainers)
+                foreach (var container in objectContainers)
                 {
                     // iterates through items within each container
-                    for (var j = 0; j < entity.transform.childCount; j++)
+                    for (var j = 0; j < container.transform.childCount; j++)
                     {
                         var randBool = (Random.Range(0, 2) == 0);
-                        entity.transform.GetChild(j).gameObject.SetActive(randBool);
+                        container.transform.GetChild(j).gameObject.SetActive(randBool);
+                        //_itemSpawnLocations.Add(container.transform.GetChild(j).gameObject.transform.position);
+                        var item = container.transform.GetChild(j).gameObject;
+                        var itemPos = item.transform.position;
+                        _itemDictionary.Add(item, itemPos);
                     }
                 }
             }
@@ -321,6 +295,25 @@ namespace AiDirector
         public void TestMethod()
         {
             print("TEST METHOD CALLED");
+        }
+
+        public void SpawnItem(string itemName, string itemContainer)
+        {
+            foreach (var item in _itemDictionary.Keys)
+            {
+                if (item == null)
+                {
+                    Instantiate(items[0], _itemDictionary[item], Quaternion.identity);
+                }
+
+                /*if (item != null)
+                {
+                    if (item.name == itemName )
+                    {
+                        item.GetComponent<SpriteRenderer>().color = Color.blue;
+                    }
+                }*/
+            }
         }
     }
 }

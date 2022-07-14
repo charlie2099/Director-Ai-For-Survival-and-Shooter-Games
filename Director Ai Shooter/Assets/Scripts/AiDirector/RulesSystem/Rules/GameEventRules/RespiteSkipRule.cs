@@ -1,11 +1,10 @@
 ﻿using AiDirector.RulesSystem.Interfaces;
-using UnityEngine;
 
 namespace AiDirector.RulesSystem.Rules.GameEventRules
 {
     public class RespiteSkipRule : IDirectorGameEventRule
     {
-        public bool CalculateGameEvent(Director director)
+        public void CalculateGameEvent(Director director)
         {
             if (director.GetPlayer().GetCurrentHealth() <= 50)
             {
@@ -15,7 +14,6 @@ namespace AiDirector.RulesSystem.Rules.GameEventRules
                 director.TestMethod();
                 
                 //director.directorState.CurrentTempo = DirectorState.Tempo.Peak;
-                return true;
 
                 // returns true if condition is met, and then the director compares it between all other events 
                 // that have also returned true and picks one to execute?
@@ -27,8 +25,6 @@ namespace AiDirector.RulesSystem.Rules.GameEventRules
 
                 // Events are executed every x seconds and/or at the beginning of the peak phase.
             }
-
-            return false;
         }
     }
 }

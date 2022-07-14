@@ -1,20 +1,18 @@
 ﻿using AiDirector.RulesSystem.Interfaces;
-using AiDirector.RulesSystem.Rules.IntensityRules;
 
 namespace AiDirector.RulesSystem.Rules.GameEventRules
 {
     public class BossSpawningRule : IDirectorGameEventRule
     {
-        public bool CalculateGameEvent(Director director)
+        public void CalculateGameEvent(Director director)
         {
             /*if (director.GetPlayer().GetCurrentHealth() == director.GetPlayer().GetMaxHealth() &&
                 director.GetPlayer().GetWeapon().GetCurrentAmmo() == director.GetPlayer().GetWeapon().GetMagCapacity() &&
                 director.GetPerceivedIntensity() > 50)*/
 
-            if(director.GetPlayer().GetCurrentHealth() >= 50 && director.directorState.CurrentTempo == DirectorState.Tempo.Peak)
+            if(director.GetPlayer().GetCurrentHealth() >= director.GetPlayer().GetMaxHealth() && director.directorState.CurrentTempo == DirectorState.Tempo.Peak)
             {
                 director.SpawnBoss();
-                return true;
 
                 // returns true if condition is met, and then the director compares it between all other events 
                 // that have also returned true and picks one to execute?
@@ -26,8 +24,6 @@ namespace AiDirector.RulesSystem.Rules.GameEventRules
 
                 // Events are executed every x seconds and/or at the beginning of the peak phase.
             }
-
-            return false;
         }
     }
 }

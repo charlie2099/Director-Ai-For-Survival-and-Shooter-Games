@@ -1,7 +1,11 @@
-﻿namespace AiDirector
+﻿using System;
+
+namespace AiDirector
 {
     public class DirectorState
     {
+        public Action OnTempoChange;
+        
         private Tempo _currentTempo;
         private float _buildUpDuration;
         private float _peakDuration;
@@ -10,7 +14,7 @@
         public Tempo CurrentTempo
         {
             get => _currentTempo;
-            set { _currentTempo = value; }
+            set { _currentTempo = value; OnTempoChange.Invoke(); }
         }
 
         public enum Tempo

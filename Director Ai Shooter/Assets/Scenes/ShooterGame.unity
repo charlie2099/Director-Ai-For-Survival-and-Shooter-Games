@@ -1166,7 +1166,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3485054699769378800, guid: 6d92f8639697b8045a8581e2030c51ee, type: 3}
       propertyPath: m_Name
-      value: Medkit (14)
+      value: Medkit
       objectReference: {fileID: 0}
     - target: {fileID: 3925258436780244737, guid: 6d92f8639697b8045a8581e2030c51ee, type: 3}
       propertyPath: m_RootOrder
@@ -1619,7 +1619,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3485054699769378800, guid: 6d92f8639697b8045a8581e2030c51ee, type: 3}
       propertyPath: m_Name
-      value: Medkit (7)
+      value: Medkit
       objectReference: {fileID: 0}
     - target: {fileID: 3925258436780244737, guid: 6d92f8639697b8045a8581e2030c51ee, type: 3}
       propertyPath: m_RootOrder
@@ -1862,7 +1862,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3485054699769378800, guid: 6d92f8639697b8045a8581e2030c51ee, type: 3}
       propertyPath: m_Name
-      value: Medkit (1)
+      value: Medkit
       objectReference: {fileID: 0}
     - target: {fileID: 3925258436780244737, guid: 6d92f8639697b8045a8581e2030c51ee, type: 3}
       propertyPath: m_RootOrder
@@ -72789,7 +72789,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3485054699769378800, guid: 6d92f8639697b8045a8581e2030c51ee, type: 3}
       propertyPath: m_Name
-      value: Medkit (8)
+      value: Medkit
       objectReference: {fileID: 0}
     - target: {fileID: 3925258436780244737, guid: 6d92f8639697b8045a8581e2030c51ee, type: 3}
       propertyPath: m_RootOrder
@@ -72930,7 +72930,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3485054699769378800, guid: 6d92f8639697b8045a8581e2030c51ee, type: 3}
       propertyPath: m_Name
-      value: Medkit (12)
+      value: Medkit
       objectReference: {fileID: 0}
     - target: {fileID: 3925258436780244737, guid: 6d92f8639697b8045a8581e2030c51ee, type: 3}
       propertyPath: m_RootOrder
@@ -73257,7 +73257,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3485054699769378800, guid: 6d92f8639697b8045a8581e2030c51ee, type: 3}
       propertyPath: m_Name
-      value: Medkit (11)
+      value: Medkit
       objectReference: {fileID: 0}
     - target: {fileID: 3925258436780244737, guid: 6d92f8639697b8045a8581e2030c51ee, type: 3}
       propertyPath: m_RootOrder
@@ -73611,7 +73611,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3485054699769378800, guid: 6d92f8639697b8045a8581e2030c51ee, type: 3}
       propertyPath: m_Name
-      value: Medkit (15)
+      value: Medkit
       objectReference: {fileID: 0}
     - target: {fileID: 3925258436780244737, guid: 6d92f8639697b8045a8581e2030c51ee, type: 3}
       propertyPath: m_RootOrder
@@ -74348,7 +74348,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3485054699769378800, guid: 6d92f8639697b8045a8581e2030c51ee, type: 3}
       propertyPath: m_Name
-      value: Medkit (4)
+      value: Medkit
       objectReference: {fileID: 0}
     - target: {fileID: 3925258436780244737, guid: 6d92f8639697b8045a8581e2030c51ee, type: 3}
       propertyPath: m_RootOrder
@@ -74574,7 +74574,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3485054699769378800, guid: 6d92f8639697b8045a8581e2030c51ee, type: 3}
       propertyPath: m_Name
-      value: Medkit (10)
+      value: Medkit
       objectReference: {fileID: 0}
     - target: {fileID: 3925258436780244737, guid: 6d92f8639697b8045a8581e2030c51ee, type: 3}
       propertyPath: m_RootOrder
@@ -76557,7 +76557,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3485054699769378800, guid: 6d92f8639697b8045a8581e2030c51ee, type: 3}
       propertyPath: m_Name
-      value: Medkit (5)
+      value: Medkit
       objectReference: {fileID: 0}
     - target: {fileID: 3925258436780244737, guid: 6d92f8639697b8045a8581e2030c51ee, type: 3}
       propertyPath: m_RootOrder
@@ -76614,7 +76614,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3485054699769378800, guid: 6d92f8639697b8045a8581e2030c51ee, type: 3}
       propertyPath: m_Name
-      value: Medkit (9)
+      value: Medkit
       objectReference: {fileID: 0}
     - target: {fileID: 3925258436780244737, guid: 6d92f8639697b8045a8581e2030c51ee, type: 3}
       propertyPath: m_RootOrder
@@ -86307,7 +86307,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3485054699769378800, guid: 6d92f8639697b8045a8581e2030c51ee, type: 3}
       propertyPath: m_Name
-      value: Medkit (6)
+      value: Medkit
       objectReference: {fileID: 0}
     - target: {fileID: 3925258436780244737, guid: 6d92f8639697b8045a8581e2030c51ee, type: 3}
       propertyPath: m_RootOrder
@@ -86448,7 +86448,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3485054699769378800, guid: 6d92f8639697b8045a8581e2030c51ee, type: 3}
       propertyPath: m_Name
-      value: Medkit (2)
+      value: Medkit
       objectReference: {fileID: 0}
     - target: {fileID: 3925258436780244737, guid: 6d92f8639697b8045a8581e2030c51ee, type: 3}
       propertyPath: m_RootOrder
@@ -87223,7 +87223,8 @@ MonoBehaviour:
   maxPopulationCount: 0
   player: {fileID: 880795079}
   maxItemSpawns: 0
-  items: []
+  items:
+  - {fileID: 3485054699769378800, guid: 6d92f8639697b8045a8581e2030c51ee, type: 3}
   objectContainers:
   - {fileID: 2085618236}
   - {fileID: 1402537871}
@@ -87465,7 +87466,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3485054699769378800, guid: 6d92f8639697b8045a8581e2030c51ee, type: 3}
       propertyPath: m_Name
-      value: Medkit (13)
+      value: Medkit
       objectReference: {fileID: 0}
     - target: {fileID: 3925258436780244737, guid: 6d92f8639697b8045a8581e2030c51ee, type: 3}
       propertyPath: m_RootOrder
@@ -87998,6 +87999,10 @@ PrefabInstance:
     - target: {fileID: 3485054699769378800, guid: 6d92f8639697b8045a8581e2030c51ee, type: 3}
       propertyPath: m_Name
       value: Medkit
+      objectReference: {fileID: 0}
+    - target: {fileID: 3485054699769378800, guid: 6d92f8639697b8045a8581e2030c51ee, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3925258436780244737, guid: 6d92f8639697b8045a8581e2030c51ee, type: 3}
       propertyPath: m_RootOrder
