@@ -131,13 +131,15 @@ namespace AiDirector
 
             if (_perceivedIntensity >= peakIntensityThreshold && directorState.CurrentTempo == DirectorState.Tempo.BuildUp)
             {
+                maxPopulationCount = maxPeakPopulation;
                 directorState.CurrentTempo = DirectorState.Tempo.Peak;
             }
 
             // if PEAK tempo and X amount of time has passed, change state to PEAK-FADE
             if(_timeSpentInPeak <= 0 && directorState.CurrentTempo == DirectorState.Tempo.Peak)
             {
-                _perceivedIntensity = 0;
+                maxPopulationCount = 0;
+                //_perceivedIntensity = 0;
                 directorState.CurrentTempo = DirectorState.Tempo.PeakFade;
                 _timeSpentInPeak = defaultPeakDuration; // unreachable
             }
@@ -145,12 +147,14 @@ namespace AiDirector
             // If PEAK-FADE tempo and all enemies killed, change state to RESPITE 
             if (GetEnemyPopulationCount() == 0 && directorState.CurrentTempo == DirectorState.Tempo.PeakFade)
             {
+                maxPopulationCount = maxRespitePopulation;
                 directorState.CurrentTempo = DirectorState.Tempo.Respite;
             }
         
             // if RESPITE tempo and X amount of time has passed, change state to BUILD-UP
             if (_timeSpentInRespite <= 0 && directorState.CurrentTempo == DirectorState.Tempo.Respite)
             {
+                maxPopulationCount = maxBuildUpPopulation;
                 _perceivedIntensity = 0.1f;
                 directorState.CurrentTempo = DirectorState.Tempo.BuildUp;
                 _timeSpentInRespite = defaultRespiteDuration; // unreachable
@@ -200,12 +204,21 @@ namespace AiDirector
             }
         }
 
-        public void DecreasePerceivedIntensityMetric(float amount)
+        public void DecreasePerceivedIntensityMetric()
         {
-            _perceivedIntensity -= amount;
-            if (_perceivedIntensity < 0)
+            // Calculates intensity every second
+            if (Time.time > _timePassed4)
             {
-                _perceivedIntensity = 0;
+                float intensity = directorIntensityCalculator.CalculatePerceivedIntensityOutput(this);
+                //print("Current Intensity: <color=orange>" + intensity + "</color>");
+                _perceivedIntensity -= intensity * _intensityScaler * Time.deltaTime;
+            
+                if (_perceivedIntensity < 0)
+                {
+                    _perceivedIntensity = 0;
+                }
+                
+                _timePassed4 = Time.time + intensityCalculationRate;
             }
         }
         
@@ -234,37 +247,22 @@ namespace AiDirector
             switch (directorState.CurrentTempo)
             {
                 case DirectorState.Tempo.BuildUp:
-                    maxPopulationCount = maxBuildUpPopulation;
                     IncreasePerceivedIntensityMetric();
                     break;
                 
                 case DirectorState.Tempo.Peak:
-                    maxPopulationCount = maxPeakPopulation;
                     _timeSpentInPeak -= Time.deltaTime;
                     break;
                 
                 case DirectorState.Tempo.PeakFade:
-                    maxPopulationCount = 0;
-                    _perceivedIntensity = 0;
+                    //_perceivedIntensity = 0;
+                    DecreasePerceivedIntensityMetric();
                     break;
                 
                 case DirectorState.Tempo.Respite:
-                    maxPopulationCount = maxRespitePopulation;
                     _timeSpentInRespite -= Time.deltaTime;
                     break;
             }
-        }
-
-        public IEnumerator CheckIfIntensityShouldBeginDeclining()
-        {
-            float intensityCheck = _perceivedIntensity;
-            yield return new WaitForSeconds(5.0f);
-            if (intensityCheck == _perceivedIntensity)
-            {
-                DecreasePerceivedIntensityMetric(0.001f * Time.time);
-            }
-        
-            // 5.0    10 seconds later    10.0     
         }
 
         public void SpawnBoss()

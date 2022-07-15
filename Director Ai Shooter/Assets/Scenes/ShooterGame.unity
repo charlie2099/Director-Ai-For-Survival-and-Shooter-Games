@@ -87210,13 +87210,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3de5721070921ec4baaf50f6848370c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  difficulty: 2
-  intensityCalculationRate: 0.25
+  difficulty: 1
+  intensityCalculationRate: 1
   peakIntensityThreshold: 70
-  defaultPeakDuration: 5
-  defaultRespiteDuration: 5
-  maxBuildUpPopulation: 2
-  maxPeakPopulation: 3
+  defaultPeakDuration: 15
+  defaultRespiteDuration: 10
+  maxBuildUpPopulation: 3
+  maxPeakPopulation: 6
   maxRespitePopulation: 0
   activeEnemies: []
   maxPopulationCount: 0

@@ -15,7 +15,8 @@ namespace AiDirector.RulesSystem
             {
                 new BossSpawningRule(),
                 new MedkitSpawnOnPeakEnd(),
-                new AmmoSpawnOnPeakEnd()
+                new AmmoSpawnOnPeakEnd(),
+                new KillStreakRule()
                 //new RespiteSkipRule()
             };
 

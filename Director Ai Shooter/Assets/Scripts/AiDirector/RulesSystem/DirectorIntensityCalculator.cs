@@ -26,6 +26,7 @@ namespace AiDirector.RulesSystem
                 new PlayerIdleRule(5f,3f), 
                 new HealthLowRule(50f, 2f), 
                 new HealthLowRule(10f, 6f),
+                new KillSpeedRule(2, 6f, 5f)
             };
 
             // [OPTION 2]

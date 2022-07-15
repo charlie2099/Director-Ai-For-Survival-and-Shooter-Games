@@ -1,4 +1,5 @@
 ﻿using AiDirector.RulesSystem.Interfaces;
+using UnityEngine;
 
 namespace AiDirector.RulesSystem.Rules.IntensityRules
 {
@@ -19,29 +20,18 @@ namespace AiDirector.RulesSystem.Rules.IntensityRules
 
         public float CalculatePerceivedIntensity(Director director)
         {
+            Vector2 currentPos = director.GetPlayer().transform.position;
+            
             foreach (var enemy in director.activeEnemies)
             {
-                /*if (Vector2.Distance(director.GetPlayer().transform.position, enemy.transform.position) > _distance &&
-                    director.EnemyKilled())
-                {
-                    //return director.IncreaseIntensity(_intensity);
-                }*/
-            }
-            return _intensity;
+                float distanceFromPlayerToEnemy = Vector2.Distance(currentPos, enemy.transform.position);
 
-            /*foreach (var enemy in director.GetEnemyPositions())
-            {
-                if (player.DistanceFrom(enemy) > _distance && director.EnemyKilled())
+                if (distanceFromPlayerToEnemy < _distance)
                 {
-                    return director.IncreaseIntensity(_intensity);
+                    return _intensity;
                 }
             }
-            return _intensity;*/
-
-            /*if (player.killsAtADistance(_distance) > _kills)
-            {
-                return director.IncreaseIntensity(_intensity);
-            }*/
+            return 0;
         }
     }
 }
