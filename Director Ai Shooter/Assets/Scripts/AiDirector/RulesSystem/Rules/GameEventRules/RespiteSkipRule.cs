@@ -11,7 +11,7 @@ namespace AiDirector.RulesSystem.Rules.GameEventRules
                 //Debug.Log("Respite skip rule");
                 //director.DecreasePerceivedIntensityMetric(50);
                 
-                director.TestMethod();
+                //director.TestMethod();
                 
                 //director.directorState.CurrentTempo = DirectorState.Tempo.Peak;
 

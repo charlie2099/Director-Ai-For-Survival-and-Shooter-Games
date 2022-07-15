@@ -1,4 +1,5 @@
 ﻿using AiDirector.RulesSystem.Interfaces;
+using UnityEngine;
 
 namespace AiDirector.RulesSystem.Rules.GameEventRules
 {
@@ -12,6 +13,7 @@ namespace AiDirector.RulesSystem.Rules.GameEventRules
 
             if(director.GetPlayer().GetCurrentHealth() >= director.GetPlayer().GetMaxHealth() && director.directorState.CurrentTempo == DirectorState.Tempo.Peak)
             {
+                director.maxPopulationCount += 4;
                 director.SpawnBoss();
             }
         }

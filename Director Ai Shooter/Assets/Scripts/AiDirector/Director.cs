@@ -102,7 +102,7 @@ namespace AiDirector
         {
             if (difficulty == Difficulty.EASY)
             {
-                _intensityScaler = 40;
+                _intensityScaler = 30;
             }
             else if (difficulty == Difficulty.NORMAL)
             {
@@ -110,7 +110,7 @@ namespace AiDirector
             }
             else if (difficulty == Difficulty.HARD)
             {
-                _intensityScaler = 80;
+                _intensityScaler = 90;
             }
             
             _timeSpentInPeak = defaultPeakDuration;
@@ -186,7 +186,7 @@ namespace AiDirector
             return _timeSpentInRespite;
         }
 
-        public void IncreasePerceivedIntensityMetric()
+        private void IncreasePerceivedIntensityMetric()
         {
             // Calculates intensity every second
             if (Time.time > _timePassed4)
@@ -204,7 +204,7 @@ namespace AiDirector
             }
         }
 
-        public void DecreasePerceivedIntensityMetric()
+        private void DecreasePerceivedIntensityMetric()
         {
             // Calculates intensity every second
             if (Time.time > _timePassed4)
@@ -255,7 +255,6 @@ namespace AiDirector
                     break;
                 
                 case DirectorState.Tempo.PeakFade:
-                    //_perceivedIntensity = 0;
                     DecreasePerceivedIntensityMetric();
                     break;
                 
@@ -271,11 +270,6 @@ namespace AiDirector
             _activeAreaSet.SpawnBoss();
         }
 
-        public void TestMethod()
-        {
-            print("TEST METHOD CALLED");
-        }
-        
         private void RandomiseItemSpawnOnPlay()
         {
             if (objectContainers != null)

@@ -11,13 +11,13 @@ namespace AiDirector.RulesSystem
 
         public DirectorGameEventCalculator()
         {
-            _rules = new List<IDirectorGameEventRule>()
+            _rules = new List<IDirectorGameEventRule>
             {
                 new BossSpawningRule(),
                 new MedkitSpawnOnPeakEnd(),
                 new AmmoSpawnOnPeakEnd(),
-                new KillStreakRule()
-                //new RespiteSkipRule()
+                new KillStreakRule(2, 5),
+                new ProgressionRule(2, 3)
             };
 
 

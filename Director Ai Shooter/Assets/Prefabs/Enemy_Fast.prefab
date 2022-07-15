@@ -72,7 +72,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: 8cf3af5ecbb0cb748814708b3d6ca968, type: 3}
+  m_Sprite: {fileID: -2636313172280219059, guid: 06d704d7b15ef43439a6d78548cb7653, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -94,10 +94,12 @@ GameObject:
   - component: {fileID: 5500911025751094819}
   - component: {fileID: 5500911025751094829}
   - component: {fileID: 5500911025751094830}
+  - component: {fileID: 7025230319717885664}
   - component: {fileID: 5500911025751094831}
   - component: {fileID: 5500911025751094816}
   - component: {fileID: 5500911025751094817}
   - component: {fileID: 5500911025751094818}
+  - component: {fileID: 974001288}
   m_Layer: 9
   m_Name: Enemy_Fast
   m_TagString: Untagged
@@ -113,8 +115,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5500911025751094820}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -37.78, y: -14.48, z: 23}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 23}
+  m_LocalScale: {x: 0.63586, y: 0.63586, z: 0.63586}
   m_Children:
   - {fileID: 5500911024528239352}
   - {fileID: 6560012087905667730}
@@ -149,7 +151,7 @@ CapsuleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5500911025751094820}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -158,6 +160,22 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.5, y: 1}
   m_Direction: 0
+--- !u!58 &7025230319717885664
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5500911025751094820}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!114 &5500911025751094831
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -256,6 +274,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyData: {fileID: 11400000, guid: e3d42ffcd0069be479906a9d38a68f32, type: 2}
   sprite: {fileID: 5500911024528239353}
+--- !u!58 &974001288
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5500911025751094820}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1 &8819929397761239032
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,7 +316,7 @@ Transform:
   m_GameObject: {fileID: 8819929397761239032}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.847512, y: 0.847512, z: 0.847512}
+  m_LocalScale: {x: 1.262793, y: 1.262793, z: 1.262793}
   m_Children: []
   m_Father: {fileID: 5500911025751094819}
   m_RootOrder: 1

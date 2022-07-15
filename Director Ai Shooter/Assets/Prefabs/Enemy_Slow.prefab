@@ -72,7 +72,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: 8cf3af5ecbb0cb748814708b3d6ca968, type: 3}
+  m_Sprite: {fileID: -2636313172280219059, guid: 06d704d7b15ef43439a6d78548cb7653, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -94,10 +94,12 @@ GameObject:
   - component: {fileID: 38717111240110219}
   - component: {fileID: 38717111240110213}
   - component: {fileID: 38717111240110214}
+  - component: {fileID: 7562168174646589257}
   - component: {fileID: 38717111240110215}
   - component: {fileID: 38717111240110216}
   - component: {fileID: 38717111240110217}
   - component: {fileID: 38717111240110218}
+  - component: {fileID: 1030553809}
   m_Layer: 9
   m_Name: Enemy_Slow
   m_TagString: Untagged
@@ -113,8 +115,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 38717111240110220}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.46, y: -1.55, z: 23}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 23}
+  m_LocalScale: {x: 0.63586, y: 0.63586, z: 0.63586}
   m_Children:
   - {fileID: 38717110042979408}
   - {fileID: 1717978482769431610}
@@ -149,7 +151,7 @@ CapsuleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 38717111240110220}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -158,6 +160,22 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.5, y: 1}
   m_Direction: 0
+--- !u!58 &7562168174646589257
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 38717111240110220}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!114 &38717111240110215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -256,6 +274,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyData: {fileID: 11400000, guid: e3d42ffcd0069be479906a9d38a68f32, type: 2}
   sprite: {fileID: 38717110042979409}
+--- !u!58 &1030553809
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 38717111240110220}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1 &3942913987306004816
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,7 +316,7 @@ Transform:
   m_GameObject: {fileID: 3942913987306004816}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.847512, y: 0.847512, z: 0.847512}
+  m_LocalScale: {x: 1.262793, y: 1.262793, z: 1.262793}
   m_Children: []
   m_Father: {fileID: 38717111240110219}
   m_RootOrder: 1

@@ -19,7 +19,7 @@ namespace AiDirector.RulesSystem
 
         public DirectorIntensityCalculator()
         {
-            _rules = new List<IDirectorIntensityRule>()
+            _rules = new List<IDirectorIntensityRule>
             {
                 new DistanceFromEnemyRule(3f, 6f), 
                 new DistanceFromEnemyRule(6f, 2f), 
