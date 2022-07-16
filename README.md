@@ -9,18 +9,18 @@ The performance of the player(s) is measured by the Director using a stress or i
 ## Implementation
 
 ### Active Area Set
-The Active Area Set (AAS) defines the active area in which enemies and items are populated into the game world. The AAS is attached to the player so that enemies are only spawned in the areas around the player (but outside of their camera view), and any enemies that are too far from the player are despawned.
+The **Active Area Set (AAS)** defines the active area in which enemies and items are populated into the game world. The **AAS** is attached to the player so that enemies are only spawned in the areas around the player (but outside of their camera view), and any enemies that are too far from the player are despawned.
 
 ### Rule-Based System
-The Director Ai behaviour is crafted through the use of two simple rules engines. Any number of rules can be made by the game designer to control how the intensity metric is measured (Intensity Rules Engine), as well as how and when the Director may spawn enemies, items, etc (Game Event Rules Engine). 
+The Director Ai behaviour is crafted through the use of two simple rules engines. Any number of rules can be made by the game designer to control how the intensity metric is measured (**Intensity Rules Engine**), as well as how and when the Director may spawn enemies, items, etc (**Game Event Rules Engine**). 
 
 ## How To Use
 0) Import the Director package (releases)
 1) Place the Director prefab into the scene
 2) Pass in the required data needed by the Director (inspector)
-3) Locate the Rule directories at /AiDirector/RuleSystem/Rules 
-4) Create a script inside the directory you want to create a new rule for, either /GameEventRules OR /IntensityRules. 
-5) Ensure the class inherits from the appropriate interface, being IDirectorGameEventRule or IDirectorIntensityRule. 
+3) Locate the Rule directories at **/AiDirector/RuleSystem/Rules**
+4) Create a script inside the directory you want to create a new rule for, either **/GameEventRules** OR **/IntensityRules**. 
+5) Ensure the class inherits from the appropriate interface, being **IDirectorGameEventRule** or **IDirectorIntensityRule**. 
 6) Create your rule
 7) To make sure the rule is used by the Director, add the rule to the list in the constructor of the appropriate rule calculator script. 
 8) Play around with the options in the Director's inspector to customise the Director to your liking!
