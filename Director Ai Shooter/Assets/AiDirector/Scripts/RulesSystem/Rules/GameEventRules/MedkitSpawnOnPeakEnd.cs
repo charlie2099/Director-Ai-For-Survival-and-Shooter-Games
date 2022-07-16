@@ -7,7 +7,7 @@ namespace AiDirector.Scripts.RulesSystem.Rules.GameEventRules
         public void CalculateGameEvent(Director director)
         {
             if (director.GetPlayer().GetCurrentHealth() <= 50 &&
-                director.directorState.CurrentTempo == DirectorState.Tempo.Respite)
+                director.GetDirectorState().CurrentTempo == DirectorState.Tempo.Respite)
             {
                 director.SpawnItem("Medkit");
             }

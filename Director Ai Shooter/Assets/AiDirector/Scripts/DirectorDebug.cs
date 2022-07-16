@@ -21,7 +21,7 @@ namespace AiDirector.Scripts
         {
             enemyPopCountText.text      = "Enemy Population: "    + Director.Instance.GetEnemyPopulationCount();
             enemySpawnTimeText.text     = "Enemy Spawn Timer: "   + "";
-            directorStateText.text      = "Director State: "      + Director.Instance.directorState.CurrentTempo;
+            directorStateText.text      = "Director State: "      + Director.Instance.GetDirectorState().CurrentTempo;
             timeSpentInPeakText.text    = "Peak Duration: "       + Director.Instance.GetPeakDuration().ToString("F2");
             timeSpentInRespiteText.text = "Respite Duration: "    + Director.Instance.GetRespiteDuration().ToString("F2");
             perceivedIntensityText.text = "Perceived Intensity: " + Director.Instance.GetPerceivedIntensity().ToString("F2");

@@ -60,7 +60,7 @@ public class PlayerShooting : MonoBehaviour
                 EventManager.TriggerEvent("GunFired", eventParam);
             
                 _currentBulletCount--;
-                _reloadTimer = 0.20f;
+                _reloadTimer = 0.10f;
                 if (_currentBulletCount <= 0)
                 {
                     _currentMag--;

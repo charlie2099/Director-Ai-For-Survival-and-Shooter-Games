@@ -34,10 +34,7 @@ namespace AiDirector.Scripts.RulesSystem.RuleCalculators
             /*var ruleType = typeof(IDirectorIntensityRule);
             IEnumerable<IDirectorIntensityRule> rules = this.GetType().Assembly.GetTypes()
                 .Where(p => ruleType.IsAssignableFrom(p) && !p.IsInterface)
-                .Select(r => Activator.CreateInstance(r) as IDirectorIntensityRule);
-
-            var engine = new DirectorIntensityRuleEngine(rules);
-            return engine.CalculatePerceivedIntensityPercentage(player, director); */
+                .Select(r => Activator.CreateInstance(r) as IDirectorIntensityRule);*/
             /*^ [Info]
             Look at all types in current assembly of current type i.e. DirectorIntensityCalculator
             Filter down to just the types that are assignable from ruleType i.e. IDirectorIntensityRule, but not the interface itself

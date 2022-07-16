@@ -80,7 +80,7 @@ namespace AiDirector.Scripts.AAS
                     SpawnEntity();
                     _timePassed2 += spawnInterval;
 
-                    if (Director.Instance.directorState.CurrentTempo == DirectorState.Tempo.Peak)
+                    if (Director.Instance.GetDirectorState().CurrentTempo == DirectorState.Tempo.Peak)
                     {
                         spawnInterval /= 1.10f;
                     }
@@ -140,7 +140,7 @@ namespace AiDirector.Scripts.AAS
             // If distance from player to enemy is more than the size of the radius, de-spawn enemies
             foreach (var enemy in Director.Instance.activeEnemies.ToList())
             {
-                if (enemy == null) continue; //or return
+                if (enemy == null) continue; 
 
                 var playerPos = Director.Instance.GetPlayer().transform.position;
                 var enemyPos = enemy.transform.position;
@@ -181,7 +181,7 @@ namespace AiDirector.Scripts.AAS
             _activeTiles.Clear(); // TODO: Refactor!
         }
 
-        void DrawActiveAreaCircle()
+        private void DrawActiveAreaCircle()
         {
             float x;
             float y;

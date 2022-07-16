@@ -15,7 +15,7 @@ namespace AiDirector.Scripts.RulesSystem.Rules.GameEventRules
 
         public void CalculateGameEvent(Director director)
         {
-            if(director.GetPlayer().GetKillCount() >= _killsToGet  && director.directorState.CurrentTempo == DirectorState.Tempo.Peak)
+            if(director.GetPlayer().GetKillCount() >= _killsToGet  && director.GetDirectorState().CurrentTempo == DirectorState.Tempo.Peak)
             {
                 director.maxPopulationCount += _enemiesToSpawn;
                 director.SpawnBoss();

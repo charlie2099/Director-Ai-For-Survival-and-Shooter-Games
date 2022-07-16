@@ -87210,7 +87210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3de5721070921ec4baaf50f6848370c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  difficulty: 0
+  difficulty: 2
   intensityCalculationRate: 1
   peakIntensityThreshold: 70
   defaultPeakDuration: 15

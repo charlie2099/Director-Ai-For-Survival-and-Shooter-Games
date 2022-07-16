@@ -23,7 +23,6 @@ namespace AiDirector.Scripts.RulesSystem.Rules.IntensityRules
                 .FirstOrDefault();*/
 
             Vector2 currentPos = director.GetPlayer().transform.position;
-            
             foreach (var enemy in director.activeEnemies)
             {
                 float distanceFromPlayerToEnemy = Vector2.Distance(currentPos, enemy.transform.position);
