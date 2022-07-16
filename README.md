@@ -1,6 +1,6 @@
 # A Director Ai For Shooter and Survival Games
 
-![director prototype](https://user-images.githubusercontent.com/55750961/179327768-cddd3298-1169-4769-851c-ab2b2b77e710.png)
+![Screenshot (75)](https://user-images.githubusercontent.com/55750961/179343007-e98cdc86-8e62-4180-8781-88b5c9bd2539.png)
 
 ## What is a Director Ai?
 A Director Ai is a system designed to handle the pacing of a game, orchestrating how the drama unfolds to craft the best experience for the player so that no playthrough is the same as the last. The Director ensures that the player(s) abide to the game rules set out by the designer(s) to create a fair experience and to enforce peaks and dips of intensity to create a fresh and rewarding experience. 
