@@ -26,3 +26,6 @@ The Director Ai behaviour is crafted through the use of two simple rules engines
 6) Create your rule
 7) To make sure the rule is used by the Director, add the rule to the list in the constructor of the appropriate rule calculator script. 
 8) Play around with the options in the Director's inspector to customise the Director to your liking!
+
+## Dependencies
+- The Director's AAS system makes use of the AstarPathfinding project for generating a pathfinding nav mesh. You can download it here **https://arongranberg.com/astar/**
