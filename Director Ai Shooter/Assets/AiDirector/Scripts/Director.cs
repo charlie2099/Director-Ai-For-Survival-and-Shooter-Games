@@ -41,7 +41,6 @@ namespace AiDirector.Scripts
         [SerializeField] private Player player;
 
         [Header("ITEMS")]
-        [SerializeField] private int maxItemSpawns;
         [SerializeField] private List<GameObject> items;
 
         [Header("RANDOMISE ON PLAY")]

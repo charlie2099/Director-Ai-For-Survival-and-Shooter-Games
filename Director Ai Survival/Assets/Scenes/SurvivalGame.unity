@@ -8301,7 +8301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5485c28b75d60fe4389c1d0535d12027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 13.71
+  radius: 11
   lineWidth: 0.25
   updateInterval: 2
   layerMask:

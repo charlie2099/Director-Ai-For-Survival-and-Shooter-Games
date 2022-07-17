@@ -185,16 +185,14 @@ namespace AiDirector.Scripts.AAS
         {
             float x;
             float y;
-
             float angle = 20f;
+            var playerPos = Director.Instance.GetPlayer().transform.position;
 
             for (int i = 0; i < (segments + 1); i++)
             {
-                x = (Mathf.Sin(Mathf.Deg2Rad * angle) * radius) + Director.Instance.GetPlayer().transform.position.x;
-                y = (Mathf.Cos(Mathf.Deg2Rad * angle) * radius) + Director.Instance.GetPlayer().transform.position.y;
-
+                x = (Mathf.Sin(Mathf.Deg2Rad * angle) * radius) + playerPos.x;
+                y = (Mathf.Cos(Mathf.Deg2Rad * angle) * radius) + playerPos.y;
                 _line.SetPosition(i, new Vector3(x, y, 0));
-
                 angle += (380f / segments);
             }
         }
