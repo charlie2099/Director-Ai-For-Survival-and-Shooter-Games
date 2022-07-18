@@ -4,8 +4,8 @@ namespace AiDirector.Scripts.RulesSystem.Rules.IntensityRules
 {
     public class HealthLowRule : IDirectorIntensityRule
     {
-        private float _lowHealth;
-        private float _intensity;
+        private readonly float _lowHealth;
+        private readonly float _intensity;
         
         public HealthLowRule(float lowHealth, float intensity)
         {

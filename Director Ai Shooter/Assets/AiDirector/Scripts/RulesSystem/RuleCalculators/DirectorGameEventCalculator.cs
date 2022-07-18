@@ -5,9 +5,17 @@ using AiDirector.Scripts.RulesSystem.Rules.GameEventRules;
 
 namespace AiDirector.Scripts.RulesSystem.RuleCalculators
 {
+    /*
+    * [Info]
+    * Executes Game Event rules that the Director utilises to determine behaviour
+    *
+    * [Note]
+    * After creating a rule, make sure to add it to the rules list in the constructor below
+    * so that it is utilised.
+    */
     public class DirectorGameEventCalculator
     {
-        private List<IDirectorGameEventRule> _rules;
+        private readonly List<IDirectorGameEventRule> _rules;
 
         public DirectorGameEventCalculator()
         {
@@ -19,34 +27,19 @@ namespace AiDirector.Scripts.RulesSystem.RuleCalculators
                 new KillStreakRule(2, 5),
                 new ProgressionRule(2, 3)
             };
-
-
-            // [OPTION 2]
+            
             // Using Reflection
-            /*var ruleType = typeof(IDirectorIntensityRule);
-            IEnumerable<IDirectorIntensityRule> rules = this.GetType().Assembly.GetTypes()
+            /*var ruleType = typeof(IDirectorGameEventRule);
+            IEnumerable<IDirectorGameEventRule> rules = GetType().Assembly.GetTypes()
                 .Where(p => ruleType.IsAssignableFrom(p) && !p.IsInterface)
-                .Select(r => Activator.CreateInstance(r) as IDirectorIntensityRule);
-
-            var engine = new DirectorIntensityRuleEngine(rules);
-            return engine.CalculatePerceivedIntensityPercentage(player, director); */
-            /*^ [Info]
-            Look at all types in current assembly of current type i.e. DirectorIntensityCalculator
-            Filter down to just the types that are assignable from ruleType i.e. IDirectorIntensityRule, but not the interface itself
-            Uses projection through .Select, which creates an instance of each one of the rules. Though rules should be stateless to use this technique!*/
-
-            /*[OPTION 3]
-            A further alternative?
-            Using a user interface that allows the designer to add rules to the system without touching this class*/
+                .Select(r => Activator.CreateInstance(r) as IDirectorGameEventRule);
+            _rules.AddRange(rules);*/
         }
-        
+
         public void CalculateGameEventOutput(Director director) 
         {
             var engine = new DirectorGameEventRuleEngine(_rules);
             engine.CalculateGameEventOutput(director);
-            // Outputs all rules that return true? i.e. All rules whose conditions are met
-            
-            // invoke an event? That is subscribed to by the director?
         }
     }
 }
