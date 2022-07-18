@@ -17,6 +17,13 @@ The **Active Area Set (AAS)** defines the active area in which enemies and items
 The Director Ai behaviour is crafted through the use of two simple rules engines. Any number of rules can be made by the game designer to control how the intensity metric is measured (**Intensity Rules Engine**), as well as how and when the Director may spawn enemies, items, etc (**Game Event Rules Engine**). 
 
 ## How To Use
+### This Project
+0) Download the AstarPathfinding project from **https://arongranberg.com/astar/**
+1) Clone the repository
+2) Open Unity and select either the Shooter or Survival game directory
+3) Play
+
+### Package
 0) Import the Director package (releases)
 1) Place the Director prefab into the scene
 2) Pass in the required data needed by the Director (inspector)
@@ -27,5 +34,7 @@ The Director Ai behaviour is crafted through the use of two simple rules engines
 7) To make sure the rule is used by the Director, add the rule to the list in the constructor of the appropriate rule calculator script. 
 8) Play around with the options in the Director's inspector to customise the Director to your liking!
 
+
 ## Dependencies
-- The Director's AAS system makes use of the AstarPathfinding project for generating a pathfinding nav mesh. You can download it here **https://arongranberg.com/astar/**
+- The Director's AAS system makes use of the AstarPathfinding project for generating a pathfinding nav mesh, but it does not come included with this project. 
+You can download it here **https://arongranberg.com/astar/**
