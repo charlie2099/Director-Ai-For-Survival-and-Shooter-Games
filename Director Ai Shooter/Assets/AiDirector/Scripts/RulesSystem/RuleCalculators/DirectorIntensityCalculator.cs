@@ -14,7 +14,7 @@ namespace AiDirector.Scripts.RulesSystem.RuleCalculators
      * After creating a rule, make sure to add it to the rules list in the constructor below
      * so that it is utilised.
      */
-    public class DirectorIntensityCalculator
+    public class DirectorIntensityCalculator 
     {
         private List<IDirectorIntensityRule> _rules;
 
@@ -35,6 +35,8 @@ namespace AiDirector.Scripts.RulesSystem.RuleCalculators
         {
             var engine = new DirectorIntensityRuleEngine(_rules);
             return engine.CalculatePerceivedIntensityPercentage(director);
+            
+            // Using the DirectorIntensityRuleEngine to evaluate the rules and produce an output
             // Outputs the greatest intensity value
         }
     }

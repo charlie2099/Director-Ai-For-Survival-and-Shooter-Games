@@ -8,7 +8,7 @@ namespace AiDirector.Scripts.RulesSystem.RuleEngine
      * The rule engine for Director Intensity metric
      * Calculates all the rules passed into it by the DirectorIntensityRuleCalculator
      */
-    public class DirectorIntensityRuleEngine
+    public class DirectorIntensityRuleEngine 
     {
         private readonly List<IDirectorIntensityRule> _rules = new List<IDirectorIntensityRule>();
 

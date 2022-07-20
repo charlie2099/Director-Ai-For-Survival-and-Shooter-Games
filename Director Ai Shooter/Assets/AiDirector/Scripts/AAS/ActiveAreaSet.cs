@@ -37,6 +37,7 @@ namespace AiDirector.Scripts.AAS
         private float _timePassed;
         private float _timePassed2;
         private float _timePassed3 = 3.0f;
+        private float cameraRadius         = 10;
         private int _enemyPopulationCount;
         private int _randomEnemy;
         private int _randomTile;
@@ -111,7 +112,7 @@ namespace AiDirector.Scripts.AAS
            for (int i = 0; i < _worldTilePositions.Count; i++)
            {
                if (Vector2.Distance(_worldTilePositions[i], playerPos) < radius && 
-                   Vector2.Distance(_worldTilePositions[i], playerPos) >= 10)
+                   Vector2.Distance(_worldTilePositions[i], playerPos) >= cameraRadius)
                {
                    _activeTiles.Add(i);
                }
@@ -163,7 +164,7 @@ namespace AiDirector.Scripts.AAS
             for (int i = 0; i < _worldTilePositions.Count; i++)
             {
                 if (Vector2.Distance(_worldTilePositions[i], playerPos) < radius && 
-                    Vector2.Distance(_worldTilePositions[i], playerPos) >= 10)
+                    Vector2.Distance(_worldTilePositions[i], playerPos) >= cameraRadius)
                 {
                     _activeTiles.Add(i);
                 }

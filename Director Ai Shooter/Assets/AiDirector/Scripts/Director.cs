@@ -50,9 +50,9 @@ namespace AiDirector.Scripts
         [SerializeField] private bool debugMode = false;
         [SerializeField] private GameObject debugPanel;
 
-        private DirectorState _directorState = new DirectorState();
-        private DirectorIntensityCalculator _directorIntensityCalculator = new DirectorIntensityCalculator();
-        private DirectorGameEventCalculator _directorGameEventCalculator = new DirectorGameEventCalculator();
+        private DirectorState _state = new DirectorState();
+        private DirectorIntensityCalculator _intensityCalculator = new DirectorIntensityCalculator();
+        private DirectorBehaviourCalculator _behaviourCalculator = new DirectorBehaviourCalculator();
         private ActiveAreaSet _activeAreaSet;
         
         private Dictionary<GameObject, Vector2> _itemSpawnLocationsDictionary = new Dictionary<GameObject, Vector2>();
@@ -68,17 +68,17 @@ namespace AiDirector.Scripts
 
         private void OnEnable()
         {
-            _directorState.OnTempoChange += TriggerGameEvent;
+            _state.OnTempoChange += TriggerGameEvent;
         }
 
         private void OnDisable()
         {
-            _directorState.OnTempoChange -= TriggerGameEvent;
+            _state.OnTempoChange -= TriggerGameEvent;
         }
 
         private void TriggerGameEvent()
         {
-            _directorGameEventCalculator.CalculateGameEventOutput(this);
+            _behaviourCalculator.CalculateBehaviourOutput(this);
         }
 
         private void Awake()
@@ -116,7 +116,7 @@ namespace AiDirector.Scripts
 
             RandomiseItemSpawnOnPlay();
 
-            _directorState.CurrentTempo = DirectorState.Tempo.Respite;
+            _state.CurrentTempo = DirectorState.Tempo.Respite;
 
             if (debugPanel == null)
             {
@@ -128,37 +128,8 @@ namespace AiDirector.Scripts
 
         private void Update()
         {
+            DirectorCycle();
             TempoFsm();
-
-            // if BUILD-UP tempo and perceived intensity has reached the peak threshold, change state to PEAK 
-            if (_perceivedIntensity >= peakIntensityThreshold && _directorState.CurrentTempo == DirectorState.Tempo.BuildUp)
-            {
-                maxPopulationCount = maxPeakPopulation;
-                _directorState.CurrentTempo = DirectorState.Tempo.Peak;
-            }
-
-            // if PEAK tempo and X amount of time has passed, change state to PEAK-FADE
-            if(_timeSpentInPeak <= 0 && _directorState.CurrentTempo == DirectorState.Tempo.Peak)
-            {
-                maxPopulationCount = 0;
-                _timeSpentInPeak = defaultPeakDuration; 
-                _directorState.CurrentTempo = DirectorState.Tempo.PeakFade;
-            }
-
-            // If PEAK-FADE tempo and all enemies killed, change state to RESPITE 
-            if (GetEnemyPopulationCount() == 0 && _directorState.CurrentTempo == DirectorState.Tempo.PeakFade)
-            {
-                maxPopulationCount = maxRespitePopulation;
-                _directorState.CurrentTempo = DirectorState.Tempo.Respite;
-            }
-        
-            // if RESPITE tempo and X amount of time has passed, change state to BUILD-UP
-            if (_timeSpentInRespite <= 0 && _directorState.CurrentTempo == DirectorState.Tempo.Respite)
-            {
-                maxPopulationCount = maxBuildUpPopulation;
-                _timeSpentInRespite = defaultRespiteDuration;
-                _directorState.CurrentTempo = DirectorState.Tempo.BuildUp;
-            }
         }
 
         public float GetEnemyPopulationCount()
@@ -191,7 +162,7 @@ namespace AiDirector.Scripts
             // Calculates intensity every second
             if (Time.time > _timePassed4)
             {
-                float intensity = _directorIntensityCalculator.CalculatePerceivedIntensityOutput(this);
+                float intensity = _intensityCalculator.CalculatePerceivedIntensityOutput(this);
                 _perceivedIntensity += intensity * _intensityScaler * Time.deltaTime;
             
                 if (_perceivedIntensity > 100)
@@ -208,7 +179,7 @@ namespace AiDirector.Scripts
             // Calculates intensity every second
             if (Time.time > _timePassed4)
             {
-                float intensity = _directorIntensityCalculator.CalculatePerceivedIntensityOutput(this);
+                float intensity = _intensityCalculator.CalculatePerceivedIntensityOutput(this);
                 //print("Current Intensity: <color=orange>" + intensity + "</color>");
                 _perceivedIntensity -= intensity * _intensityScaler * Time.deltaTime;
             
@@ -241,9 +212,9 @@ namespace AiDirector.Scripts
             activeEnemies.Remove(enemy);
         }
 
-        private void TempoFsm()
+        private void DirectorCycle()
         {
-            switch (_directorState.CurrentTempo)
+            switch (_state.CurrentTempo)
             {
                 case DirectorState.Tempo.BuildUp:
                     IncreasePerceivedIntensityMetric();
@@ -260,6 +231,39 @@ namespace AiDirector.Scripts
                 case DirectorState.Tempo.Respite:
                     _timeSpentInRespite -= Time.deltaTime;
                     break;
+            }
+        }
+
+        private void TempoFsm()
+        {
+            // if BUILD-UP tempo and perceived intensity has reached the peak threshold, change state to PEAK 
+            if (_perceivedIntensity >= peakIntensityThreshold && _state.CurrentTempo == DirectorState.Tempo.BuildUp)
+            {
+                maxPopulationCount = maxPeakPopulation;
+                _state.CurrentTempo = DirectorState.Tempo.Peak;
+            }
+
+            // if PEAK tempo and X amount of time has passed, change state to PEAK-FADE
+            if(_timeSpentInPeak <= 0 && _state.CurrentTempo == DirectorState.Tempo.Peak)
+            {
+                maxPopulationCount = 0;
+                _timeSpentInPeak = defaultPeakDuration; 
+                _state.CurrentTempo = DirectorState.Tempo.PeakFade;
+            }
+
+            // If PEAK-FADE tempo and all enemies killed, change state to RESPITE 
+            if (GetEnemyPopulationCount() == 0 && _state.CurrentTempo == DirectorState.Tempo.PeakFade)
+            {
+                maxPopulationCount = maxRespitePopulation;
+                _state.CurrentTempo = DirectorState.Tempo.Respite;
+            }
+        
+            // if RESPITE tempo and X amount of time has passed, change state to BUILD-UP
+            if (_timeSpentInRespite <= 0 && _state.CurrentTempo == DirectorState.Tempo.Respite)
+            {
+                maxPopulationCount = maxBuildUpPopulation;
+                _timeSpentInRespite = defaultRespiteDuration;
+                _state.CurrentTempo = DirectorState.Tempo.BuildUp;
             }
         }
 
@@ -318,7 +322,7 @@ namespace AiDirector.Scripts
 
         public DirectorState GetDirectorState()
         {
-            return _directorState;
+            return _state;
         }
     }
 }

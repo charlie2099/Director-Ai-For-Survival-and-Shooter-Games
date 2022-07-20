@@ -7,20 +7,20 @@ namespace AiDirector.Scripts.RulesSystem.RuleEngine
      * The rule engine for Director Game Events
      * Calculates all the rules passed into it by the DirectorGameEventRuleCalculator
      */
-    public class DirectorGameEventRuleEngine
+    public class DirectorBehaviourEngine
     {
-        private readonly List<IDirectorGameEventRule> _rules = new List<IDirectorGameEventRule>();
+        private readonly List<IDirectorBehaviourRule> _rules = new List<IDirectorBehaviourRule>();
 
-        public DirectorGameEventRuleEngine(IEnumerable<IDirectorGameEventRule> rules)
+        public DirectorBehaviourEngine(IEnumerable<IDirectorBehaviourRule> rules)
         {
             _rules.AddRange(rules); 
         }
         
-        public void CalculateGameEventOutput(Director director)
+        public void CalculateBehaviourOutput(Director director)
         {
             foreach (var rule in _rules)
             {
-                rule.CalculateGameEvent(director);
+                rule.CalculateBehaviour(director);
                 // Applies every rule 
             }
         }

@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using AiDirector.Scripts.RulesSystem.Interfaces;
 using AiDirector.Scripts.RulesSystem.RuleEngine;
-using AiDirector.Scripts.RulesSystem.Rules.GameEventRules;
+using AiDirector.Scripts.RulesSystem.Rules.BehaviourRules;
 
 namespace AiDirector.Scripts.RulesSystem.RuleCalculators
 {
@@ -13,13 +15,13 @@ namespace AiDirector.Scripts.RulesSystem.RuleCalculators
     * After creating a rule, make sure to add it to the rules list in the constructor below
     * so that it is utilised.
     */
-    public class DirectorGameEventCalculator
+    public class DirectorBehaviourCalculator
     {
-        private readonly List<IDirectorGameEventRule> _rules;
+        private readonly List<IDirectorBehaviourRule> _rules;
 
-        public DirectorGameEventCalculator()
+        public DirectorBehaviourCalculator()
         {
-            _rules = new List<IDirectorGameEventRule>
+            _rules = new List<IDirectorBehaviourRule>
             {
                 new BossSpawningRule(),
                 new MedkitSpawnOnPeakEnd(),
@@ -29,17 +31,17 @@ namespace AiDirector.Scripts.RulesSystem.RuleCalculators
             };
             
             // Using Reflection
-            /*var ruleType = typeof(IDirectorGameEventRule);
-            IEnumerable<IDirectorGameEventRule> rules = GetType().Assembly.GetTypes()
+            /*var ruleType = typeof(IDirectorBehaviourRule);
+            IEnumerable<IDirectorBehaviourRule> rules = GetType().Assembly.GetTypes()
                 .Where(p => ruleType.IsAssignableFrom(p) && !p.IsInterface)
-                .Select(r => Activator.CreateInstance(r) as IDirectorGameEventRule);
+                .Select(r => Activator.CreateInstance(r) as IDirectorBehaviourRule);
             _rules.AddRange(rules);*/
         }
 
-        public void CalculateGameEventOutput(Director director) 
+        public void CalculateBehaviourOutput(Director director) 
         {
-            var engine = new DirectorGameEventRuleEngine(_rules);
-            engine.CalculateGameEventOutput(director);
+            var engine = new DirectorBehaviourEngine(_rules);
+            engine.CalculateBehaviourOutput(director);
         }
     }
 }

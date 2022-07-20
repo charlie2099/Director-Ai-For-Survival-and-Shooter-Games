@@ -1,8 +1,8 @@
 ﻿using AiDirector.Scripts.RulesSystem.Interfaces;
 
-namespace AiDirector.Scripts.RulesSystem.Rules.GameEventRules
+namespace AiDirector.Scripts.RulesSystem.Rules.BehaviourRules
 {
-    public class KillStreakRule : IDirectorGameEventRule
+    public class KillStreakRule : IDirectorBehaviourRule
     {
         private readonly int _killsToGet;
         private readonly int _enemiesToSpawn;
@@ -13,7 +13,7 @@ namespace AiDirector.Scripts.RulesSystem.Rules.GameEventRules
             _enemiesToSpawn = enemiesToSpawn;
         }
 
-        public void CalculateGameEvent(Director director)
+        public void CalculateBehaviour(Director director)
         {
             if(director.GetPlayer().GetKillCount() >= _killsToGet  && director.GetDirectorState().CurrentTempo == DirectorState.Tempo.Peak)
             {
