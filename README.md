@@ -8,6 +8,9 @@ A Director Ai is a system designed to handle the pacing of a game, orchestrating
 ## How does it work?
 The performance of the player(s) is measured by the Director using a stress or intensity metric, which is monitored to determine when a player is having a tough time or when they are finding the game too easy and are in need of a challenge. The Director decides if and when a player should be rewarded with health and ammo drops, or when they should be punished with boss spawns and an increased population of enemies.
 
+### Demo
+https://github.com/charlie2099/Director-Ai-For-Survival-and-Shooter-Games/assets/55750961/d6360817-cf3a-4a70-923f-cb7dd7206cd6
+
 ## Implementation
 
 ### Active Area Set
