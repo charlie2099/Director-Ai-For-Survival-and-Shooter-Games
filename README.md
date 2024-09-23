@@ -41,3 +41,7 @@ The Director Ai behaviour is crafted through the use of two simple rules engines
 ## Dependencies
 - The Director's AAS system makes use of the AstarPathfinding project for generating a pathfinding nav mesh, but it does not come included with this project. 
 You can download it here **https://arongranberg.com/astar/**
+
+## Other Resources
+[Blog Project Page](https://www.charlieevans.dev/gamepages/DirectorAiGamePage.html)
+
